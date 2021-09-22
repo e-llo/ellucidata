@@ -33,13 +33,15 @@ inputItem.send_keys(Keys.RETURN)
 secaoSupermercados = WebDriverWait(driver, 20).until(
 	EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div[class="sc-jSgupP styles__Root-sc-1ltite1-0 cHuVIX gstWgI"]'))
 )
+lista_nomes = driver.find_elements_by_css_selector('div[class="sc-eCssSg inyvdf styles__Name-sc-1ltite1-4 doNrdT"]')
+
 
 dados = []
-
+i=0
 for secao in secaoSupermercados:
 	dados.append({
-		'supermercado': secao.get_attribute('span')
+		'supermercado': lista_nomes[i].text
 	})
-
+	i+=1
 print(dados)
 driver.close()
