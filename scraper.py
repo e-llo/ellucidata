@@ -13,9 +13,40 @@ def extraiProduto(produto):
 	fabricante = produto.find_element_by_css_selector('div.sc-eCssSg.gVkgMB').text
 	return [descricao, fabricante, preco]
 
+def scraping(nome_produto):	
 
+	#barra de busca da segunda página
+	inputItem = WebDriverWait(driver, 20).until(
+		EC.presence_of_element_located((By.CSS_SELECTOR, 'input.sc-bkzZxe'))
+	)
+
+	inputItem.send_keys(nome_produto)
+	inputItem.send_keys(Keys.RETURN)
+
+	secaoSupermercados = WebDriverWait(driver, 20).until(
+		EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.sc-jSgupP.styles__Root-sc-1ltite1-0.cHuVIX.gstWgI'))
+	)
+	lista_nomes = driver.find_elements_by_css_selector('div.sc-eCssSg.inyvdf.styles__Name-sc-1ltite1-4.doNrdT')
+
+	dados = []
+	i=0
+	for secao in secaoSupermercados:
+		produto = extraiProduto(secao)
+		dados.append({
+			'supermercado': lista_nomes[i].text,
+			'descricao': produto[0],
+			'fabricante': produto[1],
+			'preco': produto[2],
+		})
+		i+=1
+	print(dados)
+	# driver.get('https://www.supermercadonow.com/mercados')
+
+
+# criando driver geral
 driver = webdriver.Chrome()
 driver.get('https://www.supermercadonow.com/')
+
 
 # localizando barra de busca da primeira página
 inputCEP = WebDriverWait(driver, 20).until(
@@ -27,35 +58,10 @@ inputCEP.send_keys(Keys.RETURN)
 
 time.sleep(2)
 
-#barra de busca da segunda página
-inputItem = WebDriverWait(driver, 20).until(
-	EC.presence_of_element_located((By.CSS_SELECTOR, 'input.sc-bkzZxe'))
-)
+# chamo a função de pesquisa e scraping dos dados
 
-inputItem.send_keys('Arroz')
-inputItem.send_keys(Keys.RETURN)
+scraping('arroz')
 
-
-
-
-secaoSupermercados = WebDriverWait(driver, 20).until(
-	EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.sc-jSgupP.styles__Root-sc-1ltite1-0.cHuVIX.gstWgI'))
-)
-lista_nomes = driver.find_elements_by_css_selector('div.sc-eCssSg.inyvdf.styles__Name-sc-1ltite1-4.doNrdT')
-
-
-dados = []
-i=0
-for secao in secaoSupermercados:
-	produto = extraiProduto(secao)
-	dados.append({
-		'supermercado': lista_nomes[i].text,
-		'descricao': produto[0],
-		'fabricante': produto[1],
-		'preco': produto[2],
-	})
-	i+=1
-print(dados)
 driver.close()
 
 
