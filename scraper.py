@@ -8,9 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 def extraiProduto(produto):
-	preco = produto.find_element_by_css_selector('div.sc-eCssSg.bcHdwl').text
-	descricao = produto.find_element_by_css_selector('div.sc-eCssSg.edSRJP').text
-	fabricante = produto.find_element_by_css_selector('div.sc-eCssSg.gVkgMB').text
+	try:
+		preco = produto.find_element_by_css_selector('div.sc-eCssSg.bcHdwl').text
+		descricao = produto.find_element_by_css_selector('div.sc-eCssSg.edSRJP').text
+		fabricante = produto.find_element_by_css_selector('div.sc-eCssSg.gVkgMB').text
+	except:
+		return [0, 0, 0]
 	return [descricao, fabricante, preco]
 
 def scraping(nome_produto):	
@@ -40,7 +43,7 @@ def scraping(nome_produto):
 		})
 		i+=1
 	print(dados)
-	# driver.get('https://www.supermercadonow.com/mercados')
+	driver.get('https://www.supermercadonow.com/mercados')
 
 
 # criando driver geral
@@ -61,6 +64,7 @@ time.sleep(2)
 # chamo a função de pesquisa e scraping dos dados
 
 scraping('arroz')
+scraping('feijão')
 
 driver.close()
 
