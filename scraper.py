@@ -6,6 +6,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+lista_produtos = [
+	'Arroz Branco Prato Fino Tipo 1 - 5kg',
+	'Extrato de Tom Elefante Lata 130g',
+	'Açúcar Refinado União 1 kg',
+	'Feijão Preto Camil - 1Kg',
+	'Óleo de Soja Tipo 1 Liza Garrafa 900ml',
+	'Manteiga com Sal Aviação 200g',
+	'Pão de Forma Pullman - 480g',
+	'Café Melitta Tradicional Vácuo 500g',
+	'Fubá Mimoso Yoki Pacote 500g',
+	'Leite Condensado MOÇA Lata 395g',
+	'Macarrão com Ovos Espaguete 8 Barilla  Pacote 500g',
+	'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g',
+	'Sabonete em Barra Antibacteriano Protex Cartucho 85g', 
+	'Sal Refinado Cisne - 1kg',
+	'Papel Higiênico NEVE Toque de Seda - 4 Rolos'
+]
+
 
 def extraiProduto(produto):
 	try:
@@ -16,7 +34,9 @@ def extraiProduto(produto):
 		return [0, 0, 0]
 	return [descricao, fabricante, preco]
 
+
 def scraping(nome_produto):	
+	time.sleep(2)
 
 	#barra de busca da segunda página
 	inputItem = WebDriverWait(driver, 20).until(
@@ -42,8 +62,8 @@ def scraping(nome_produto):
 			'preco': produto[2],
 		})
 		i+=1
-	print(dados)
 	driver.get('https://www.supermercadonow.com/mercados')
+	return dados
 
 
 # criando driver geral
@@ -59,12 +79,12 @@ inputCEP = WebDriverWait(driver, 20).until(
 inputCEP.send_keys('04564906')
 inputCEP.send_keys(Keys.RETURN)
 
-time.sleep(2)
-
+resumo_dados = []
 # chamo a função de pesquisa e scraping dos dados
-
-scraping('arroz')
-scraping('feijão')
+for i in lista_produtos:
+	resumo_dados.append(scraping(i))
+	
+print(resumo_dados)
 
 driver.close()
 
