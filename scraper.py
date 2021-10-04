@@ -17,7 +17,7 @@ lista_produtos = [
 	'Café Melitta Tradicional Vácuo 500g',
 	'Fubá Mimoso Yoki Pacote 500g',
 	'Leite Condensado MOÇA Lata 395g',
-	'Macarrão com Ovos Espaguete 8 Barilla  Pacote 500g',
+	'Macarrão com Ovos Espaguete 8 Barilla Pacote 500g',
 	'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g',
 	'Sabonete em Barra Antibacteriano Protex Cartucho 85g', 
 	'Sal Refinado Cisne - 1kg',
@@ -27,9 +27,10 @@ lista_produtos = [
 
 def extraiProduto(produto):
 	try:
-		preco = produto.find_element_by_css_selector('div.sc-eCssSg.bcHdwl').text
-		descricao = produto.find_element_by_css_selector('div.sc-eCssSg.edSRJP').text
-		fabricante = produto.find_element_by_css_selector('div.sc-eCssSg.gVkgMB').text
+		subsecao = produto.find_element_by_xpath('div[2]')
+		preco = subsecao.find_element_by_css_selector('div[font-size="extraSmall"]').text
+		descricao = subsecao.find_element_by_css_selector('div[display="-webkit-box"]').text
+		fabricante = subsecao.find_element_by_css_selector('div[font-size="tiny"]').text
 	except:
 		return [0, 0, 0]
 	return [descricao, fabricante, preco]
@@ -47,22 +48,23 @@ def scraping(nome_produto):
 	inputItem.send_keys(Keys.RETURN)
 
 	secaoSupermercados = WebDriverWait(driver, 20).until(
-		EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.sc-jSgupP.styles__Root-sc-1ltite1-0.cHuVIX.gstWgI'))
+		EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.sc-jSgupP.styles__Root-sc-1ltite1-0'))
 	)
-	lista_nomes = driver.find_elements_by_css_selector('div.sc-eCssSg.inyvdf.styles__Name-sc-1ltite1-4.doNrdT')
 
 	dados = []
 	i=0
 	for secao in secaoSupermercados:
+		## verificar aqui se o mercado da seção tá na lista de mercados que vamos analisar
 		produto = extraiProduto(secao)
 		dados.append({
-			'supermercado': lista_nomes[i].text,
+			'supermercado': secao.find_element_by_xpath('div[1]/div[1]').text,
 			'descricao': produto[0],
 			'fabricante': produto[1],
 			'preco': produto[2],
 		})
 		i+=1
-	driver.get('https://www.supermercadonow.com/mercados')
+	driver.get('https://www.supermercadonow.com/mercados') 
+	print(dados)
 	return dados
 
 
@@ -79,11 +81,11 @@ inputCEP = WebDriverWait(driver, 20).until(
 inputCEP.send_keys('04564906')
 inputCEP.send_keys(Keys.RETURN)
 
-resumo_dados = []
+resumo_dados = [] # reúne todos os dados de todos os produtos em todos os supermercados
+
 # chamo a função de pesquisa e scraping dos dados
 for i in lista_produtos:
-	resumo_dados.append(scraping(i))
-	
+	resumo_dados.append(scraping(i))	
 print(resumo_dados)
 
 driver.close()
