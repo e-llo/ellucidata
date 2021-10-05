@@ -1,6 +1,7 @@
 from datetime import datetime
+from appsettings import db_url
 import scraper
-
+import pymongo
 
 lista_produtos = [
 	['arroz', 'Arroz Branco Prato Fino Tipo 1 - 5kg'],
@@ -35,5 +36,18 @@ dados_formatados = {
 	"itens" : itens
 }
 
-
 scraper.driver.close()
+
+
+# Criar conexao com o banco de dados
+client = pymongo.MongoClient(db_url)
+# Criar/accesar o banco chamado "ellucidata"
+db = client["ellucidata"]
+# Criar/acessar a colecao dos dias
+colecao = db["dias"]
+
+# Insere os dados formatados no banco de dados
+colecao.insert_one(dados_formatados)
+
+print("Inserção bem sucedida.")
+client.close()
