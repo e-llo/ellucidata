@@ -1,5 +1,8 @@
 /__pycache__
 .vscode
 *.ipynb
-
 appsettings.py
+/Lib
+/Include
+/Scripts
+pyvenv.cfg
