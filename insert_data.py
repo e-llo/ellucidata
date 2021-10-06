@@ -2,6 +2,7 @@ from datetime import datetime
 from appsettings import db_url
 import scraper
 import pymongo
+import certifi
 
 lista_produtos = [
 	['arroz', 'Arroz Branco Prato Fino Tipo 1 - 5kg'],
@@ -40,7 +41,7 @@ scraper.driver.close()
 
 
 # Criar conexao com o banco de dados
-client = pymongo.MongoClient(db_url)
+client = pymongo.MongoClient(db_url,  tlsCAFile=certifi.where())
 # Criar/accesar o banco chamado "ellucidata"
 db = client["ellucidata"]
 # Criar/acessar a colecao dos dias
