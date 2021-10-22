@@ -44,7 +44,7 @@ def scraping(nome_produto):
 			'preco': produto[2],
 		})
 		i+=1
-	driver.get('https://www.supermercadonow.com/mercados') 
+	driver.back()
 	return dados
 
 
