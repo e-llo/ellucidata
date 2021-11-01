@@ -33,4 +33,5 @@ app.get("/", wrap(async (req, res) => {
     res.render("index");
 }));
 
+
 app.listen(1337, () => console.log("Executando servidor na porta 1337..."))
