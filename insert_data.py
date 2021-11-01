@@ -1,8 +1,11 @@
 from datetime import datetime
-from appsettings import db_url
+from dotenv import load_dotenv
+import os
 import scraper
 import pymongo
 import certifi
+
+load_dotenv() # inicializar variaveis de ambiente .env
 
 lista_produtos = [
 	['arroz', 'Arroz Branco Prato Fino Tipo 1 - 5kg'],
@@ -22,33 +25,34 @@ lista_produtos = [
 	['papel_higienico', 'Papel Higiênico NEVE Toque de Seda - 4 Rolos']
 ]
 
-itens = {} # reúne todos os dados de todos os produtos em todos os supermercados
+if __name__ == "__main__":
+	itens = {} # reúne todos os dados de todos os produtos em todos os supermercados
 
-for item in lista_produtos:
-    # Cria um atributo com o nome da primeira string do array como rotulo no dicionario "itens"
-    # e insere o resultado do metodo scraping usando a segunda string como parametro
-    itens[item[0]] = scraper.scraping(item[1])
-    print(item[0], "=>", itens[item[0]])
-    print("--------------------------------------------------")
+	for item in lista_produtos:
+		# Cria um atributo com o nome da primeira string do array como rotulo no dicionario "itens"
+		# e insere o resultado do metodo scraping usando a segunda string como parametro
+		itens[item[0]] = scraper.scraping(item[1])
+		print(item[0], "=>", itens[item[0]])
+		print("--------------------------------------------------")
 
-# Formata os dados coletados
-dados_formatados = {
-	"data" : datetime.now(),
-	"itens" : itens
-}
+	# Formata os dados coletados
+	dados_formatados = {
+		"data" : datetime.now(),
+		"itens" : itens
+	}
 
-scraper.driver.close()
+	scraper.driver.close()
 
 
-# Criar conexao com o banco de dados
-client = pymongo.MongoClient(db_url,  tlsCAFile=certifi.where())
-# Criar/accesar o banco chamado "ellucidata"
-db = client["ellucidata"]
-# Criar/acessar a colecao dos dias
-colecao = db["dias"]
+	# Criar conexao com o banco de dados
+	client = pymongo.MongoClient(os.environ.get("DB_URL"),  tlsCAFile=certifi.where())
+	# Criar/accesar o banco chamado "ellucidata"
+	db = client["ellucidata"]
+	# Criar/acessar a colecao dos dias
+	colecao = db["dias"]
 
-# Insere os dados formatados no banco de dados
-colecao.insert_one(dados_formatados)
+	# Insere os dados formatados no banco de dados
+	colecao.insert_one(dados_formatados)
 
-print("Inserção bem sucedida.")
-client.close()
+	print("Inserção bem sucedida.")
+	client.close()

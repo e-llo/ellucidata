@@ -2,6 +2,7 @@ const express = require("express")
 const wrap = require("express-async-error-wrapper");
 const path = require("path");
 const ejs = require("ejs")
+const api = require("./api")
 
 const app = express()
 
@@ -30,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", wrap(async (req, res) => {
-    res.render("index");
+    res.render("index", { dados: await api.getData()});
 }));
 
 
