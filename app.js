@@ -34,5 +34,8 @@ app.get("/", wrap(async (req, res) => {
     res.render("index", { dados: await api.getData()});
 }));
 
+app.get("/produto", wrap(async (req, res) => {
+    res.render("product");
+}));
 
 app.listen(1337, () => console.log("Executando servidor na porta 1337..."))

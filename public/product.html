@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página do Produto</title>
+
+    <link rel="stylesheet" type="text/css" href="product-style.css">
+</head>
+<body>
+
+    <div id="product-body">
+
+        <!-- Dashboard -->
+        <div class="product-window">
+
+            <!-- Product Header -->
+            <div class="product-header">
+                <h1>Product Name</h1>
+                <form action="#">
+                    <label for="supermarkets">Supermercado</label>
+                    <select name="supermarkets" id="supermarkets">
+                        <option value="Mercado1">Mercado 1</option>
+                        <option value="Mercado2">Mercado 2</option>
+                        <option value="Mercado3">Mercado 3</option>
+                        <option value="Mercado4">Mercado 4</option>
+                        <option value="Mercado5">Mercado 5</option>
+                        <option value="Mercado6">Mercado 6</option>
+                    </select>
+                </form>
+            </div>
+            <!-- End of Product Header -->
+
+            <!-- Product Dashboard -->
+            <div class="product-dashboard">
+
+                <!-- SEGMENT 1 -->
+                <div class="segment" id="graph-segment">
+                    <div class="segment-title">
+                        <h3>Evolução do Preço</h3>
+                    </div>
+    
+                    <div class="segment-content" id="chart-segment-content">
+                        <!-- GRAPH -->
+                        <!-- <div id="chart" style="height: 200px;">
+                
+                        </div> -->
+                        <img src="example-graph.png" style="width: 100%; height: 250px;">
+                    </div>
+                </div>
+                <!-- END OF SEGMENT 1 -->
+
+                <!-- SEGMENT 2 -->
+                <div class="segment" id="current-price-segment" style="height: 50%;">
+                    <div class="segment-title">
+                        <h3>Preço Atual</h3>
+                    </div>    
+    
+                    <div class="segment-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                        </svg>
+    
+                        <p style="display: inline-block; font-size: x-large;">R$7,50</p>
+                    </div>
+                </div>
+                <!-- END OF SEGMENT 2 -->
+
+                <!-- SEGMENT 3 -->
+                <div class="segment" id="monthly-variation-segment">
+                    <div class="segment-title">
+                        <h3>Variação Mensal</h3>
+                    </div>
+    
+                    <div class="segment-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="darkred" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                        </svg>
+    
+                        <p style="display: inline-block; font-size: x-large;">32%</p>
+                    </div>
+                </div>
+                <!-- END OF SEGMENT 3 -->
+
+                <!-- SEGMENT 4 -->
+                <div class="segment" id="min-max-segment">
+                    <div class="segment-title">
+                        <h3>Mínimo e Máximo Mensais</h3>
+                    </div>
+    
+                    <div class="segment-content">
+                        <p style="display: inline-block; font-size: x-large;">R$5,20 - R$8,10</p>
+                    </div>
+                </div>
+                <!-- END OF SEGMENT 4 -->
+
+
+            </div>
+            <!-- End of Product Dashboard -->
+
+        </div>
+        <!-- End of Dashboard -->
+
+    </div>
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+        const toggle = document.getElementById(toggleId),
+        nav = document.getElementById(navId),
+        bodypd = document.getElementById(bodyId),
+        headerpd = document.getElementById(headerId)
+
+        // Validate that all variables exist
+        if(toggle && nav && bodypd && headerpd){
+        toggle.addEventListener('click', ()=>{
+        // show navbar
+        nav.classList.toggle('show')
+        // change icon
+        toggle.classList.toggle('bx-x')
+        // add padding to body
+        bodypd.classList.toggle('body-pd')
+        // add padding to header
+        headerpd.classList.toggle('body-pd')
+        })
+        }
+        }
+
+        showNavbar('header-toggle','nav-bar','body-pd','header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink(){
+        if(linkColor){
+        linkColor.forEach(l=> l.classList.remove('active'))
+        this.classList.add('active')
+        }
+        }
+        linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+        });
+        
+
+
+        // ---------------------------- PLOTLY --------------------------------------
+        function plot(plotData) {
+            var price = {
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                y: [7.5, 7.2, 6.4, 6.6, 7.9, 8.4, 8.3, 8.1, 7.8, 7.2, 7.6, 7.5],
+                type: 'scatter',
+                line: {
+                    shape: 'spline',
+                },
+                marker: {
+                    color: 'rgb(22, 179, 172)'
+                }
+            };
+
+            var layout = {
+                title: 'Preço',
+                xaxis: {
+                    title: 'Preço'
+                },
+                yaxis: {
+                    title: 'Meses'
+                }
+            };
+
+            // var ymin = 0;
+            // var ymax = Math.max(...distData);
+
+            var data = [price];
+
+            Plotly.newPlot('chart', data, layout);
+            
+            
+            
+            // Plotly.newPlot('chart', data, layout);
+        }
+
+        // plot();
+
+    </script>
+
+    
+</body>
+</html>

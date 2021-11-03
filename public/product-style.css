@@ -1,4 +1,13 @@
 
+
+
+
+
+
+/* ------------------------------------------------------------------------------------------- */
+/*                                            LAYOUT                                           */
+/* ------------------------------------------------------------------------------------------- */
+
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
@@ -178,110 +187,5 @@ a {
 
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)
-    }
-}
-
-/* ------------------------------------------------------------------------------------------- */
-/*                                       PRODUCT PAGE                                          */
-/* ------------------------------------------------------------------------------------------- */
-* {
-  box-sizing: border-box;
-}
-
-#product-body{
-    background: linear-gradient(-30deg, #e9c3ff, #d7b3ff, #ffb6ff, #b4e4fc);
-    /* background-image: url(fundo-de-meio-tom-azul-e-rosa_53876-99004.jpg); */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 110%;
-    margin: 0px;
-}
-
-
-/* ------------------------------------- Product Header --------------------------------------- */
-.product-dashboard .product-header{
-    margin-bottom: 60px;
-}
-
-.product-dashboard .product-header h1{
-    font-size: 35px;
-    line-height: 0px;
-}
-
-.product-dashboard .product-header form{
-    margin-top: 40px;
-}
-
-.product-dashboard .product-header form label{
-    margin-right: 15px;
-    color: #4d4d4d;
-    font-size: 14px;
-}
-
-.product-dashboard .product-header form select{
-    border: none;
-    font-size: 16px;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-/* ------------------------------------- Product Dashboard ------------------------------------------- */
-.product-dashboard{
-    padding: 0px 15px;
-    margin: 20px auto;
-    border-radius: 30px;
-    background: rgb(255,255,255, 0.2);
-    backdrop-filter: blur(10px);
-}
-
-.product-dashboard .segment{
-    padding: 10px 10px 10px 30px;
-    position: relative;
-}
-
-.product-dashboard .segment-content h3{
-    font-size: 16px;
-    font-weight: 100;
-    line-height: 0;
-}
-
-.product-dashboard .segment-content p{
-    color: #4d4d4d;
-    font-size: 14px;
-}
-
-.product-dashboard .segment-content{
-    padding: 20px 20px 20px 60px;
-    background-color: #fff;
-    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-    border-radius: 20px;
-}
-
-.product-dashboard #chart-segment-content{
-    padding: 20px 20px 20px 20px;
-}
-
-/* ----------------------------------- Media Quary 768ox-------------------------------------- */
-@media only screen and (min-width: 768px){
-    .product-dashboard{
-        display: flex;
-        flex-wrap: wrap;
-        /* justify-content: space-between; */
-    }
-
-    .product-dashboard #graph-segment{
-        width: 67%;
-    }
-
-    .product-dashboard #current-price-segment{
-        width: 27%;
-    }
-
-    .product-dashboard #monthly-variation-segment{
-        width: 27%;
-    }
-
-    .product-dashboard #min-max-segment{
-        width: 37%;
     }
 }
