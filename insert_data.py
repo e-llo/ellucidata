@@ -1,5 +1,6 @@
 from datetime import datetime
 from dotenv import load_dotenv
+from utils.util import extract_markets
 import os
 import scraper
 import pymongo
@@ -35,10 +36,13 @@ if __name__ == "__main__":
 		print(item[0], "=>", itens[item[0]])
 		print("--------------------------------------------------")
 
+	supermercados = extract_markets(itens)
+
 	# Formata os dados coletados
 	dados_formatados = {
 		"data" : datetime.now(),
-		"itens" : itens
+		"itens" : itens,
+		"supermercados": supermercados
 	}
 
 	scraper.driver.close()

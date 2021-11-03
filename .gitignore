@@ -8,3 +8,4 @@ appsettings.py
 /node_modules
 pyvenv.cfg
 .env
+/utils/__pycache__

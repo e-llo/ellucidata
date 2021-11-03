@@ -61,12 +61,4 @@ inputCEP = WebDriverWait(driver, 20).until(
 inputCEP.send_keys('04564906')
 inputCEP.send_keys(Keys.RETURN)
 
-resumo_dados = [] # reúne todos os dados de todos os produtos em todos os supermercados
-
-# chamo a função de pesquisa e scraping dos dados
-# for i in lista_produtos:
-# 	resumo_dados.append(scraping(i))	
-# print(resumo_dados)
-
-
 
