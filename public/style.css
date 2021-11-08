@@ -1,12 +1,11 @@
-html{
-
+* {
+    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-
-}
+  }
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #4723D9;
+    --first-color: #00819f;
     --first-color-light: #AFA5D9;
     --white-color: #F7F6FB;
     --body-font:  sans-serif;
@@ -20,13 +19,15 @@ html{
     box-sizing: border-box
 }
 
-body {
+body { 
+    background-color: #f5f7fb;
     font-family: 'Montserrat', sans-serif;
     position: relative;
     margin: var(--header-height) 0 0 0;
     padding: 0 1rem;
     font-size: var(--normal-font-size);
     transition: .5s;
+
 }
 
 a {
@@ -43,7 +44,7 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    /* background-color: var(--white-color); */
+    /* background-color: #f5f7fb; */
     z-index: var(--z-fixed);
     transition: .5s;
 }
@@ -85,6 +86,7 @@ a {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden
+    
 }
 
 .nav_logo,
@@ -108,7 +110,7 @@ a {
 
 .nav_logo-name {
     color: var(--white-color);
-    font-weight: 700
+    font-weight: 500
 }
 
 .nav_link {
@@ -135,7 +137,7 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color:#f5f7fb;
 }
 
 .active::before {
@@ -144,7 +146,7 @@ a {
     left: 0;
     width: 2px;
     height: 32px;
-    background-color: var(--white-color)
+    background-color:  #f5f7fb;
 }
 
 .height-100 {
@@ -157,6 +159,14 @@ a {
 .medium-card{
     height: 300px;
 }
+.card-title{
+    font-weight: 600;
+    color:rgb(147 155 162)
+}
+
+
+
+
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;

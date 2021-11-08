@@ -1,22 +1,32 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
-    <div class="container p-5 mt-5" >
+    <div class="container p-5 mt-5">
         <h2> Nome do Supermercado</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
-                <div class="col-3">
-                    <form action="#">
-                        <label for="supermarkets" >Supermercado</label>
-                        <select name="supermarkets" id="supermarkets">
-                            <option value="Mercado1">Mercado 1</option>
-                            <option value="Mercado2">Mercado 2</option>
-                            <option value="Mercado3">Mercado 3</option>
-                            <option value="Mercado4">Mercado 4</option>
-                            <option value="Mercado5">Mercado 5</option>
-                            <option value="Mercado6">Mercado 6</option>
-                        </select>
+                <div class="col-4">
+                    <form class ="form-group row " action="#">
+                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                        <div class="col-sm-8">
+                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets">
+                                <option selected>Selecione...</option>
+                                <option value="akki">Akki</option>
+                                <option value="atacadista">Atacadista</option>
+                                <option value="big">Big</option>
+                                <option value="carrefour">Carrefour</option>
+                                <option value="emporio_hortisabor">Empório Hortisabor</option>
+                                <option value="emporium_sao_paulo">Emporium São Paulo</option>
+                                <option value="extra_hiper">Extra Hiper</option>
+                                <option value="hirota">Hirota Supermercados</option>
+                                <option value="master_supermercados">Master Supermercados</option>
+                                <option value="mercado_extra">Mercado Extra</option>
+                                <option value="pao_de_acucar">Pão de açúcar</option>
+                                <option value="quitanda">Quitanda</option>
+                                <option value="santa_gemma">Santa Gemma</option>
+                            </select>
+                        </div>
+                       
                     </form>
-                    
                 </div>
                 <div class="col-3">
                     <form class ="form-group row " action="#">
@@ -47,32 +57,66 @@
             </div>
             
         </div>
-
+        
         <div class="row">
 
             <div class="col-md-8">
-                <div class="card medium-card" id="myDiv">
-                    
+                <div class="card medium-card border-0 shadow-sm mb-5 bg-white rounded" >
+                    <div id="myDiv" style="height: 100%;">
+
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <h4>Variação Mensal</h4>
-                <div class="card small-card" >
+                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Sales</h5>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3">2.382</h1>
+                        <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                            <span class="text-muted">Since last week</span>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-6">
-                        <h4>Variação Mensal</h4>
-                        <div class="card small-card" >
+                        <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Sales</h5>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">2.382</h1>
+                                <div class="mb-0">
+                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                                    <span class="text-muted">Since last week</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <h4>Mínimo e máximo mensais</h4>
-                        <div class="card small-card">
+                        <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Sales</h5>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">2.382</h1>
+                                <div class="mb-0">
+                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                                    <span class="text-muted">Since last week</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,6 +146,8 @@
       var data = [trace1];
       
       Plotly.newPlot('myDiv', data);
+
+    elementoAtivo = document.getElementById("supermercado").classList.add("active")
 
       
 </script>
