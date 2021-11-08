@@ -16,7 +16,7 @@ async function getData() {
     await mongoose
         .connect(process.env.DB_URL_NOSYMBOL)
 
-    let data = await Day.find({})
+    let data = await Day.find({}).select("-_id")
 
     mongoose.connection.close()
     return data

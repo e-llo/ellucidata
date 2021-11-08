@@ -136,18 +136,36 @@
 </div>
 
 <script type="text/javascript">
-    var trace1 = {
-        x: [1, 2, 3, 4],
-        y: [10, 15, 13, 17],
-        type: 'scatter'
-      };
-      
-      
-      var data = [trace1];
-      
-      Plotly.newPlot('myDiv', data);
-
+    var dados = <%- JSON.stringify(dados) %>;
     elementoAtivo = document.getElementById("supermercado").classList.add("active")
-
       
+    function criarGraficoMercado(mercado) {
+        let lista = dados.map(dia => {
+            return {
+                data: dia.data,
+                mercado: mercado,
+                produtos: dia.supermercados[mercado]
+            }
+        })
+        
+        let dadosFinal = [];
+
+        let dadosDias = lista.map(dia => dia.data)
+
+        Object.keys(lista[0].produtos).forEach( produto => {
+            let trace = {
+                x: dadosDias,
+                y: lista.map(dia => dia.produtos[produto]["preco"]),
+                name: lista[0].produtos[produto]["produto"],
+                type: "lines"
+            }
+
+            dadosFinal.push(trace)
+        })
+        
+        Plotly.newPlot('myDiv', dadosFinal);
+
+    }
+
+      criarGraficoMercado("big")
 </script>
