@@ -1,0 +1,107 @@
+<!--Container Main start-->
+<div class=" " style="max-height: 720px; height: 720px;">
+    <div class="container p-5 mt-5" >
+        <h2> Nome do Supermercado</h2>
+        <div class="product-header mb-3 mt-3">
+            <div class="row">
+                <div class="col-3">
+                    <form action="#">
+                        <label for="supermarkets" >Supermercado</label>
+                        <select name="supermarkets" id="supermarkets">
+                            <option value="Mercado1">Mercado 1</option>
+                            <option value="Mercado2">Mercado 2</option>
+                            <option value="Mercado3">Mercado 3</option>
+                            <option value="Mercado4">Mercado 4</option>
+                            <option value="Mercado5">Mercado 5</option>
+                            <option value="Mercado6">Mercado 6</option>
+                        </select>
+                    </form>
+                    
+                </div>
+                <div class="col-3">
+                    <form class ="form-group row " action="#">
+                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                        <div class="col-sm-9">
+                            <select class=" form-control form-control-sm" name="products" id="products">
+                                <option selected>Selecione...</option>
+                                <option value="arroz">Arroz Branco</option>
+                                <option value="extrato">Extrato de Tomate</option>
+                                <option value="acucar">Açúcar Refinado</option>
+                                <option value="oleo">Óleo de Soja</option>
+                                <option value="manteiga">Manteiga</option>
+                                <option value="pao">Pão de Forma</option>
+                                <option value="cafe">Café</option>
+                                <option value="fuba">Fubá Mimoso</option>
+                                <option value="leite_condensado">Leite Condensado</option>
+                                <option value="macarrao">Macarrão Espaguete</option>
+                                <option value="creme_dental">Creme Dental</option>
+                                <option value="sabonete">Sabonete em Barra</option>
+                                <option value="sal">Sal Refinado</option>
+                                <option value="papel_higienico">Papel Higiênico</option>
+                            </select>
+                        </div>
+                       
+                    </form>
+                </div>
+                
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="card medium-card" id="myDiv">
+                    
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Variação Mensal</h4>
+                <div class="card small-card" >
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <h4>Variação Mensal</h4>
+                        <div class="card small-card" >
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4>Mínimo e máximo mensais</h4>
+                        <div class="card small-card">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <h4>Variação Mensal</h4>
+                <div class="card">
+                    <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+        
+</div>
+
+<script type="text/javascript">
+    var trace1 = {
+        x: [1, 2, 3, 4],
+        y: [10, 15, 13, 17],
+        type: 'scatter'
+      };
+      
+      
+      var data = [trace1];
+      
+      Plotly.newPlot('myDiv', data);
+
+      
+</script>

@@ -1,11 +1,15 @@
+html{
 
+    font-family: 'Montserrat', sans-serif;
+
+}
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
     --first-color: #4723D9;
     --first-color-light: #AFA5D9;
     --white-color: #F7F6FB;
-    --body-font: 'Montserrat', sans-serif;
+    --body-font:  sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
 }
@@ -17,10 +21,10 @@
 }
 
 body {
+    font-family: 'Montserrat', sans-serif;
     position: relative;
     margin: var(--header-height) 0 0 0;
     padding: 0 1rem;
-    font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: .5s;
 }
@@ -147,6 +151,12 @@ a {
     height: 100vh
 }
 
+.small-card{
+    height: 150px;
+}
+.medium-card{
+    height: 300px;
+}
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;

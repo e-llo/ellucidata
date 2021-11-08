@@ -1,53 +1,39 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
-    <div class="container p-5" >
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="container p-5 mt-5" >
+        <h2> Dashboard Principal</h2>
+        <div class="row">
 
-            <div class="col">
-                <div class="card">
-                    <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
-                    <!-- <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div> -->
+            <div class="col-md-8">
+                <div class="card medium-card" >
+                   
                 </div>
             </div>
-            <div class="col">
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                        <div class="card">
-                            <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
-                        
-                        </div>
-                    </div>
-                    
+            <div class="col-md-4">
+                <h4>Variação Mensal</h4>
+                <div class="card small-card" >
                 </div>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                        <div class="card">
-                            <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <h4>Variação Mensal</h4>
+                        <div class="card small-card" >
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
+                    <div class="col-6">
+                        <h4>Mínimo e máximo mensais</h4>
+                        <div class="card small-card">
                         </div>
                     </div>
                 </div>
                 
             </div>
-            <div class="col">
-                <div class="card">
-                    <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
-                   
-                </div>
-            </div>
-            <div class="col">
+            <div class="col-md-4">
+                <h4>Variação Mensal</h4>
                 <div class="card">
                     <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
                     
@@ -58,45 +44,3 @@
     </div>
         
 </div>
-
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-    const showNavbar = (toggleId, navId, bodyId, headerId) =>{
-    const toggle = document.getElementById(toggleId),
-    nav = document.getElementById(navId),
-    bodypd = document.getElementById(bodyId),
-    headerpd = document.getElementById(headerId)
-
-    // Validate that all variables exist
-    if(toggle && nav && bodypd && headerpd){
-    toggle.addEventListener('click', ()=>{
-    // show navbar
-    nav.classList.toggle('show')
-    // change icon
-    toggle.classList.toggle('bx-x')
-    // add padding to body
-    bodypd.classList.toggle('body-pd')
-    // add padding to header
-    headerpd.classList.toggle('body-pd')
-    })
-    }
-    }
-
-    showNavbar('header-toggle','nav-bar','body-pd','header')
-
-    /*===== LINK ACTIVE =====*/
-    const linkColor = document.querySelectorAll('.nav_link')
-
-    function colorLink(){
-    if(linkColor){
-    linkColor.forEach(l=> l.classList.remove('active'))
-    this.classList.add('active')
-    }
-    }
-    linkColor.forEach(l=> l.addEventListener('click', colorLink))
-
-    // Your code to run since DOM is loaded and ready
-    });
-    
-</script>
