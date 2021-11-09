@@ -1,7 +1,7 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
     <div class="container p-5 mt-5">
-        <h2> Nome do Supermercado</h2>
+        <h2 id="titulo">Supermercados</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
                 <div class="col-4">
@@ -127,9 +127,15 @@
     var dados = <%- JSON.stringify(dados) %>;
     let elementoAtivo = document.getElementById("supermercado").classList.add("active")
     const seletor = document.querySelector("select#supermarkets")
+    const titulo = document.querySelector("#titulo")
 
     function criarGraficoMercado(mercado) {
-        if(mercado == "") return;
+        // limpar o grafico caso esteja na opcao "selecione"
+        if(mercado == ""){
+            titulo.textContent = "Supermercados"
+            Plotly.purge("myDiv")
+            return
+        };
         let lista = dados.map(dia => {
             return {
                 data: dia.data,
@@ -137,24 +143,33 @@
                 produtos: dia.supermercados[mercado]
             }
         })
+
+        // Inserir data em cada produto
+        lista.forEach(
+            dia => dia.produtos.forEach(
+                produto => produto.data = dia.data
+            )
+        )
         
         let dadosFinal = [];
 
-        let dadosDias = lista.map(dia => dia.data)
-
-        Object.keys(lista[0].produtos).forEach( produto => {
+        lista[0].produtos
+         .map(obj => obj.produto) // capturar o nome de cada produto
+         .sort((a, b) => a.produto < b.produto ? -1:1) // ordem alfabetica
+         .forEach(produto => {
+            let infos = lista
+                .flatMap(dia => dia.produtos)
+                .filter(produtoAux => produtoAux.produto == produto)
+            
             let trace = {
-                x: dadosDias,
-                y: lista.map(dia => dia.produtos[produto]["preco"]),
-                name: lista[0].produtos[produto]["produto"],
-                y: lista.map(dia => dia.produtos[produto]["preco"].replace("R$ ", "").replace(",",".")),
+                x: infos.map(produtoAux => produtoAux.data), // Datas
+                y: infos.map(produtoAux => produtoAux["preco"].replace("R$ ", "").replace(",",".")), // Precos
+                name: produto,
                 type: "lines"
             }
-
-            dadosFinal.push(trace)
+    
+            dadosFinal.push(trace)        
         })
-        
-        Plotly.newPlot('myDiv', dadosFinal);
 
         let layout = {
             title: {
@@ -197,11 +212,14 @@
         // Criar as opcoes referentes aos mercados
         seletor.innerHTML = 
             mercados.reduce((html, mercado) => html += `<option value=${mercado}>
-                ${mercado
-                    .split("_")
-                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
-                    .join(" ")}</option>`,
+                ${formatarNomeMercado(mercado)}</option>`,
                 "<option value='' selected>Selecione...</option>")
+    }
+
+    function formatarNomeMercado(nome) {
+        return nome.split("_")
+                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
+                    .join(" ")
     }
 
     carregarSeletor()
