@@ -147,6 +147,7 @@
                 x: dadosDias,
                 y: lista.map(dia => dia.produtos[produto]["preco"]),
                 name: lista[0].produtos[produto]["produto"],
+                y: lista.map(dia => dia.produtos[produto]["preco"].replace("R$ ", "").replace(",",".")),
                 type: "lines"
             }
 
@@ -155,6 +156,36 @@
         
         Plotly.newPlot('myDiv', dadosFinal);
 
+        let layout = {
+            title: {
+                text: "Variação dos Preços x Tempo",
+                font: {
+                    family: "Montserrat",
+                    size: 22
+                },
+            },
+            xaxis: {
+                title: {
+                    text: "Tempo",
+                    font: {
+                        family: "Montserrat",
+                        size: 16
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Preço em reais",
+                    font: {
+                        family: "Montserrat",
+                        size: 16
+                    }
+                }
+            },
+        }
+        
+        Plotly.newPlot('myDiv', dadosFinal, layout);
+        titulo.textContent = formatarNomeMercado(mercado)
     }
 
     function carregarSeletor() {
