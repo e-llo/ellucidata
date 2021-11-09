@@ -8,21 +8,9 @@
                     <form class ="form-group row " action="#">
                         <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
                         <div class="col-sm-8">
-                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets">
-                                <option selected>Selecione...</option>
-                                <option value="akki">Akki</option>
-                                <option value="atacadista">Atacadista</option>
-                                <option value="big">Big</option>
-                                <option value="carrefour">Carrefour</option>
-                                <option value="emporio_hortisabor">Empório Hortisabor</option>
-                                <option value="emporium_sao_paulo">Emporium São Paulo</option>
-                                <option value="extra_hiper">Extra Hiper</option>
-                                <option value="hirota">Hirota Supermercados</option>
-                                <option value="master_supermercados">Master Supermercados</option>
-                                <option value="mercado_extra">Mercado Extra</option>
-                                <option value="pao_de_acucar">Pão de açúcar</option>
-                                <option value="quitanda">Quitanda</option>
-                                <option value="santa_gemma">Santa Gemma</option>
+                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                                onchange="criarGraficoMercado(value)">
+                                <option value="" selected>Selecione...</option>
                             </select>
                         </div>
                        
@@ -137,9 +125,11 @@
 
 <script type="text/javascript">
     var dados = <%- JSON.stringify(dados) %>;
-    elementoAtivo = document.getElementById("supermercado").classList.add("active")
-      
+    let elementoAtivo = document.getElementById("supermercado").classList.add("active")
+    const seletor = document.querySelector("select#supermarkets")
+
     function criarGraficoMercado(mercado) {
+        if(mercado == "") return;
         let lista = dados.map(dia => {
             return {
                 data: dia.data,
@@ -167,5 +157,21 @@
 
     }
 
-      criarGraficoMercado("big")
+    function carregarSeletor() {
+        let mercados = dados
+            .flatMap(dia => Object.keys(dia.supermercados)) //lista de nomes de mercados 
+        mercados = [...new Set(mercados)] //sem repeticao
+            .sort() //ordem alfabetica
+
+        // Criar as opcoes referentes aos mercados
+        seletor.innerHTML = 
+            mercados.reduce((html, mercado) => html += `<option value=${mercado}>
+                ${mercado
+                    .split("_")
+                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
+                    .join(" ")}</option>`,
+                "<option value='' selected>Selecione...</option>")
+    }
+
+    carregarSeletor()
 </script>
