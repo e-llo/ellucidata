@@ -8,22 +8,23 @@ import certifi
 
 load_dotenv() # inicializar variaveis de ambiente .env
 
+# Nome da chave no banco, Pesquisa no site, RegExp
 lista_produtos = [
-	['arroz', 'Arroz Branco Prato Fino Tipo 1 - 5kg'],
-	['extrato_tomate', 'Extrato de Tom Elefante Lata 130g'],
-	['acucar', 'Açúcar Refinado União 1 kg'],
-	['feijao', 'Feijão Preto Camil - 1Kg'],
-	['oleo_soja', 'Óleo de Soja Tipo 1 Liza Garrafa 900ml'],
-	['manteiga', 'Manteiga com Sal Aviação 200g'],
-	['pao', 'Pão de Forma Pullman - 480g'],
-	['cafe', 'Café Melitta Tradicional Vácuo 500g'],
-	['fuba', 'Fubá Mimoso Yoki Pacote 500g'],
-	['leite_condensado', 'Leite Condensado MOÇA Lata 395g'],
-	['macarrao', 'Macarrão com Ovos Espaguete 8 Barilla Pacote 500g'],
-	['creme_dental', 'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g'],
-	['sabonete', 'Sabonete em Barra Antibacteriano Protex Cartucho 85g'], 
-	['sal', 'Sal Refinado Cisne - 1kg'],
-	['papel_higienico', 'Papel Higiênico NEVE Toque de Seda - 4 Rolos']
+	['arroz', 'Arroz Branco Prato Fino Tipo 1 - 5kg', r"arroz branco prato fino"],
+	['extrato_tomate', 'Extrato de Tom Elefante Lata 130g', r"Extrato (de )?Tom(ate)? [\s\S]*elefante lata [\s\S]*130g"],
+	['acucar', 'Açúcar Refinado União 1 kg', r"Açúcar refinado união (vintage[\s\S]*)?1\s?kg"],
+	['feijao', 'Feijão Preto Camil - 1Kg', r"feijão preto camil - 1Kg"],
+	['oleo_soja', 'Óleo de Soja Tipo 1 Liza Garrafa 900ml', r"Óleo de Soja Tipo 1 Liza Garrafa 900ml"],
+	['manteiga', 'Manteiga com Sal Aviação 200g', r"Manteiga com Sal Aviação (lata|pote)?\s?200g"],
+	['pao', 'Pão de Forma Pullman - 480g', r"Pão de forma (tradicional )?pullman"],
+	['cafe', 'Café Melitta Tradicional Vácuo 500g', r"Café Melitta (sabor da fazenda )?Tradicional (pouch|vácuo)?\s?500g"],
+	['fuba', 'Fubá Mimoso Yoki Pacote 500g', r"Fubá Mimoso Yoki Pacote 500g"],
+	['leite_condensado', 'Leite Condensado MOÇA Lata 395g', r"Leite Condensado MOÇA Lata 395g"],
+	['macarrao', 'Macarrão com Ovos Espaguete 8 Barilla Pacote 500g', r"Macarrão com Ovos Espaguete 8 Barilla Pacote 500g"],
+	['creme_dental', 'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g', r"Creme Dental Menta Original Colgate Tripla Ação Caixa 90g"],
+	['sabonete', 'Sabonete em Barra Antibacteriano Protex Cartucho 85g', r"Sabonete em Barra Antibacteriano [\s\S]*Protex[\s\S]* Cartucho (85|90)g"], 
+	['sal', 'Sal Refinado Cisne - 1kg', r"Sal Refinado Cisne - 1kg"],
+	['papel_higienico', 'Papel Higiênico NEVE Toque de Seda - 4 Rolos', r"Papel Higiênico NEVE (supreme|toque de seda) - 4 rolos"]
 ]
 
 if __name__ == "__main__":
