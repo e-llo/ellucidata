@@ -20,7 +20,7 @@
                     <form class ="form-group row " action="#">
                         <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
                         <div class="col-sm-9">
-                            <select class=" form-control form-control-sm" name="products" id="products">
+                            <select class=" form-control form-control-sm" name="products" id="products" >
                                 <option selected>Selecione...</option>
                                 <option value="arroz">Arroz Branco</option>
                                 <option value="extrato">Extrato de Tomate</option>
@@ -124,6 +124,7 @@
 </div>
 
 <script type="text/javascript">
+
     var dados = <%- JSON.stringify(dados) %>;
     let elementoAtivo = document.getElementById("supermercado").classList.add("active")
     const seletor = document.querySelector("select#supermarkets")
@@ -172,7 +173,7 @@
         })
 
         let layout = {
-            title: {
+            title: { 
                 text: "Variação dos Preços x Tempo",
                 font: {
                     family: "Montserrat",
@@ -223,4 +224,10 @@
     }
 
     carregarSeletor()
+
+    
 </script>
+<script type="text/javascript" src="script.js">
+
+</script>
+
