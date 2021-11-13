@@ -20,12 +20,13 @@
                     <form class ="form-group row " action="#">
                         <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
                         <div class="col-sm-9">
-                            <select class=" form-control form-control-sm" name="products" id="products" >
-                                <option selected>Selecione...</option>
+                            <select class=" form-control form-control-sm" name="products" id="products"
+                                onchange="criarGraficoProduto(value)">
+                                <option value="" selected>Selecione...</option>
                                 <option value="arroz">Arroz Branco</option>
-                                <option value="extrato">Extrato de Tomate</option>
+                                <option value="extrato_tomate">Extrato de Tomate</option>
                                 <option value="acucar">Açúcar Refinado</option>
-                                <option value="oleo">Óleo de Soja</option>
+                                <option value="oleo_soja">Óleo de Soja</option>
                                 <option value="manteiga">Manteiga</option>
                                 <option value="pao">Pão de Forma</option>
                                 <option value="cafe">Café</option>
@@ -36,6 +37,7 @@
                                 <option value="sabonete">Sabonete em Barra</option>
                                 <option value="sal">Sal Refinado</option>
                                 <option value="papel_higienico">Papel Higiênico</option>
+                                <option value="feijao">Feijão</option>
                             </select>
                         </div>
                        
@@ -127,30 +129,27 @@
 
     var dados = <%- JSON.stringify(dados) %>;
     let elementoAtivo = document.getElementById("supermercado").classList.add("active")
-    const seletor = document.querySelector("select#supermarkets")
+    const seletorMercado = document.querySelector("select#supermarkets")
+    const seletorProduto = document.querySelector("select#products")
     const titulo = document.querySelector("#titulo")
 
     function criarGraficoMercado(mercado) {
         // limpar o grafico caso esteja na opcao "selecione"
         if(mercado == ""){
             titulo.textContent = "Supermercados"
-            Plotly.purge("myDiv")
+            dropPlot()
             return
         };
-        let lista = dados.map(dia => {
+        //debugger;
+        let lista = dados.filter(dia => dia.supermercados[mercado] != undefined)
+            .map(dia => {
             return {
                 data: dia.data,
                 mercado: mercado,
                 produtos: dia.supermercados[mercado]
+                    .map(item => {return {data: dia.data, ...item}}) // Inserir data em cada produto
             }
         })
-
-        // Inserir data em cada produto
-        lista.forEach(
-            dia => dia.produtos.forEach(
-                produto => produto.data = dia.data
-            )
-        )
         
         let dadosFinal = [];
 
@@ -164,7 +163,7 @@
             
             let trace = {
                 x: infos.map(produtoAux => produtoAux.data), // Datas
-                y: infos.map(produtoAux => produtoAux["preco"].replace("R$ ", "").replace(",",".")), // Precos
+                y: infos.map(produtoAux => produtoAux["preco"].toString().replace("R$ ", "").replace(",",".")), // Precos
                 name: produto,
                 type: "lines"
             }
@@ -172,8 +171,68 @@
             dadosFinal.push(trace)        
         })
 
-        let layout = {
-            title: { 
+        Plotly.newPlot('myDiv', dadosFinal, layoutGrafico);
+        titulo.textContent = formatarNomeMercado(mercado)
+        seletorProduto.selectedIndex = 0
+    }
+
+    function criarGraficoProduto(produto) {
+        // Pegar o mercado atual pelo valor do seletor de mercados
+        let mercado = seletorMercado.value
+
+        if(mercado == "") return
+
+        // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
+        if(produto == ""){
+            criarGraficoMercado(mercado)
+            return;
+        }
+
+        // Pegar os dados
+        let dadosProduto = dados.map(dia => {
+            return {
+                data: dia.data, 
+                ...dia.supermercados[mercado].filter(prod => prod.produto == produto)[0]
+            }
+        })
+
+        let trace = {
+            x: dadosProduto.map(prod => prod.data),
+            y: dadosProduto.map(prod => prod.preco.toString().replace("R$ ", "").replace(",",".")),
+            name: produto,
+            type: "lines"
+        }
+
+        Plotly.newPlot('myDiv', [trace], layoutGrafico);
+    }
+
+    function carregarSeletor() {
+        let mercados = dados
+            .flatMap(dia => Object.keys(dia.supermercados)) //lista de nomes de mercados 
+        mercados = [...new Set(mercados)] //sem repeticao
+            .sort() //ordem alfabetica
+
+        // Criar as opcoes referentes aos mercados
+        seletorMercado.innerHTML = 
+            mercados.reduce((html, mercado) => html += `<option value=${mercado}>
+                ${formatarNomeMercado(mercado)}</option>`,
+                "<option value='' selected>Selecione...</option>")
+    }
+
+    function dropPlot() {
+        Plotly.purge("myDiv")
+    }
+
+    function formatarNomeMercado(nome) {
+        return nome.split("_")
+                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
+                    .join(" ")
+    }
+
+    carregarSeletor()
+
+    var layoutGrafico = {
+            title: {
                 text: "Variação dos Preços x Tempo",
                 font: {
                     family: "Montserrat",
@@ -199,35 +258,6 @@
                 }
             },
         }
-        
-        Plotly.newPlot('myDiv', dadosFinal, layout);
-        titulo.textContent = formatarNomeMercado(mercado)
-    }
-
-    function carregarSeletor() {
-        let mercados = dados
-            .flatMap(dia => Object.keys(dia.supermercados)) //lista de nomes de mercados 
-        mercados = [...new Set(mercados)] //sem repeticao
-            .sort() //ordem alfabetica
-
-        // Criar as opcoes referentes aos mercados
-        seletor.innerHTML = 
-            mercados.reduce((html, mercado) => html += `<option value=${mercado}>
-                ${formatarNomeMercado(mercado)}</option>`,
-                "<option value='' selected>Selecione...</option>")
-    }
-
-    function formatarNomeMercado(nome) {
-        return nome.split("_")
-                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
-                    .join(" ")
-    }
-
-    carregarSeletor()
-
-    
-</script>
-<script type="text/javascript" src="script.js">
-
 </script>
 
+<script type="text/javascript" src="script.js"></script>

@@ -7,6 +7,9 @@ const daySchema = new mongoose.Schema({
     },
     itens: {
         type: Object,
+    },
+    supermercados: {
+        type: Object
     }
 })
 
