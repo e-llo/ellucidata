@@ -27,17 +27,47 @@ lista_produtos = [
 	['papel_higienico', 'Papel Higiênico NEVE Toque de Seda - 4 Rolos', r"Papel Higiênico NEVE (supreme|toque de seda) - 4 rolos"]
 ]
 
+# Nome da chave no banco, Url no site
+mercados = [
+	["extra_hiper","extra-hiper-interlagos"],
+	["big","hipermercado-big-indianopolis"],
+	["pao_de_acucar","pao-de-acucar-real-parque"],
+	["mercado_extra","mercado-extra-americo-brasiliense"],
+	["akki_atacadista","akki-atacadista-joao-dias"],
+	["hirota_supermercados","supermercado-hirota-campo-belo"],
+	["quitanda","quitanda"],
+	["master_supermercados","master-supermercados-vila-mariana"],
+	["natural_da_terra","natural-da-terra-brooklin"],
+	["emporium_sao_paulo","emporium-sao-paulo-vila-nova-afonso-braz"],
+	["sams_club","hipermercado-sams-club-morumbi"],
+	["emporio_nestle","loja-nestle-chucri-zaidan"],
+	["emporio_hortisabor","emporio-hortisabor-itaim"],
+]
+
 if __name__ == "__main__":
 	itens = {} # reúne todos os dados de todos os produtos em todos os supermercados
+	supermercados = {}
+	nomes_produtos = list(map(lambda list_prod: list_prod[0], lista_produtos))
 
-	for item in lista_produtos:
-		# Cria um atributo com o nome da primeira string do array como rotulo no dicionario "itens"
-		# e insere o resultado do metodo scraping usando a segunda string como parametro
-		itens[item[0]] = scraper.scraping(item[1])
-		print(item[0], "=>", itens[item[0]])
-		print("--------------------------------------------------")
+	# Inicializar as listas
+	for nome in nomes_produtos:
+		itens[nome] = list()
 
-	supermercados = extract_markets(itens)
+	for mercado in mercados:
+		itens_supermercados = scraper.scraping(list_mercado=mercado, list_produtos=lista_produtos)
+		print(mercado[0], "=>", itens_supermercados["itens"])
+		supermercados[mercado[0]] = itens_supermercados["supermercado"]
+		
+		for nome_prod, valor in itens_supermercados["itens"].items():
+			itens[nome_prod].append(valor)
+
+	## Retorna um dicionario {
+	# "supermercado":[{},{}],
+	# "itens": {
+	# 		"arroz": [{}],
+	#		"feijao": [{}]
+	# 	}
+	# }
 
 	# Formata os dados coletados
 	dados_formatados = {
