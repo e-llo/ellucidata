@@ -49,6 +49,3 @@ function getMin(supermercado,produto){
 function variacaoMensal(produto, supermercado){
     // getMax(produto, supermercado, mes);
 }
-
-var array = getMax('extra_hiper', 'arroz')
-console.log(array)

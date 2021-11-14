@@ -35,7 +35,7 @@ app.get("/", wrap(async (req, res) => {
 }));
 
 app.get("/produto", wrap(async (req, res) => {
-    res.render("product");
+    res.render("product_2", { dados: await api.getData()});
 }));
 app.get("/supermarket", wrap(async (req, res) => {
     res.render("supermarket", { dados: await api.getData()});

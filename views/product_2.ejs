@@ -1,0 +1,319 @@
+<!--Container Main start-->
+<div class=" " style="max-height: 720px; height: 720px;">
+    <div class="container p-5 mt-5">
+        <h2 id="titulo">Produtos</h2>
+        <div class="product-header mb-3 mt-3">
+            <div class="row">
+                <div class="col-4">
+                    <form class ="form-group row " action="#">
+                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Produto</label>
+                        <div class="col-sm-8">
+                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                                onchange="criarGraficoProduto(value)">
+                                <option value="" selected>Selecione...</option>
+                            </select>
+                        </div>
+                       
+                    </form>
+                </div>
+                <div class="col-3">
+                    <form class ="form-group row " action="#">
+                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                        <div class="col-sm-9">
+                            <select class=" form-control form-control-sm" name="products" id="products"
+                                onchange="criarGraficoProduto(value)">
+                                <option value="" selected>Selecione...</option>
+                                <option value="arroz">Arroz Branco</option>
+                                <option value="extrato_tomate">Extrato de Tomate</option>
+                                <option value="acucar">Açúcar Refinado</option>
+                                <option value="oleo_soja">Óleo de Soja</option>
+                                <option value="manteiga">Manteiga</option>
+                                <option value="pao">Pão de Forma</option>
+                                <option value="cafe">Café</option>
+                                <option value="fuba">Fubá Mimoso</option>
+                                <option value="leite_condensado">Leite Condensado</option>
+                                <option value="macarrao">Macarrão Espaguete</option>
+                                <option value="creme_dental">Creme Dental</option>
+                                <option value="sabonete">Sabonete em Barra</option>
+                                <option value="sal">Sal Refinado</option>
+                                <option value="papel_higienico">Papel Higiênico</option>
+                                <option value="feijao">Feijão</option>
+                            </select>
+                        </div>
+                       
+                    </form>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="card medium-card border-0 shadow-sm mb-5 bg-white rounded" >
+                    <div id="myDiv" style="height: 100%;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Valor Máximo</h5>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="maxValue"></h1>
+                        <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                            <span class="text-muted">Since last week</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Valor Mínimo</h5>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3" id = "minValue"></h1>
+                                <div class="mb-0">
+                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                                    <span class="text-muted">Since last week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Sales</h5>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">2.382</h1>
+                                <div class="mb-0">
+                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+                                    <span class="text-muted">Since last week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <h4>Variação Mensal</h4>
+                <div class="card">
+                    <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+        
+</div>
+
+<script type="text/javascript">
+
+    var dados = <%- JSON.stringify(dados) %>;
+    let elementoAtivo = document.getElementById("supermercado").classList.add("active")
+    const seletorMercado = document.querySelector("select#supermarkets")
+    const seletorProduto = document.querySelector("select#products")
+    const h1MaxValue = document.querySelector("#maxValue")
+    const h1MinValue = document.querySelector("#minValue")
+    const titulo = document.querySelector("#titulo")
+
+    function criarGraficoProduto(produto) {
+        // limpar o grafico caso esteja na opcao "selecione"
+        if(produto == ""){
+            titulo.textContent = "Produtos"
+            dropPlot()
+            return
+        };
+        debugger;
+
+        let lista = dados.filter(dia => dia.itens[produto] != undefined)
+            .map(dia => {
+            return {
+                data: dia.data,
+                produto: produto,
+                mercados: dia.itens[produto]
+                    .map(mercado => {return {data: dia.data, ...mercado}}) // Inserir data em cada mercado
+            }
+        })
+        
+        let dadosFinal = [];
+
+        lista[0].mercados
+         .map(obj => obj.mercado) // capturar o nome de cada produto
+         .sort((a, b) => a.mercado < b.mercado ? -1:1) // ordem alfabetica
+         .forEach(mercado => {
+            let infos = lista
+                .flatMap(dia => dia.mercados)
+                .filter(mercadoAux => mercadoAux.mercado == mercado)
+            
+            let trace = {
+                x: infos.map(mercadoAux => mercadoAux.data), // Datas
+                y: infos.map(mercadoAux => mercadoAux["preco"].toString().replace("R$ ", "").replace(",",".")), // Precos
+                name: mercado,
+                type: "lines"
+            }
+    
+            dadosFinal.push(trace)        
+        })
+
+        Plotly.newPlot('myDiv', dadosFinal, layoutGrafico);
+        titulo.textContent = formatarNomeMercado(mercado)
+        seletorProduto.selectedIndex = 0
+    }
+
+    function criarGraficoMercado(produto) {
+        // Pegar o mercado atual pelo valor do seletor de mercados
+        // let mercado = seletorMercado.value
+
+        // if(mercado == "") return
+
+        // // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
+        // if(produto == ""){
+        //     criarGraficoMercado(mercado)
+        //     return;
+        // }
+
+        // // Pegar os dados
+        // let dadosProduto = dados.map(dia => {
+        //     return {
+        //         data: dia.data, 
+        //         ...dia.supermercados[mercado].filter(prod => prod.produto == produto)[0]
+        //     }
+        // })
+
+        // let trace = {
+        //     x: dadosProduto.map(prod => prod.data),
+        //     y: dadosProduto.map(prod => prod.preco!= undefined ? prod.preco.toString().replace("R$ ", "").replace(",",".") : null)
+        // }
+
+        // Plotly.newPlot('myDiv', [trace], layoutGrafico);
+
+        // h1MaxValue.textContent = getMax(mercado, produto)
+        // h1MinValue.textContent = getMin(mercado, produto)
+    }
+
+    function carregarSeletor() {
+        let produtos = dados
+            .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de mercados 
+        produtos = [...new Set(produtos)] //sem repeticao
+            .sort() //ordem alfabetica
+
+        // Criar as opcoes referentes aos mercados
+        seletorMercado.innerHTML = 
+            produtos.reduce((html, produto) => html += `<option value=${produto}>
+                ${formatarNomeProduto(produto)}</option>`,
+                "<option value='' selected>Selecione...</option>")
+    }
+
+    function dropPlot() {
+        Plotly.purge("myDiv")
+    }
+
+    function formatarNomeProduto(nome) {
+        return nome.split("_")
+                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
+                    .join(" ")
+    }
+
+    carregarSeletor()
+
+    var layoutGrafico = {
+            title: {
+                text: "Variação dos Preços x Tempo",
+                font: {
+                    family: "Montserrat",
+                    size: 22
+                },
+            },
+            xaxis: {
+                title: {
+                    text: "Tempo",
+                    font: {
+                        family: "Montserrat",
+                        size: 16
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Preço em reais",
+                    font: {
+                        family: "Montserrat",
+                        size: 16
+                    }
+                }
+            },
+        }
+
+        
+
+function getMax(supermercado, produto){
+
+let lista = dados.flatMap(dia => 
+    parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+        .filter(prod => prod.produto == produto)
+        .map(prod=> prod.preco.toString()
+        .replace("R$ ", "")
+        .replace(",",".")) :  null)
+)
+// removing NaN from the list
+var i = 0;
+while (i < lista.length) {
+    if (Number.isNaN(lista[i])) {
+    lista.splice(i, 1);
+    } else {
+    ++i;
+    }
+}
+
+var max = Math.max(...lista);
+return max
+
+}
+function getMin(supermercado,produto){
+// função puxa o valor mínimo do produto no supermercado no mês
+let lista = dados.flatMap(dia => 
+    parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+        .filter(prod => prod.produto == produto)
+        .map(prod=> prod.preco.toString()
+        .replace("R$ ", "")
+        .replace(",",".")) :  null)
+)
+
+var i = 0;
+while (i < lista.length) {
+    if (Number.isNaN(lista[i])) {
+    lista.splice(i, 1);
+    } else {
+    ++i;
+    }
+}
+
+var min = Math.min(...lista);
+return min
+}
+
+function variacaoMensal(produto, supermercado){
+// getMax(produto, supermercado, mes);
+}
+</script>
+
+
