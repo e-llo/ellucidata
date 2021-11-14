@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 def extraiProduto(texto_produto):
 	try:
 		lista_infos = texto_produto.replace(" cada", "").split("\n")
-		preco = lista_infos[0]
+		preco = float(lista_infos[0].replace("R$ ").replace(",", "."))
 		fabricante = lista_infos[1]
 		descricao = lista_infos[2]
 	except:
@@ -74,4 +74,3 @@ def scraping(list_mercado, list_produtos):
 
 # criando driver geral
 driver = webdriver.Chrome()
-driver.get('https://www.supermercadonow.com/')
