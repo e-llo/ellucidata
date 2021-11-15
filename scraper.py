@@ -9,8 +9,10 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def extraiProduto(texto_produto):
 	try:
-		lista_infos = texto_produto.replace(" cada", "").split("\n")
-		preco = float(lista_infos[0].replace("R$ ").replace(",", "."))
+		lista_infos = texto_produto.split("\n")
+		lista_infos = filter(lambda txt: re.search(r"^(?!.* OFF)", txt, flags=re.IGNORECASE),lista_infos)
+		lista_infos = list(filter(lambda txt: re.search(r"(R\$[\s\S]*cada)|^[^R\$]", txt, flags=re.IGNORECASE),lista_infos))
+		preco = float(lista_infos[0].replace("R$ ", "").replace(",", ".").replace("cada", ""))
 		fabricante = lista_infos[1]
 		descricao = lista_infos[2]
 	except:
