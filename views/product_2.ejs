@@ -8,7 +8,7 @@
                     <form class ="form-group row " action="#">
                         <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Produto</label>
                         <div class="col-sm-8">
-                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                            <select class=" form-control form-control-sm" name="products" id="products"
                                 onchange="criarGraficoProduto(value)">
                                 <option value="" selected>Selecione...</option>
                             </select>
@@ -18,26 +18,11 @@
                 </div>
                 <div class="col-3">
                     <form class ="form-group row " action="#">
-                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Supermercado</label>
                         <div class="col-sm-9">
-                            <select class=" form-control form-control-sm" name="products" id="products"
-                                onchange="criarGraficoProduto(value)">
+                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                                onchange="criarGraficoMercado(value)">
                                 <option value="" selected>Selecione...</option>
-                                <option value="arroz">Arroz Branco</option>
-                                <option value="extrato_tomate">Extrato de Tomate</option>
-                                <option value="acucar">Açúcar Refinado</option>
-                                <option value="oleo_soja">Óleo de Soja</option>
-                                <option value="manteiga">Manteiga</option>
-                                <option value="pao">Pão de Forma</option>
-                                <option value="cafe">Café</option>
-                                <option value="fuba">Fubá Mimoso</option>
-                                <option value="leite_condensado">Leite Condensado</option>
-                                <option value="macarrao">Macarrão Espaguete</option>
-                                <option value="creme_dental">Creme Dental</option>
-                                <option value="sabonete">Sabonete em Barra</option>
-                                <option value="sal">Sal Refinado</option>
-                                <option value="papel_higienico">Papel Higiênico</option>
-                                <option value="feijao">Feijão</option>
                             </select>
                         </div>
                        
@@ -125,6 +110,7 @@
         
 </div>
 
+<script type="text/javascript" src = "conversor_nomes_mercados_e_produtos.js"></script>
 <script type="text/javascript">
 
     var dados = <%- JSON.stringify(dados) %>;
@@ -136,13 +122,13 @@
     const titulo = document.querySelector("#titulo")
 
     function criarGraficoProduto(produto) {
+        carregarSeletorMercado()
         // limpar o grafico caso esteja na opcao "selecione"
         if(produto == ""){
             titulo.textContent = "Produtos"
             dropPlot()
             return
         };
-        debugger;
 
         let lista = dados.filter(dia => dia.itens[produto] != undefined)
             .map(dia => {
@@ -150,24 +136,24 @@
                 data: dia.data,
                 produto: produto,
                 mercados: dia.itens[produto]
-                    .map(mercado => {return {data: dia.data, ...mercado}}) // Inserir data em cada mercado
+                    .map(prod => {return {data: dia.data, ...prod}}) // Inserir data em cada mercado
             }
         })
         
         let dadosFinal = [];
 
         lista[0].mercados
-         .map(obj => obj.mercado) // capturar o nome de cada produto
-         .sort((a, b) => a.mercado < b.mercado ? -1:1) // ordem alfabetica
+         .map(obj => obj.supermercado) // capturar o nome de cada mercado
+         .sort((a, b) => a.supermercado < b.supermercado ? -1:1) // ordem alfabetica
          .forEach(mercado => {
             let infos = lista
                 .flatMap(dia => dia.mercados)
-                .filter(mercadoAux => mercadoAux.mercado == mercado)
+                .filter(mercadoAux => mercadoAux.supermercado == mercado)
             
             let trace = {
                 x: infos.map(mercadoAux => mercadoAux.data), // Datas
-                y: infos.map(mercadoAux => mercadoAux["preco"].toString().replace("R$ ", "").replace(",",".")), // Precos
-                name: mercado,
+                y: infos.map(mercadoAux => mercadoAux["preco"]), // Precos
+                name: conversorMercado(mercado).tela,
                 type: "lines"
             }
     
@@ -175,8 +161,8 @@
         })
 
         Plotly.newPlot('myDiv', dadosFinal, layoutGrafico);
-        titulo.textContent = formatarNomeMercado(mercado)
-        seletorProduto.selectedIndex = 0
+        titulo.textContent = conversorProduto(produto).tela
+        seletorMercado.selectedIndex = 0
     }
 
     function criarGraficoMercado(produto) {
@@ -210,16 +196,37 @@
         // h1MinValue.textContent = getMin(mercado, produto)
     }
 
-    function carregarSeletor() {
+    function carregarSeletorProduto() {
         let produtos = dados
-            .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de mercados 
+            .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de produtos
         produtos = [...new Set(produtos)] //sem repeticao
             .sort() //ordem alfabetica
 
         // Criar as opcoes referentes aos mercados
-        seletorMercado.innerHTML = 
+        seletorProduto.innerHTML = 
             produtos.reduce((html, produto) => html += `<option value=${produto}>
-                ${formatarNomeProduto(produto)}</option>`,
+                ${conversorProduto(produto).tela}</option>`,
+                "<option value='' selected>Selecione...</option>")
+    }
+
+    function carregarSeletorMercado() {
+        let produto = seletorProduto.value
+
+        if(produto == "") {
+            seletorMercado.innerHTML = "<option value='' selected>Selecione...</option>"
+            return
+        }
+
+        let mercados = dados
+            .flatMap(dia => dia.itens[produto])
+            .map(obj => conversorMercado(obj['supermercado']).tela) //lista de nomes de produtos
+        mercados = [...new Set(mercados)] //sem repeticao
+            .sort() //ordem alfabetica
+
+        // Criar as opcoes referentes aos mercados
+        seletorMercado.innerHTML = 
+            mercados.reduce((html, mercado) => html += `<option value=${conversorMercado(mercado).banco}>
+                ${conversorMercado(mercado).tela}</option>`,
                 "<option value='' selected>Selecione...</option>")
     }
 
@@ -227,13 +234,7 @@
         Plotly.purge("myDiv")
     }
 
-    function formatarNomeProduto(nome) {
-        return nome.split("_")
-                    .map(letras => letras[0].toUpperCase() + letras.slice(1))
-                    .join(" ")
-    }
-
-    carregarSeletor()
+    carregarSeletorProduto()
 
     var layoutGrafico = {
             title: {
@@ -270,9 +271,7 @@ function getMax(supermercado, produto){
 let lista = dados.flatMap(dia => 
     parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
         .filter(prod => prod.produto == produto)
-        .map(prod=> prod.preco.toString()
-        .replace("R$ ", "")
-        .replace(",",".")) :  null)
+        .map(prod=> prod.preco) :  null)
 )
 // removing NaN from the list
 var i = 0;
@@ -293,9 +292,7 @@ function getMin(supermercado,produto){
 let lista = dados.flatMap(dia => 
     parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
         .filter(prod => prod.produto == produto)
-        .map(prod=> prod.preco.toString()
-        .replace("R$ ", "")
-        .replace(",",".")) :  null)
+        .map(prod=> prod.preco) :  null)
 )
 
 var i = 0;
