@@ -18,7 +18,7 @@ function getMax(supermercado, produto){
     }
 
     var max = Math.max(...lista);
-    return max
+    return 'R$ '+max.toFixed(2).toString().replace(".", ",")
    
 }
 function getMin(supermercado,produto){
@@ -34,16 +34,42 @@ function getMin(supermercado,produto){
     var i = 0;
     while (i < lista.length) {
         if (Number.isNaN(lista[i])) {
-        lista.splice(i, 1);
+            lista.splice(i, 1);
         } else {
-        ++i;
+            ++i;
         }
     }
 
     var min = Math.min(...lista);
-    return min
+    return 'R$ '+min.toFixed(2).toString().replace(".", ",")
 }
 
-function variacaoMensal(produto, supermercado){
-    // getMax(produto, supermercado, mes);
-}
+
+
+// function variacaoSemanal(produto, supermercado){
+    
+//     let lista = dados.flatMap(dia => 
+//         parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+//             .filter(prod => prod.produto != undefined && prod.produto == produto)
+//             .map(prod=> prod.preco.toString()
+//             .replace("R$ ", "")
+//             .replace(",",".")) :  null)
+//     )
+    
+//     var i = 0;
+//     valoresSemanais = []
+    
+//     while (i < lista.length) {
+//         if (Number.isNaN(lista[i])) {
+//         lista.splice(i, 1);
+//         } else {
+//         ++i;
+//         }
+//     }
+
+//     for(i=0; i<lista.length; i=i+6){
+
+//         variacao = lista[i+6] - lista[i]
+
+//     }
+// }

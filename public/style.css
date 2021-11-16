@@ -161,10 +161,9 @@ a {
 }
 .card-title{
     font-weight: 600;
-    color:rgb(147 155 162)
+    color:rgb(147 155 162);
+
 }
-
-
 
 
 @media screen and (min-width: 768px) {

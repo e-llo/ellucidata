@@ -4,10 +4,10 @@
         <h2 id="titulo">Produtos</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                     <form class ="form-group row " action="#">
-                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Produto</label>
-                        <div class="col-sm-8">
+                        <label for="supermarkets" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                        <div class="col-sm-9">
                             <select class=" form-control form-control-sm" name="products" id="products"
                                 onchange="criarGraficoProduto(value)">
                                 <option value="" selected>Selecione...</option>
@@ -16,10 +16,10 @@
                        
                     </form>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <form class ="form-group row " action="#">
-                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Supermercado</label>
-                        <div class="col-sm-9">
+                        <label for="products" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                        <div class="col-sm-8">
                             <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
                                 onchange="criarGraficoMercado(value)">
                                 <option value="" selected>Selecione...</option>
@@ -47,13 +47,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
-                                <h5 class="card-title">Valor Máximo</h5>
+                                <h5 class="card-title">Mínimo e Máximo</h5>
                             </div>
                         </div>
-                        <h1 class="mt-1 mb-3" id="maxValue"></h1>
+                        <h1 class="mt-1 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h1>
+                        
                         <div class="mb-0">
-                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                            <span class="text-muted">Since last week</span>
+                            <span class="text-muted">Ao longo de todo o período</span>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                         <h5 class="card-title">Valor Mínimo</h5>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3" id = "minValue"></h1>
+                                <h1 class="mt-1 mb-3" id = ""></h1>
                                 <div class="mb-0">
                                     <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
                                     <span class="text-muted">Since last week</span>
@@ -165,35 +165,38 @@
         seletorMercado.selectedIndex = 0
     }
 
-    function criarGraficoMercado(produto) {
-        // Pegar o mercado atual pelo valor do seletor de mercados
-        // let mercado = seletorMercado.value
+    function criarGraficoMercado(mercado) {
+        let produto = seletorProduto.value
 
-        // if(mercado == "") return
+        if(produto == "") return
 
-        // // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
-        // if(produto == ""){
-        //     criarGraficoMercado(mercado)
-        //     return;
-        // }
+        // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
+        if(mercado == ""){
+            criarGraficoProduto(produto)
+            return;
+        }
 
-        // // Pegar os dados
-        // let dadosProduto = dados.map(dia => {
-        //     return {
-        //         data: dia.data, 
-        //         ...dia.supermercados[mercado].filter(prod => prod.produto == produto)[0]
-        //     }
-        // })
+        // Pegar os dados
+        let dadosMercado= dados.map(dia => {
 
-        // let trace = {
-        //     x: dadosProduto.map(prod => prod.data),
-        //     y: dadosProduto.map(prod => prod.preco!= undefined ? prod.preco.toString().replace("R$ ", "").replace(",",".") : null)
-        // }
+            if (dia.itens[produto] == undefined)
+                return {data: dia.data}
+            return {
+                data: dia.data, 
+                ...dia.itens[produto].filter(mercadoAux => mercadoAux.supermercado == mercado)[0]
+            }
+        })
 
-        // Plotly.newPlot('myDiv', [trace], layoutGrafico);
+        let trace = {
+            x: dadosMercado.map(mercadoAux => mercadoAux.data),
+            y: dadosMercado.map(mercadoAux => mercadoAux.preco!= undefined ? mercadoAux.preco : null),
+            name: conversorMercado(mercado).tela
+        }
 
-        // h1MaxValue.textContent = getMax(mercado, produto)
-        // h1MinValue.textContent = getMin(mercado, produto)
+        Plotly.newPlot('myDiv', [trace], layoutGrafico);
+
+        h1MaxValue.textContent = getMax(mercado, produto)
+        h1MinValue.textContent = getMin(mercado, produto)
     }
 
     function carregarSeletorProduto() {
@@ -268,44 +271,45 @@
 
 function getMax(supermercado, produto){
 
-let lista = dados.flatMap(dia => 
-    parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
-        .filter(prod => prod.produto == produto)
-        .map(prod=> prod.preco) :  null)
-)
-// removing NaN from the list
-var i = 0;
-while (i < lista.length) {
-    if (Number.isNaN(lista[i])) {
-    lista.splice(i, 1);
-    } else {
-    ++i;
+    let lista = dados.flatMap(dia => 
+        parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+            .filter(prod => prod.produto == produto)
+            .map(prod=> prod.preco) :  null)
+    )
+    // removing NaN from the list
+    var i = 0;
+    while (i < lista.length) {
+        if (Number.isNaN(lista[i])) {
+        lista.splice(i, 1);
+        } else {
+        ++i;
+        }
     }
-}
 
-var max = Math.max(...lista);
-return max
+    var max = Math.max(...lista);
+    return 'R$ '+max.toFixed(2).toString().replace(".", ",")
+
 
 }
 function getMin(supermercado,produto){
 // função puxa o valor mínimo do produto no supermercado no mês
-let lista = dados.flatMap(dia => 
-    parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
-        .filter(prod => prod.produto == produto)
-        .map(prod=> prod.preco) :  null)
-)
+    let lista = dados.flatMap(dia => 
+        parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+            .filter(prod => prod.produto == produto)
+            .map(prod=> prod.preco) :  null)
+    )
 
-var i = 0;
-while (i < lista.length) {
-    if (Number.isNaN(lista[i])) {
-    lista.splice(i, 1);
-    } else {
-    ++i;
+    var i = 0;
+    while (i < lista.length) {
+        if (Number.isNaN(lista[i])) {
+        lista.splice(i, 1);
+        } else {
+        ++i;
+        }
     }
-}
 
-var min = Math.min(...lista);
-return min
+    var min = Math.min(...lista);
+    return 'R$ '+min.toFixed(2).toString().replace(".", ",")
 }
 
 function variacaoMensal(produto, supermercado){
