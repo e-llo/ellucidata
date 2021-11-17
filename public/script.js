@@ -46,30 +46,36 @@ function getMin(supermercado,produto){
 
 
 
-// function variacaoSemanal(produto, supermercado){
+function variacaoSemanal(produto, supermercado){
     
-//     let lista = dados.flatMap(dia => 
-//         parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
-//             .filter(prod => prod.produto != undefined && prod.produto == produto)
-//             .map(prod=> prod.preco.toString()
-//             .replace("R$ ", "")
-//             .replace(",",".")) :  null)
-//     )
+    let lista = dados.flatMap(dia => 
+        parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
+            .filter(prod => prod.produto != undefined && prod.produto == produto)
+            .map(prod=> prod.preco.toString()
+            .replace("R$ ", "")
+            .replace(",",".")) :  null)
+    )
     
-//     var i = 0;
-//     valoresSemanais = []
-    
-//     while (i < lista.length) {
-//         if (Number.isNaN(lista[i])) {
-//         lista.splice(i, 1);
-//         } else {
-//         ++i;
-//         }
-//     }
+    // debugger;
+    var valoresSemanais = []
+    var j = 0
+    while(j<lista.length){
+        if(lista.length>=j+7){
+            var listaSemanalAux = []
+            for(var i = j; i<j+7;i++){
+                if (Number.isNaN(lista[i])) {
+                }else{
+                    listaSemanalAux.push(lista[i])
+                }
+            }
+            variacaoPercent = (Math.max(...listaSemanalAux) - Math.min(...listaSemanalAux))/Math.min(...listaSemanalAux)
+            valoresSemanais.push((variacaoPercent*100).toFixed(1))
+            j = j+7
+        }else{
+            j = lista.length
+        }
 
-//     for(i=0; i<lista.length; i=i+6){
+    }
+    return valoresSemanais
+}
 
-//         variacao = lista[i+6] - lista[i]
-
-//     }
-// }
