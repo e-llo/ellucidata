@@ -143,7 +143,7 @@
             dropPlot()
             return
         };
-        //debugger;
+        
         let lista = dados.filter(dia => dia.supermercados[mercado] != undefined)
             .map(dia => {
             return {
@@ -193,20 +193,19 @@
         }
 
         // Pegar os dados
-        let dadosProduto = dados.map(dia => {
-            if (dia.supermercados[mercado] == undefined)
-                return {data: dia.data}
-
+        let dadosProduto = dados.filter(dia => dia.supermercados[mercado] != undefined)
+            .map(dia => {
             return {
                 data: dia.data, 
-                ...dia.supermercados[mercado].filter(prod => prod.produto == produto)[0]
+                ...dia.supermercados[mercado].filter(prod => prod != undefined && prod.produto == produto)[0]
             }
         })
 
         let trace = {
             x: dadosProduto.map(prod => prod.data),
             y: dadosProduto.map(prod => prod.preco!= undefined ? prod.preco : null),
-            name: conversorProduto(produto).tela
+            name: conversorProduto(produto).tela,
+            connectgaps: true
         }
 
         Plotly.newPlot('myDiv', [trace], layoutGrafico);
@@ -238,6 +237,7 @@
 
         let produtos = dados
             .flatMap(dia => dia.supermercados[mercado])
+            .filter(obj => obj != undefined)
             .map(obj => obj['produto']) //lista de nomes de produtos 
         produtos = [...new Set(produtos)] //sem repeticao
             .sort() //ordem alfabetica
@@ -281,6 +281,7 @@
                     }
                 }
             },
+            showlegend:true
         }
 </script>
 <script type="text/javascript" src = "script.js"></script>

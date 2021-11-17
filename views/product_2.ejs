@@ -167,6 +167,7 @@
 
     function criarGraficoMercado(mercado) {
         let produto = seletorProduto.value
+        let nome_mercado = conversorMercado(mercado)
 
         if(produto == "") return
 
@@ -183,14 +184,15 @@
                 return {data: dia.data}
             return {
                 data: dia.data, 
-                ...dia.itens[produto].filter(mercadoAux => mercadoAux.supermercado == mercado)[0]
+                ...dia.itens[produto].filter(mercadoAux => mercadoAux.supermercado == mercado || mercadoAux.supermercado == nome_mercado.tela)[0]
             }
         })
 
         let trace = {
             x: dadosMercado.map(mercadoAux => mercadoAux.data),
             y: dadosMercado.map(mercadoAux => mercadoAux.preco!= undefined ? mercadoAux.preco : null),
-            name: conversorMercado(mercado).tela
+            name: conversorMercado(mercado).tela,
+            connectgaps: true
         }
 
         Plotly.newPlot('myDiv', [trace], layoutGrafico);
