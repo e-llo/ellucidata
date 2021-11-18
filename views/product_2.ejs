@@ -44,7 +44,7 @@
                 
                 <h5 class="card-title">Variação Semanal de Preços</h5>
                 <table class="table table-sm">
-                    <thead>
+                    <thead id="theadMercados">
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col"> 1</th>
@@ -57,7 +57,7 @@
                       </tr>
                     </thead>
                     <tbody id="tbodyMercados">
-                      <tr>
+                      <!-- <tr>
                         <th scope="row">Hirota</th>
                         <td>11</td>
                         <td>10</td>
@@ -66,24 +66,7 @@
                         <td>9</td>
                         <td>9</td>
                       </tr>
-                      <tr>
-                        <th scope="row">Hirota</th>
-                        <td>11</td>
-                        <td>10</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Hirota</th>
-                        <td>11</td>
-                        <td>10</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                      </tr>
+                    -->
                     </tbody>
                   </table>
             </div>
@@ -138,6 +121,7 @@
     const h1MaxValue = document.querySelector("#maxValue")
     const h1MinValue = document.querySelector("#minValue")
     const titulo = document.querySelector("#titulo")
+    const divTableHead = document.querySelector("#theadMercados")
     const divTableBody = document.querySelector("#tbodyMercados")
 
 
@@ -148,6 +132,8 @@
 
     function criarGraficoProduto(produto) {
         carregarSeletorMercado()
+        criarTabela()
+
         // limpar o grafico caso esteja na opcao "selecione"
         if(produto == ""){
             titulo.textContent = "Produtos"
@@ -167,9 +153,9 @@
         
         let dadosFinal = [];
 
-        lista[0].mercados
-         .map(obj => obj.supermercado) // capturar o nome de cada mercado
-         .sort((a, b) => a.supermercado < b.supermercado ? -1:1) // ordem alfabetica
+        let nome_mercados = new Set(dados.flatMap(dia => Object.keys(dia.supermercados)))
+        Array.from(nome_mercados)
+         .sort() // ordem alfabetica
          .forEach(mercado => {
             let infos = lista
                 .flatMap(dia => dia.mercados)
@@ -242,24 +228,24 @@
 
     function criarTabela(){
         let produto = seletorProduto.value
-        let dadosProduto = dados.filter(dia => dia.itens[produto] != undefined)
-            .map(dia => dia.itens[produto].map(obj => {return {data: dia.data, ...obj}}))
+        if(produto == ""){ 
+            divTableBody.innerHTML = ""
+            return
+        }
+    
+        let dadosTabela = variacaoSemanalTodosProduto(produto)
+        let nomes_mercado = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
 
-        divTableBody.innerHTML = 
-            produtos.reduce((html, produto) => html += `<option value=${produto}>
-                ${conversorProduto(produto).tela}</option>`,
-                "<option value='' selected>Selecione...</option>")
+        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>#</th>").concat("</tr>")
+        let htmlBody = ""
+        for(mercado of nomes_mercado){
+            htmlBody += `<tr><th scope="row">${conversorMercado(mercado).tela}</th>`
+            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td>${
+                semana[mercado] == undefined ? "-":`${semana[mercado]}%`
+            }</td>`, "").concat("</tr>")
+        }
 
-    // <tr>
-    //     <th scope="row">Hirota</th>
-    //     <td>11</td>
-    //     <td>10</td>
-    //     <td>9</td>
-    //     <td>9</td>
-    //     <td>9</td>
-    //     <td>9</td>
-    //     </tr>
-    // <tr>        
+        divTableBody.innerHTML = htmlBody  
     }
 
 
@@ -318,6 +304,7 @@
                     }
                 }
             },
+            showlegend:true
         }
 
  

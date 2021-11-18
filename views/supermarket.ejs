@@ -121,6 +121,37 @@
             </div>
         </div>
 
+        <div class="row">
+                
+            <h5 class="card-title">Variação Semanal de Preços</h5>
+            <table class="table table-sm">
+                <thead id="theadMercados">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"> 1</th>
+                    <th scope="col"> 2</th>
+                    <th scope="col"> 3</th>
+                    <th scope="col"> 4</th>
+                    <th scope="col"> 5</th>
+                    <th scope="col"> 6</th>
+
+                    </tr>
+                </thead>
+                <tbody id="tbodyMercados">
+                    <!-- <tr>
+                    <th scope="row">Hirota</th>
+                    <td>11</td>
+                    <td>10</td>
+                    <td>9</td>
+                    <td>9</td>
+                    <td>9</td>
+                    <td>9</td>
+                    </tr>
+                -->
+                </tbody>
+                </table>
+        </div>
+
     </div>
         
 </div>
@@ -134,10 +165,14 @@
     const h1MaxValue = document.querySelector("#maxValue")
     const h1MinValue = document.querySelector("#minValue")
     const titulo = document.querySelector("#titulo")
+    const divTableHead = document.querySelector("#theadMercados")
+    const divTableBody = document.querySelector("#tbodyMercados")
 
     function criarGraficoMercado(mercado) {
-        // limpar o grafico caso esteja na opcao "selecione"
         carregarSeletorProduto()
+        criarTabela()
+
+        // limpar o grafico caso esteja na opcao "selecione"
         if(mercado == ""){
             titulo.textContent = "Supermercados"
             dropPlot()
@@ -156,9 +191,9 @@
         
         let dadosFinal = [];
 
-        lista[0].produtos
-         .map(obj => obj.produto) // capturar o nome de cada produto
-         .sort((a, b) => a.produto < b.produto ? -1:1) // ordem alfabetica
+        let nome_produtos = new Set(dados.flatMap(dia => Object.keys(dia.itens)))
+        Array.from(nome_produtos)
+         .sort() // ordem alfabetica
          .forEach(produto => {
             let infos = lista
                 .flatMap(dia => dia.produtos)
@@ -227,6 +262,29 @@
                 ${conversorMercado(mercado).tela}</option>`,
                 "<option value='' selected>Selecione...</option>")
     }
+
+    function criarTabela(){
+        let mercado = seletorMercado.value
+        if(mercado == ""){ 
+            divTableBody.innerHTML = ""
+            return
+        }
+    
+        let dadosTabela = variacaoSemanalTodosMercado(mercado)
+        let nomes_produto = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
+
+        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>#</th>").concat("</tr>")
+        let htmlBody = ""
+        for(produto of nomes_produto){
+            htmlBody += `<tr><th scope="row">${conversorProduto(produto).tela}</th>`
+            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td>${
+                semana[produto] == undefined ? "-":`${semana[produto]}%`
+            }</td>`, "").concat("</tr>")
+        }
+
+        divTableBody.innerHTML = htmlBody  
+    }
+
 
     function carregarSeletorProduto() {
         let mercado = seletorMercado.value

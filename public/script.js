@@ -80,96 +80,126 @@ function maxMinSemanais(produto, supermercado){ // retorna porcentagem de varia�
 }
 
 
-
-function variacaoSemanal(produto, supermercado){ // retorna a variação semanal em porcentagem
+//-------------------------------------------------------------------------------------
+//-                                VARIACAO POR PRODUTO
+//-------------------------------------------------------------------------------------
+function variacaoSemanalProduto(semana, index){ // retorna a variação semanal em porcentagem
+    // recebe uma lista de dias
+    /* [
+        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia1
+        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia2
+       ]
+    */
     
-
-    let lista = dados.flatMap(dia => 
-        parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
-            .filter(prod => prod.produto != undefined && prod.produto == produto)
-            .map(prod=> prod.preco.toString()
-            .replace("R$ ", "")
-            .replace(",",".")) :  null)
-    )
-    
-    // debugger;
-    var valoresSemanais = []
-    var j = 0
-    while(j<lista.length){
-        if(lista.length>=j+7){
-            var listaSemanalAux = []
-            for(var i = j; i<j+7;i++){
-                if (Number.isNaN(lista[i])) {
-                    listaSemanalAux.push(0)
-                }else{
-                    listaSemanalAux.push(lista[i])
-                }
-            }
-            var variacao = listaSemanalAux[6] - listaSemanalAux[0]
-            var percentual = variacao/listaSemanalAux[0]
-            valoresSemanais.push((percentual*100).toFixed(1))
-            j = j+7
-        }else{
-            j = lista.length
-        }
-
+    let nomes_mercados = new Set(semana.flatMap(dia => dia).map(produto => produto.supermercado))
+    let listaSemanal, variacao, percentual
+    let valoresSemanais = {semana: index}
+    for(mercado of nomes_mercados) {
+        listaSemanal = semana.map(dia => dia.filter(produto => produto.supermercado == mercado)).filter(dia => dia.length != 0).map(dia => dia[0])
+        variacao = listaSemanal[listaSemanal.length-1].preco - listaSemanal[0].preco
+        percentual = variacao/listaSemanal[0].preco
+        valoresSemanais[mercado] = Math.round(percentual*100)/100
     }
+
     return valoresSemanais
 }
 
-function variacaoSemanalTodos(produto){ // retorna a variação semanal em porcentagem
+function variacaoSemanalTodosProduto(produto){ // retorna a variação semanal em porcentagem
     
-
     let dadosProduto = dados.filter(dia => dia.itens[produto] != undefined)
-    .map(dia => dia.itens[produto].map(obj => {return {data: dia.data, ...obj}}))
+    .map(dia => dia.itens[produto].map(obj => {return {data: dia.data, supermercado: conversorMercado(obj.supermercado).banco, preco: obj.preco}}))
 
-    let dadosFinal = [];
-    let listaProdSupermercados = [float][float]
-    for(var i = 0; i<dadosProduto.length; i++){ //42 dias
-        for(var j = 0; j<dadosProduto[i].length; j++){ //10 supermercados
-            listaProdSupermercados[j][i] = dadosProduto[i]["preco"]
+    /* dadosProduto - ESTRUTURA
+    [
+        [
+            {data: ..., supermercado: "...", preco: ...},
+            {data: ..., supermercado: "...", preco: ...},
+            {data: ..., supermercado: "...", preco: ...},
+        ], - dia
+        [], - dia
+    ]
+    */
+
+    // Objetivo: criar uma nova lista para distribuir os dias por semana
+    let semanas = []
+
+    // Varre a lista de produtos
+    for(dia of dadosProduto) {
+        // Pega a data do primeiro dia, checa o dia da semana
+        let dia_semana = new Date(dia[0].data).getDay() // domingo: 0, segunda: 1, ... sabado: 7
+
+        // Se a lista estiver vazia ou for domingo, cria uma nova semana dentro da lista de semanas
+        if(semanas.length == 0 || dia_semana == 0) {
+            semanas.push([dia])
+        } else {
+            // Insere o dia na ultima semana existente
+            semanas[semanas.length-1].push(dia)
         }
     }
 
-
-
-    lista[0].mercados
-    .map(obj => obj.supermercado) // capturar o nome de cada mercado
-    .sort((a, b) => a.supermercado < b.supermercado ? -1:1) // ordem alfabetica
-    .forEach(mercado => {
-
-    let dadosMercados = {
-        datas: infos.map(mercadoAux => mercadoAux.data), // Datas
-        y: infos.map(mercadoAux => mercadoAux["preco"]), // Precos
-        name: conversorMercado(mercado).tela
-    }
-
-    dadosFinal.push(dadosMercados)        
-    })
+    // semanas - ESTRUTURA
+    /*[
+        [[dia1],[dia2]...], - semana 0
+        [[diaX]...], - semana 1
+        [...], - semana 2
+      ]
+    */
+    // Chamar o calculo de variacao de semana para cada semana
+    let varSemanas = semanas.map((semana, index) => variacaoSemanalProduto(semana, index))
     
-    // debugger;
-    var valoresSemanais = []
-    var j = 0
-    while(j<lista.length){
-        if(lista.length>=j+7){
-            var listaSemanalAux = []
-            for(var i = j; i<j+7;i++){
-                if (Number.isNaN(lista[i])) {
-                    listaSemanalAux.push(0)
-                }else{
-                    listaSemanalAux.push(lista[i])
-                }
-            }
-            var variacao = listaSemanalAux[6] - listaSemanalAux[0]
-            var percentual = variacao/listaSemanalAux[0]
-            valoresSemanais.push((percentual*100).toFixed(1))
-            j = j+7
-        }else{
-            j = lista.length
-        }
+    return varSemanas
+    
+}
 
+//-------------------------------------------------------------------------------------
+//-                                VARIACAO POR MERCADO
+//-------------------------------------------------------------------------------------
+function variacaoSemanalMercado(semana, index){ // retorna a variação semanal em porcentagem
+    // recebe uma lista de dias
+    /* [
+        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia1
+        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia2
+       ]
+    */
+    
+    let nomes_produtos = new Set(semana.flatMap(dia => dia).map(mercado => mercado.produto))
+    let listaSemanal, variacao, percentual
+    let valoresSemanais = {semana: index}
+    for(produto of nomes_produtos) {
+        listaSemanal = semana.map(dia => dia.filter(mercado => mercado.produto == produto)).filter(dia => dia.length != 0).map(dia => dia[0])
+        variacao = listaSemanal[listaSemanal.length-1].preco - listaSemanal[0].preco
+        percentual = variacao/listaSemanal[0].preco
+        valoresSemanais[produto] = Math.round(percentual*100)/100
     }
+
     return valoresSemanais
+}
+
+function variacaoSemanalTodosMercado(mercado){ // retorna a variação semanal em porcentagem
+    
+    let dadosMercado = dados.filter(dia => dia.supermercados[mercado] != undefined)
+    .map(dia => dia.supermercados[mercado].map(obj => {return {data: dia.data, produto: conversorProduto(obj.produto).banco, preco: obj.preco}}))
+
+    
+    let semanas = []
+    
+    for(dia of dadosMercado) {
+        // Pega a data do primeiro dia, checa o dia da semana
+        let dia_semana = new Date(dia[0].data).getDay() // domingo: 0, segunda: 1, ... sabado: 7
+
+        // Se a lista estiver vazia ou for domingo, cria uma nova semana dentro da lista de semanas
+        if(semanas.length == 0 || dia_semana == 0) {
+            semanas.push([dia])
+        } else {
+            // Insere o dia na ultima semana existente
+            semanas[semanas.length-1].push(dia)
+        }
+    }
+    // Chamar o calculo de variacao de semana para cada semana
+    let varSemanas = semanas.map((semana, index) => variacaoSemanalMercado(semana, index))
+    
+    return varSemanas
+    
 }
 
 
