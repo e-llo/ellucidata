@@ -98,7 +98,7 @@ function variacaoSemanalProduto(semana, index){ // retorna a variação semanal 
         listaSemanal = semana.map(dia => dia.filter(produto => produto.supermercado == mercado)).filter(dia => dia.length != 0).map(dia => dia[0])
         variacao = listaSemanal[listaSemanal.length-1].preco - listaSemanal[0].preco
         percentual = variacao/listaSemanal[0].preco
-        valoresSemanais[mercado] = Math.round(percentual*100)/100
+        valoresSemanais[mercado] = Math.round(percentual*100)
     }
 
     return valoresSemanais
@@ -169,7 +169,7 @@ function variacaoSemanalMercado(semana, index){ // retorna a variação semanal 
         listaSemanal = semana.map(dia => dia.filter(mercado => mercado.produto == produto)).filter(dia => dia.length != 0).map(dia => dia[0])
         variacao = listaSemanal[listaSemanal.length-1].preco - listaSemanal[0].preco
         percentual = variacao/listaSemanal[0].preco
-        valoresSemanais[produto] = Math.round(percentual*100)/100
+        valoresSemanais[produto] = Math.round(percentual*100)
     }
 
     return valoresSemanais
@@ -202,33 +202,3 @@ function variacaoSemanalTodosMercado(mercado){ // retorna a variação semanal e
     
 }
 
-
-
-// let lista = dados.filter(dia => dia.itens[produto] != undefined)
-//             .map(dia => {
-//             return {
-//                 data: dia.data,
-//                 produto: produto,
-//                 mercados: dia.itens[produto]
-//                     .map(prod => {return {data: dia.data, ...prod}}) // Inserir data em cada mercado
-//             }
-//         })
-        
-//         let dadosFinal = [];
-
-//         lista[0].mercados
-//          .map(obj => obj.supermercado) // capturar o nome de cada mercado
-//          .sort((a, b) => a.supermercado < b.supermercado ? -1:1) // ordem alfabetica
-//          .forEach(mercado => {
-//             let infos = lista
-//                 .flatMap(dia => dia.mercados)
-//                 .filter(mercadoAux => mercadoAux.supermercado == mercado)
-            
-//             let dadosMercados = {
-//                 datas: infos.map(mercadoAux => mercadoAux.data), // Datas
-//                 y: infos.map(mercadoAux => mercadoAux["preco"]), // Precos
-//                 name: conversorMercado(mercado).tela
-//             }
-    
-//             dadosFinal.push(dadosMercados)        
-//         })

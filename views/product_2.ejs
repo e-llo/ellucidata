@@ -4,108 +4,103 @@
         <h2 id="titulo">Produtos</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
-                <div class="col-3">
-                    <form class ="form-group row " action="#">
-                        <label for="supermarkets" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
-                        <div class="col-sm-9">
-                            <select class=" form-control form-control-sm" name="products" id="products"
-                                onchange="criarGraficoProduto(value)">
-                                <option value="" selected>Selecione...</option>
-                            </select>
+
+                <div class="col-8">
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <form class ="form-group row " action="#">
+                                <label for="supermarkets" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                                <div class="col-sm-9">
+                                    <select class=" form-control form-control-sm" name="products" id="products"
+                                        onchange="criarGraficoProduto(value)">
+                                        <option value="" selected>Selecione...</option>
+                                    </select>
+                                </div>
+                            
+                            </form>
                         </div>
-                       
-                    </form>
+                        <div class="col-6">
+                            <form class ="form-group row " action="#">
+                                <label for="products" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                                <div class="col-sm-8">
+                                    <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                                        onchange="criarGraficoMercado(value)">
+                                        <option value="" selected>Selecione...</option>
+                                    </select>
+                                </div>
+                            
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="card medium-card border-0 shadow-sm mb-5 bg-white rounded" >
+                            <div id="myDiv" style="height: 100%;">
+        
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="col-4">
-                    <form class ="form-group row " action="#">
-                        <label for="products" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
-                        <div class="col-sm-8">
-                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
-                                onchange="criarGraficoMercado(value)">
-                                <option value="" selected>Selecione...</option>
-                            </select>
-                        </div>
-                       
-                    </form>
+                    <div class="card border-0 shadow-sm mb-5 bg-white rounded " >
+                        <img src="/imagens/prod/emBranco.jpg" id="imgProduto" class="card-img-top" style="max-height: 355px; max-width: 355px;" alt="...">
+                    </div>
                 </div>
-                
+            </div> 
+            <div class="row">
+                <div class="col-8">
+                    <h5 class="card-title">Variação Semanal de Preços</h5>
+                    <div style="height: 270px; overflow: auto;">
+                        <table class="table table-sm">
+                            <thead id="theadMercados">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col"> 1</th>
+                                <th scope="col"> 2</th>
+                                <th scope="col"> 3</th>
+                                <th scope="col"> 4</th>
+                                <th scope="col"> 5</th>
+                                <th scope="col"> 6</th>
+    
+                            </tr>
+                            </thead>
+                            <tbody id="tbodyMercados">
+                            <!-- <tr>
+                                <th scope="row">Hirota</th>
+                                <td>11</td>
+                                <td>10</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                            </tr>
+                            -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded ml-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Mínimo e Máximo</h5>
+                                </div>
+                            </div>
+                            <div class="maxMinDiv">
+                                <h4 class="mt-2 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h4>
+                            </div>
+                            
+                            <div class="mb-0">
+                                <span class="text-muted">Ao longo de todo o período</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
         </div>
-        
-        <div class="row">
-
-            <div class="col-md-8">
-                <div class="card medium-card border-0 shadow-sm mb-5 bg-white rounded" >
-                    <div id="myDiv" style="height: 100%;">
-
-                    </div>
-                </div>
-                
-                <h5 class="card-title">Variação Semanal de Preços</h5>
-                <table class="table table-sm">
-                    <thead id="theadMercados">
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col"> 1</th>
-                        <th scope="col"> 2</th>
-                        <th scope="col"> 3</th>
-                        <th scope="col"> 4</th>
-                        <th scope="col"> 5</th>
-                        <th scope="col"> 6</th>
-
-                      </tr>
-                    </thead>
-                    <tbody id="tbodyMercados">
-                      <!-- <tr>
-                        <th scope="row">Hirota</th>
-                        <td>11</td>
-                        <td>10</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>9</td>
-                      </tr>
-                    -->
-                    </tbody>
-                  </table>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col mt-0">
-                                <h5 class="card-title">Mínimo e Máximo</h5>
-                            </div>
-                        </div>
-                        <div class="maxMinDiv">
-                            <h4 class="mt-2 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h4>
-                        </div>
-                        
-                        <div class="mb-0">
-                            <span class="text-muted">Ao longo de todo o período</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col mt-0">
-                                <h5 class="card-title">Mínimo e Máximo</h5>
-                            </div>
-                        </div>
-                        <div class="maxMinDiv">
-                            <h4 class="mt-2 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h4>
-                        </div>
-                        
-                        <div class="mb-0">
-                            <span class="text-muted">Ao longo de todo o período</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
 
     </div>
         
@@ -132,6 +127,7 @@
 
     function criarGraficoProduto(produto) {
         carregarSeletorMercado()
+        carregarImagemProduto(produto)
         criarTabela()
 
         // limpar o grafico caso esteja na opcao "selecione"
@@ -174,6 +170,7 @@
         Plotly.newPlot('myDiv', dadosFinal, layoutGrafico);
         titulo.textContent = conversorProduto(produto).tela
         seletorMercado.selectedIndex = 0
+        
     }
 
     function criarGraficoMercado(mercado) {
@@ -307,7 +304,13 @@
             showlegend:true
         }
 
- 
+    function carregarImagemProduto(produto){
+        if(produto == "") {
+            $("#imgProduto").attr("src", "/imagens/prod/emBranco.jpg")
+            return
+        }
+        $("#imgProduto").attr("src", "/imagens/prod/"+produto+".jpg")
+    }
 </script>
 <script type="text/javascript" src = "script.js"></script>
 
