@@ -5,9 +5,10 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #292d2e;
-    --first-color-light: #464646;
-    --white-color: #F7F6FB;
+    --first-color: #07aeb3;
+    --first-color-light: #d3d3d3;
+    --white-color: #ebebeb;
+    --detail-color: #07aeb3;
     --body-font:  sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -27,10 +28,11 @@ body {
     padding: 0 1rem;
     font-size: var(--normal-font-size);
     transition: .5s;
-    background-image: url(/imagens/background/bg1.jpg);
+    background-image: url(/imagens/background/bg5.jpg);
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
+    color: white;
 }
 
 a {
@@ -108,7 +110,7 @@ a {
 
 .nav_logo-icon {
     font-size: 1.25rem;
-    color: var(--white-color)
+    color: var(--detail-color)
 }
 
 .nav_logo-name {
@@ -124,7 +126,7 @@ a {
 }
 
 .nav_link:hover {
-    color: var(--white-color)
+    color: var(--detail-color)
 }
 
 .nav_icon {
@@ -156,13 +158,14 @@ a {
     height: 100vh
 }
 
+
 .container{
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.05);
 }
 
 .glass{
     backdrop-filter: blur(10px);
-    background-color: rgba(255,255,255,0.15);
+    background-color: rgba(255,255,255,0.05);
 }
 
 .card{
@@ -184,7 +187,7 @@ a {
 }
 .card-title{
     font-weight: 600;
-    color: #464646;
+    color: #ffffff;
 
 }
 .chart-card{

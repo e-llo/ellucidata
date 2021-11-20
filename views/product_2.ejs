@@ -1,7 +1,7 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
     <div class="container p-5 mt-5 glass">
-        <h2 id="titulo">Produtos</h2>
+        <h2 id="titulo" style="color: #ebebeb">Produtos</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
 
@@ -9,7 +9,7 @@
                     <div class="row mb-4">
                         <div class="col-6">
                             <form class ="form-group row " action="#">
-                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">Produto</label>
                                 <div class="col-sm-9">
                                     <select class=" form-control form-control-sm" name="products" id="products"
                                         onchange="criarGraficoProduto(value)">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-6">
                             <form class ="form-group row " action="#">
-                                <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                                <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm" style="color: #ebebeb">Supermercado</label>
                                 <div class="col-sm-8">
                                     <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
                                         onchange="criarGraficoMercado(value)">
@@ -50,18 +50,18 @@
             <div class="row">
                 <div class="col-8">
                     <h5 class="card-title">Variação Semanal de Preços</h5>
-                    <div style="height: 270px; overflow: auto;">
+                    <div style="height: 270px; overflow: auto; color: red">
                         <table class="table table-sm">
                             <thead id="theadMercados">
-                            <tr>
-                                <th scope="col">Mercado/Semana</th>
-                                <th scope="col"> 1</th>
-                                <th scope="col"> 2</th>
-                                <th scope="col"> 3</th>
-                                <th scope="col"> 4</th>
-                                <th scope="col"> 5</th>
-                                <th scope="col"> 6</th>
-                                <th scope="col"> 7</th>
+                            <tr style="color: white">
+                                <th scope="col" style="color: white">Mercado/Semana</th>
+                                <th scope="col" style="color: white"> 1</th>
+                                <th scope="col" style="color: white"> 2</th>
+                                <th scope="col" style="color: white"> 3</th>
+                                <th scope="col" style="color: white"> 4</th>
+                                <th scope="col" style="color: white"> 5</th>
+                                <th scope="col" style="color: white"> 6</th>
+                                <th scope="col" style="color: white"> 7</th>
     
                             </tr>
                             </thead>
@@ -255,12 +255,12 @@
         let dadosTabela = variacaoSemanalTodosProduto(produto)
         let nomes_mercado = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
 
-        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>Mercado/Semana</th>").concat("</tr>")
+        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col" style="color: white">${semana.semana+1}</th>`, "<tr><th scope='col' style='color: white'>Mercado/Semana</th>").concat("</tr>")
         let htmlBody = ""
         for(mercado of nomes_mercado){
-            htmlBody += `<tr><th scope="row">${conversorMercado(mercado).tela}</th>`
+            htmlBody += `<tr><th scope="row" style="color: white">${conversorMercado(mercado).tela}</th>`
             htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
-                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : `>${semana[mercado]}%`
+                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : ` style="color: white">${semana[mercado]}%`
             }</td>`, "").concat("</tr>")
         }
 
@@ -324,8 +324,8 @@
                 }
             },
             showlegend:true,
-            plot_bgcolor:"transparent",
-            paper_bgcolor:"rgba(255, 255, 255, 0.2)"
+            // plot_bgcolor:"transparent",
+            // paper_bgcolor:"rgba(255, 255, 255, 0.6)"
         }
 
     function carregarImagemProduto(produto){

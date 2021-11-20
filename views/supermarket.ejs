@@ -1,12 +1,12 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
     <div class="container p-5 mt-5 glass">
-        <h2 id="titulo">Supermercados</h2>
+        <h2 id="titulo" style="color: #ebebeb">Supermercados</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
                 <div class="col-4">
                     <form class ="form-group row " action="#">
-                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm" style="color: #ebebeb">Supermercado</label>
                         <div class="col-sm-8">
                             <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
                                 onchange="criarGraficoMercado(value)">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-3">
                     <form class ="form-group row " action="#">
-                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">Produto</label>
                         <div class="col-sm-9">
                             <select class=" form-control form-control-sm" name="products" id="products"
                                 onchange="criarGraficoProduto(value)">
@@ -61,14 +61,14 @@
                     <h5 class="card-title">Variação Semanal de Preços</h5>
                     <table class="table table-sm">
                         <thead id="theadMercados">
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col"> 1</th>
-                            <th scope="col"> 2</th>
-                            <th scope="col"> 3</th>
-                            <th scope="col"> 4</th>
-                            <th scope="col"> 5</th>
-                            <th scope="col"> 6</th>
+                            <tr style="color: white">
+                            <th scope="col" style="color: white">Produto/Semana</th>
+                            <th scope="col" style="color: white"> 1</th>
+                            <th scope="col" style="color: white"> 2</th>
+                            <th scope="col" style="color: white"> 3</th>
+                            <th scope="col" style="color: white"> 4</th>
+                            <th scope="col" style="color: white"> 5</th>
+                            <th scope="col" style="color: white"> 6</th>
 
                             </tr>
                         </thead>
@@ -248,12 +248,12 @@
         let dadosTabela = variacaoSemanalTodosMercado(mercado)
         let nomes_produto = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
 
-        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>#</th>").concat("</tr>")
+        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col" style="color: white">${semana.semana+1}</th>`, "<tr><th scope='col' style='color: white'>Produto/Semana</th>").concat("</tr>")
         let htmlBody = ""
         for(produto of nomes_produto){
-            htmlBody += `<tr><th scope="row">${conversorProduto(produto).tela}</th>`
+            htmlBody += `<tr><th scope="row" style="color: white">${conversorProduto(produto).tela}</th>`
             htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
-                semana[produto] == undefined ? "-": semana[produto] < 0 ? ` style="color: limegreen">${semana[produto]}%` :  semana[produto] > 0 ? ` style="color: red">${semana[produto]}%` : `>${semana[produto]}%`
+                semana[produto] == undefined ? "-": semana[produto] < 0 ? ` style="color: limegreen">${semana[produto]}%` :  semana[produto] > 0 ? ` style="color: red">${semana[produto]}%` : ` style="color: white">${semana[produto]}%`
             }</td>`, "").concat("</tr>")
         }
 
@@ -316,8 +316,8 @@
                 }
             },
             showlegend:true,
-            plot_bgcolor:"transparent",
-            paper_bgcolor:"rgba(255, 255, 255, 0.2)"
+            // plot_bgcolor:"transparent",
+            // paper_bgcolor:"rgba(255, 255, 255, 0.6)"
         }
 </script>
 <script type="text/javascript" src = "script.js"></script>
