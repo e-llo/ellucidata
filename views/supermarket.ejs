@@ -94,6 +94,19 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
+                                <h5 class="card-title">Valor Atual</h5>
+                            </div>
+                        </div>
+                        <div class="currentValueDiv">
+                            <h4 class="mt-2 mb-3" ><span id="currentValue"></span></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
                                 <h5 class="card-title">Mínimo e Máximo</h5>
                             </div>
                         </div>
@@ -123,6 +136,7 @@
     const seletorProduto = document.querySelector("select#products")
     const h1MaxValue = document.querySelector("#maxValue")
     const h1MinValue = document.querySelector("#minValue")
+    const h1CurrentValue = document.querySelector("#currentValue")
     const titulo = document.querySelector("#titulo")
     const divTableHead = document.querySelector("#theadMercados")
     const divTableBody = document.querySelector("#tbodyMercados")
@@ -154,6 +168,7 @@
         Array.from(nome_produtos)
          .sort() // ordem alfabetica
          .forEach(produto => {
+            console.log("DIA: ", dia)
             let infos = lista
                 .flatMap(dia => dia.produtos)
                 .filter(produtoAux => produtoAux.produto == produto)
@@ -172,6 +187,7 @@
         titulo.textContent = conversorMercado(mercado).tela
         seletorProduto.selectedIndex = 0
         carregarSeletorProduto()
+        console.log(valorCestaBasica(mercado))
     }
 
     function criarGraficoProduto(produto) {
@@ -206,7 +222,7 @@
 
         h1MaxValue.textContent = getMax(mercado, produto)
         h1MinValue.textContent = getMin(mercado, produto)
-
+        h1CurrentValue.textContent = getValorAtual(mercado, produto)
     }
 
     function carregarSeletorMercado() {
@@ -236,8 +252,8 @@
         let htmlBody = ""
         for(produto of nomes_produto){
             htmlBody += `<tr><th scope="row">${conversorProduto(produto).tela}</th>`
-            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td>${
-                semana[produto] == undefined ? "-":`${semana[produto]}%`
+            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
+                semana[produto] == undefined ? "-": semana[produto] < 0 ? ` style="color: limegreen">${semana[produto]}%` :  semana[produto] > 0 ? ` style="color: red">${semana[produto]}%` : `>${semana[produto]}%`
             }</td>`, "").concat("</tr>")
         }
 

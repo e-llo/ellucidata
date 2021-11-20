@@ -85,6 +85,19 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
+                                    <h5 class="card-title">Valor Atual</h5>
+                                </div>
+                            </div>
+                            <div class="currentValueDIv">
+                                <h4 class="mt-2 mb-3" ><span id = "currentValue"></span> </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded ml-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
                                     <h5 class="card-title">Mínimo e Máximo</h5>
                                 </div>
                             </div>
@@ -115,6 +128,7 @@
     const seletorProduto = document.querySelector("select#products")
     const h1MaxValue = document.querySelector("#maxValue")
     const h1MinValue = document.querySelector("#minValue")
+    const h1CurrentValue = document.querySelector("#currentValue")
     const titulo = document.querySelector("#titulo")
     const divTableHead = document.querySelector("#theadMercados")
     const divTableBody = document.querySelector("#tbodyMercados")
@@ -207,6 +221,8 @@
 
         h1MaxValue.textContent = getMax(mercado, produto)
         h1MinValue.textContent = getMin(mercado, produto)
+        h1CurrentValue.textContent = getValorAtual(mercado, produto)
+
     }
 
     function carregarSeletorProduto() {
@@ -237,8 +253,8 @@
         let htmlBody = ""
         for(mercado of nomes_mercado){
             htmlBody += `<tr><th scope="row">${conversorMercado(mercado).tela}</th>`
-            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td>${
-                semana[mercado] == undefined ? "-":`${semana[mercado]}%`
+            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
+                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : `>${semana[mercado]}%`
             }</td>`, "").concat("</tr>")
         }
 
@@ -313,5 +329,3 @@
     }
 </script>
 <script type="text/javascript" src = "script.js"></script>
-
-
