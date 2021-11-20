@@ -43,7 +43,7 @@
 
                 <div class="col-4">
                     <div class="card border-0 shadow-sm mb-5 bg-white rounded " >
-                        <img src="/imagens/prod/emBranco.jpg" id="imgProduto" class="card-img-top" style="max-height: 355px; max-width: 355px;" alt="...">
+                        <img src="/imagens/prod/emBranco.jpg" id="imgProduto" class="card-img-top" style="max-height: 355px; max-width: 355px;" alt="imagem do produto">
                     </div>
                 </div>
             </div> 
@@ -54,13 +54,14 @@
                         <table class="table table-sm">
                             <thead id="theadMercados">
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">Mercado/Semana</th>
                                 <th scope="col"> 1</th>
                                 <th scope="col"> 2</th>
                                 <th scope="col"> 3</th>
                                 <th scope="col"> 4</th>
                                 <th scope="col"> 5</th>
                                 <th scope="col"> 6</th>
+                                <th scope="col"> 7</th>
     
                             </tr>
                             </thead>
@@ -81,7 +82,7 @@
                 </div>
 
                 <div class="col-4">
-                    <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded ml-4">
+                    <div class="card border-0 shadow-sm p-3 mb-4 bg-white rounded ml-4">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
@@ -89,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="currentValueDIv">
-                                <h4 class="mt-2 mb-3" ><span id = "currentValue"></span> </h4>
+                                <h4 class="mt-2 mb-1" ><span id = "currentValue">Selecione o Supermercado</span></h4>
                             </div>
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="maxMinDiv">
-                                <h4 class="mt-2 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h4>
+                                <h4 class="mt-2 mb-3" ><span id = "minValue">Selecione o Supermercado</span> <span id = "maxValue"></span>  </h4>
                             </div>
                             
                             <div class="mb-0">
@@ -196,6 +197,8 @@
         // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
         if(mercado == ""){
             criarGraficoProduto(produto)
+            h1MinValue.textContent = "Selecione o Supermercado"
+            h1CurrentValue.textContent = "Selecione o Supermercado"
             return;
         }
 
@@ -249,12 +252,12 @@
         let dadosTabela = variacaoSemanalTodosProduto(produto)
         let nomes_mercado = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
 
-        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>#</th>").concat("</tr>")
+        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col">${semana.semana+1}</th>`, "<tr><th scope='col'>Mercado/Semana</th>").concat("</tr>")
         let htmlBody = ""
         for(mercado of nomes_mercado){
             htmlBody += `<tr><th scope="row">${conversorMercado(mercado).tela}</th>`
             htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
-                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : `>${semana[mercado]}%`
+                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: red">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: limegreen">${semana[mercado]}%` : `>${semana[mercado]}%`
             }</td>`, "").concat("</tr>")
         }
 
