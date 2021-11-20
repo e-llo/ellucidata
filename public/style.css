@@ -6,7 +6,7 @@
     --header-height: 3rem;
     --nav-width: 68px;
     --first-color: #292d2e;
-    --first-color-light: #cccccc;
+    --first-color-light: #464646;
     --white-color: #F7F6FB;
     --body-font:  sans-serif;
     --normal-font-size: 1rem;
@@ -20,14 +20,17 @@
 }
 
 body { 
-    background-color: #f5f7fb;
+    /* background-color: #f5f7fb; */
     font-family: 'Montserrat', sans-serif;
     position: relative;
     margin: var(--header-height) 0 0 0;
     padding: 0 1rem;
     font-size: var(--normal-font-size);
     transition: .5s;
-
+    background-image: url(/imagens/background/bg1.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 a {
@@ -153,6 +156,26 @@ a {
     height: 100vh
 }
 
+.container{
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.05);
+}
+
+.glass{
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.15);
+}
+
+.card{
+    /* border-radius: 1rem; */
+    backdrop-filter: blur(2rem);
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.cb1{
+    background-color: rgba(255,255,255,0);
+    backdrop-filter: blur(2rem);
+}
+
 .small-card{
     height: 150px;
 }
@@ -161,7 +184,7 @@ a {
 }
 .card-title{
     font-weight: 600;
-    color:rgb(147 155 162);
+    color: #464646;
 
 }
 .chart-card{

@@ -1,6 +1,6 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
-    <div class="container p-5 mt-5">
+    <div class="container p-5 mt-5 glass">
         <h2 id="titulo">Supermercados</h2>
         <div class="product-header mb-3 mt-3">
             <div class="row">
@@ -51,7 +51,7 @@
         <div class="row">
 
             <div class="col-md-8">
-                <div class="card medium-card border-0 shadow-sm mb-5 bg-white rounded" >
+                <div class="card medium-card border-0 shadow-sm mb-5 cb1 glass text-center rounded"  style="backdrop-filter: none; box-shadow: none;">
                     <div id="myDiv" style="height: 100%;">
 
                     </div>
@@ -90,7 +90,7 @@
                
             </div>
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="card border-0 shadow-sm p-3 mb-5 bg-white rounded">
+                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -315,7 +315,9 @@
                     }
                 }
             },
-            showlegend:true
+            showlegend:true,
+            plot_bgcolor:"transparent",
+            paper_bgcolor:"rgba(255, 255, 255, 0.2)"
         }
 </script>
 <script type="text/javascript" src = "script.js"></script>
