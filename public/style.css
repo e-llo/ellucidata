@@ -164,7 +164,9 @@ a {
     color:rgb(147 155 162);
 
 }
-
+.chart-card{
+    height: 500px;
+}
 
 @media screen and (min-width: 768px) {
     body {

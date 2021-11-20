@@ -1,3 +1,4 @@
+const { get } = require("mongoose");
 
 
 function getMax(supermercado, produto){
@@ -100,6 +101,14 @@ function getValorAtual(supermercado, produto){
     return 'R$ '+atual.toFixed(2).toString().replace(".", ",")
    
 }
+
+function comparaMediaMercado(produto){
+    // lista de preços do produto por mercado
+    // média dos preços pra cada supermercado
+    // média das médias de cada supermercado
+    // comparação do valor atual com a média geral
+}
+
 
 
 

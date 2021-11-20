@@ -9,7 +9,7 @@
                     <div class="row mb-4">
                         <div class="col-6">
                             <form class ="form-group row " action="#">
-                                <label for="supermarkets" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
                                 <div class="col-sm-9">
                                     <select class=" form-control form-control-sm" name="products" id="products"
                                         onchange="criarGraficoProduto(value)">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-6">
                             <form class ="form-group row " action="#">
-                                <label for="products" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
+                                <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm">Supermercado</label>
                                 <div class="col-sm-8">
                                     <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
                                         onchange="criarGraficoMercado(value)">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="currentValueDIv">
-                                <h4 class="mt-2 mb-1" ><span id = "currentValue">Selecione o Supermercado</span></h4>
+                                <h4 class="mt-2 mb-1" ><span id = "currentValue">Selecione o Supermercado</span></h4><span class="text-muted">X % maior que a média</span>
                             </div>
                         </div>
                     </div>
@@ -228,6 +228,8 @@
 
     }
 
+    
+
     function carregarSeletorProduto() {
         let produtos = dados
             .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de produtos
@@ -240,6 +242,7 @@
                 ${conversorProduto(produto).tela}</option>`,
                 "<option value='' selected>Selecione...</option>")
     }
+
 
 
     function criarTabela(){
@@ -257,7 +260,7 @@
         for(mercado of nomes_mercado){
             htmlBody += `<tr><th scope="row">${conversorMercado(mercado).tela}</th>`
             htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
-                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: red">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: limegreen">${semana[mercado]}%` : `>${semana[mercado]}%`
+                semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : `>${semana[mercado]}%`
             }</td>`, "").concat("</tr>")
         }
 
