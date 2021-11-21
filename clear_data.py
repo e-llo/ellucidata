@@ -30,8 +30,8 @@ for dia in dados:
         filter(lambda item: re.search(regex, str(item["descricao"]), flags=re.IGNORECASE), dia["itens"][nome_prod])
         )
         # transformar preco dos produtos em float
-        for produto in lista_final:
-            produto['preco'] = float(produto['preco'].replace("R$ ","").replace(",", "."))
+        #for produto in lista_final:
+        #    produto['preco'] = float(produto['preco'].replace("R$ ","").replace(",", "."))
 
         #print(lista_final, " tamanho:",len(lista_final))
         dia["itens"][nome_prod] = lista_final

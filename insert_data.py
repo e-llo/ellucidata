@@ -21,7 +21,7 @@ lista_produtos = [
 	['fuba', 'Fubá Mimoso Yoki Pacote 500g', r"Fubá Mimoso Yoki Pacote 500g"],
 	['leite_condensado', 'Leite Condensado MOÇA Lata 395g', r"Leite Condensado MOÇA Lata 395g"],
 	['macarrao', 'Macarrão com Ovos Espaguete 8 Barilla Pacote 500g', r"Macarrão com Ovos Espaguete 8 Barilla Pacote 500g"],
-	['creme_dental', 'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g', r"Creme Dental Menta Original Colgate Tripla Ação Caixa 90g"],
+	['creme_dental', 'Creme Dental Menta Original Colgate Tripla Ação Caixa 90g', r"^Creme Dental Menta Original Colgate Tripla Ação Caixa 90g"],
 	['sabonete', 'Sabonete em Barra Antibacteriano Protex Cartucho 85g', r"Sabonete em Barra Antibacteriano [\s\S]*Protex[\s\S]* Cartucho (85|90)g"], 
 	['sal', 'Sal Refinado Cisne - 1kg', r"Sal Refinado Cisne - 1kg"],
 	['papel_higienico', 'Papel Higiênico NEVE Toque de Seda - 4 Rolos', r"Papel Higiênico NEVE (supreme|toque de seda) - 4 rolos"]
