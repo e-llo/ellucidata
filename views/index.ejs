@@ -61,7 +61,6 @@
     let elementoAtivo = document.getElementById("produto").classList.add("active")
     const seletorProduto = document.querySelector("select#products")
 
-
     function criarBoxPlot(produto){
 
         if(produto == ""){
@@ -69,22 +68,51 @@
             return
         };
 
+        // dados separados por mês
+        let meses = []
+        let mes_atual = dados[0].data.slice(5,7)
 
+        dados.forEach(dia => {
+            if(meses.length == 0){ 
+                meses.push([dia])
+                return
+            }
 
-        var y0 = [];
-        var y1 = [];
-        for (var i = 0; i < 50; i ++) {
-            y0[i] = Math.random();
-            y1[i] = Math.random() + 1;
-        }
+            let mes = dia.data.slice(5,7)
+            if(mes == mes_atual) {
+                meses[meses.length - 1].push(dia)
+            } else {
+                meses.push([dia])
+                mes_atual = mes
+            }
 
-        var trace1 = {
-        y: y0,
-        type: 'box'
-        };
+        })
+        
+        // formatar cada array de mes em um objeto com nome e precos
+        meses = meses.map(dias => {
+            return {
+                nome: new Date(dias[0].data).toLocaleDateString("pt-br",{month: "long"}),
+                precos: dias.flatMap(dia => dia.itens[produto].map(produto => produto.preco))
+            }
+        })
 
+        /* meses - ESTRUTURA
+            [
+                {nome: "outubro", precos: [25.9, 26.7, 39.4,...]}
+                {nome: "novembro", precos: [25.9, 26.7, 39.4,...]}
+            ]
+        */
 
-        var data = [trace1];
+        let data = []
+        
+        meses.forEach(mes => {
+            let trace = {
+                y: mes.precos,
+                name: mes.nome,
+                type: "box"
+            }
+            data.push(trace)
+        })
 
         Plotly.newPlot('boxplot', data);
     }
