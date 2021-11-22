@@ -27,9 +27,7 @@ function getMin(supermercado,produto){
     let lista = dados.flatMap(dia => 
         parseFloat(dia.supermercados[supermercado] != undefined ? dia.supermercados[supermercado]
             .filter(prod => prod.produto != undefined && prod.produto == produto)
-            .map(prod=> prod.preco.toString()
-            .replace("R$ ", "")
-            .replace(",",".")) :  null)
+            .map(prod=> prod.preco) :  null)
     )
     
     var i = 0;
@@ -107,6 +105,18 @@ function comparaMediaMercado(produto){
     // média dos preços pra cada supermercado
     // média das médias de cada supermercado
     // comparação do valor atual com a média geral
+}
+
+
+
+function hoverAtual(){
+    document.querySelector("#mediaAtual").classList.remove("d-none")
+    document.querySelector("#valorAtual").classList.add("d-none")
+}
+
+function mouseOutAtual(){
+    document.querySelector("#mediaAtual").classList.add("d-none")
+    document.querySelector("#valorAtual").classList.remove("d-none")
 }
 
 

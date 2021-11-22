@@ -1,7 +1,7 @@
 <!--Container Main start-->
 <div class=" " style="max-height: 720px; height: 720px;">
     <div class="container p-5 mt-5 glass">
-        <h2 id="titulo" style="color: #ebebeb">Supermercados</h2>
+        <h2 id="titulo" style="color: #ebebeb">Supermercados</h2> 
         <div class="product-header mb-3 mt-3">
             <div class="row">
                 <div class="col-4">
@@ -56,7 +56,7 @@
 
                     </div>
                 </div>
-                <div style="height: 270px; overflow: auto;">
+                <div style="height: 270px; overflow: auto;" class="d-none" id="tabelaSemanal">
                 
                     <h5 class="card-title">Variação Semanal de Preços</h5>
                     <table class="table table-sm">
@@ -90,20 +90,8 @@
                
             </div>
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col mt-0">
-                                <h5 class="card-title">Valor Atual</h5>
-                            </div>
-                        </div>
-                        <div class="currentValueDiv">
-                            <h4 class="mt-2 mb-3" ><span id="currentValue"></span></h4>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded">
+                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded d-none"id="bodyMaxMin">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -136,10 +124,11 @@
     const seletorProduto = document.querySelector("select#products")
     const h1MaxValue = document.querySelector("#maxValue")
     const h1MinValue = document.querySelector("#minValue")
-    const h1CurrentValue = document.querySelector("#currentValue")
     const titulo = document.querySelector("#titulo")
     const divTableHead = document.querySelector("#theadMercados")
     const divTableBody = document.querySelector("#tbodyMercados")
+    const tabelaSemanal = document.querySelector("#tabelaSemanal")
+    const bodyMaxMin = document.querySelector("#bodyMaxMin")
 
     function criarGraficoMercado(mercado) {
         carregarSeletorProduto()
@@ -148,6 +137,7 @@
         // limpar o grafico caso esteja na opcao "selecione"
         if(mercado == ""){
             titulo.textContent = "Supermercados"
+            bodyMaxMin.classList.add("d-none")
             dropPlot()
             return
         };
@@ -194,7 +184,10 @@
         // Pegar o mercado atual pelo valor do seletor de mercados
         let mercado = seletorMercado.value
 
-        if(mercado == "") return
+        if(mercado == ""){
+            bodyMaxMin.classList.add("d-none")
+            return
+        } 
 
         // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
         if(produto == ""){
@@ -222,7 +215,9 @@
 
         h1MaxValue.textContent = getMax(mercado, produto)
         h1MinValue.textContent = getMin(mercado, produto)
-        h1CurrentValue.textContent = getValorAtual(mercado, produto)
+        document.querySelector("#bodyMaxMin").classList.remove("d-none")
+        titulo.innerHTML = conversorMercado(mercado).tela + " - "+ conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual">x% maior que a média</p>`
+
     }
 
     function carregarSeletorMercado() {
@@ -242,6 +237,7 @@
         let mercado = seletorMercado.value
         if(mercado == ""){ 
             divTableBody.innerHTML = ""
+            tabelaSemanal.classList.add("d-none")
             return
         }
     
@@ -256,6 +252,7 @@
                 semana[produto] == undefined ? "-": semana[produto] < 0 ? ` style="color: limegreen">${semana[produto]}%` :  semana[produto] > 0 ? ` style="color: red">${semana[produto]}%` : ` style="color: white">${semana[produto]}%`
             }</td>`, "").concat("</tr>")
         }
+        tabelaSemanal.classList.remove("d-none")
 
         divTableBody.innerHTML = htmlBody  
     }
