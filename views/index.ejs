@@ -44,10 +44,37 @@
                 
             </div>
             <div class="col-md-4">
-                <h4>Variação Mensal</h4>
-                <div class="card">
-                    <img src="https://s2.glbimg.com/dgW_NN1AnuA1KwbUuBFVpm82Hvo=/0x0:1024x682/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/8/Y/xICwabTPOlLrrDTH9IGg/ap21125534338996.jpg" class="card-img-top" alt="...">
-                    
+                <h4>Rank dos supermercados</h4>
+                <div class="container py-4 glass">
+                    <div class="form-group">
+                        <label for="filtroRankMercados" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">
+                            Filtrar por
+                        </label>
+                        <div class="col-sm-5 d-inline-block">
+                            <select class="form-control form-control-sm" name="filtroMercado" id="filtroRankMercado">
+                                <option value="caro">Mais barato</option>
+                                <option value="caro">Mais caro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h4 class="my-2" style="color: #ebebeb; font-size: 14px;">*Clique na linha do supermercado para verificar o preço dos produtos em relação aos demais mercados</h4>
+
+                    <div class="mb-2" style="height: 132px; overflow-x: auto;">
+                        <table class="table table-sm">
+                            <thead class="text-white">
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Supermercado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyRank" class="text-white">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="divBoxSupermercado" class="p-2 position-relative" style="background-color: white; color: #000; border-radius: 10px; display:none">
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,8 +85,80 @@
 <script type="text/javascript" src = "conversor_nomes_mercados_e_produtos.js"></script>
 <script type="text/javascript">
     var dados = <%- JSON.stringify(dados) %>;
-    let elementoAtivo = document.getElementById("produto").classList.add("active")
+    let elementoAtivo = document.getElementById("index").classList.add("active")
     const seletorProduto = document.querySelector("select#products")
+    const tbodyRank = document.querySelector("#tbodyRank")
+    const divBoxSupermercado = document.getElementById("divBoxSupermercado")
+
+    $(function() { // document.ready()
+        carregarSeletorProduto()
+        carregarTableRank()
+    })
+
+    document.querySelectorAll("tbody > tr").forEach(linha => linha.style.cursor = "pointer")
+
+    function carregarTableRank(){ // Rank baseado nos ultimos dados inseridos
+        // Calculo para ordenar os supermercados do mais barato ao mais caro
+        let rank = Object.keys(dados[dados.length - 1].supermercados)
+            .map(nome_mercado => {
+                return {
+                    supermercado: nome_mercado,
+                    precos: dados[dados.length-1].supermercados[nome_mercado].map(produto => produto.preco)
+                }
+            })
+            .map(supermercado => {
+                return {
+                    ...supermercado,
+                    media: supermercado.precos.reduce((acc, num) => acc += num, 0) / supermercado.precos.length
+                }
+            })
+            .sort((mercadoa,mercadob) => mercadoa.avg > mercadob.avg ? -1:1)
+            console.log(rank)
+        // Uma vez ordenado, transformar cada supermercado em uma tr html
+        tbodyRank.innerHTML = rank.reduce((html, supermercado, index) => html += `<tr onclick="boxSupermercado('${supermercado.supermercado}')" style="cursor: pointer;"><td>${index+1}</td><td>${conversorMercado(supermercado.supermercado).tela}</td></tr>`, "")
+
+    }
+
+    function boxSupermercado(nome_supermercado){
+        $(divBoxSupermercado).html(`
+            <h4>${conversorMercado(nome_supermercado).tela}</h4>
+            <button type="button" class="btn-close position-absolute" aria-label="Close" style="right:5px; top:15px;" onclick="$(divBoxSupermercado).hide()"></button>
+            <hr/>
+            <h5>Preços:</h5>
+            <div class="container-fluid">
+                <div class="pill bg-danger">
+                    <span><i class="fas fa-arrow-circle-up"></i></span>
+                    Arroz Branco
+                </div>
+                <div class="pill bg-danger">
+                    <span><i class="fas fa-arrow-circle-up"></i></span>
+                    Leite Condensado
+                </div>
+                <div class="pill">
+                    <span><i class="fas fa-equals"></i></span>
+                    Creme Dental
+                </div>
+                <div class="pill">
+                    <span><i class="fas fa-equals"></i></span>
+                    Manteiga
+                </div>
+                <div class="pill bg-success">
+                    <span><i class="fas fa-arrow-circle-down"></i></span>
+                    Macarrão
+                </div>
+                <div class="pill bg-success">
+                    <span><i class="fas fa-arrow-circle-down"></i></span>
+                    Extrato de Tomate
+                </div>
+                <div class="pill bg-success">
+                    <span><i class="fas fa-arrow-circle-down"></i></span>
+                    Óleo de Soja
+                </div>
+            </div>
+
+        `)
+        $(divBoxSupermercado).show()
+    }
 
     function criarBoxPlot(produto){
 
@@ -116,8 +215,6 @@
 
         Plotly.newPlot('boxplot', data);
     }
-    
-    carregarSeletorProduto()
 
     function carregarSeletorProduto() {
         let produtos = dados
