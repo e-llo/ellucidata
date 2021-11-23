@@ -85,17 +85,21 @@ function getValorAtual(supermercado, produto){
             .filter(prod => prod.produto == produto)
             .map(prod=> prod.preco) :  null)
     )
-    // removing NaN from the list
-    var i = 0;
-    while (i < lista.length) {
-        if (Number.isNaN(lista[i])) {
-        lista.splice(i, 1);
-        } else {
-        ++i;
-        }
-    }
+    // // removing NaN from the list
+    // var i = 0;
+    // while (i < lista.length) {
+    //     if (Number.isNaN(lista[i])) {
+    //     lista.splice(i, 1);
+    //     } else {
+    //     ++i;
+    //     }
+    // }
+
 
     var atual = lista[lista.length-1];
+    if (Number.isNaN(atual)) {
+        return null // não teve inserção no último dia
+    }   
     return 'R$ '+atual.toFixed(2).toString().replace(".", ",")
    
 }

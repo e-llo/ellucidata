@@ -218,8 +218,10 @@
         document.querySelector("#bodyMaxMin").classList.remove("d-none")
         h1MaxValue.textContent = getMax(mercado, produto)
         h1MinValue.textContent = getMin(mercado, produto)
-        
-        titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual">${comparaMediaProduto(produto,mercado)}% ${comparaMediaProduto(produto,mercado) >= 0 ? "maior":"menor"} que a média</p>`
+        if(getValorAtual(mercado, produto) != null){
+            titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual"> ${comparaMediaProduto(produto,mercado) >= 0 ? comparaMediaProduto(produto,mercado)+ "% maior": comparaMediaProduto(produto,mercado)*(-1)+"% menor"} que a média</p>`
+        }
+
 
 
     }
