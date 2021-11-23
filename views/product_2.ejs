@@ -127,6 +127,9 @@
     const tabelaSemanal = document.querySelector("#tabelaSemanal")
 
 
+    $(function() {
+        carregarSeletorProduto()
+    })
 
 
     function criarGraficoProduto(produto) {
@@ -216,11 +219,10 @@
         h1MaxValue.textContent = getMax(mercado, produto)
         h1MinValue.textContent = getMin(mercado, produto)
         
-        titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual">x% maior que a média</p>`
+        titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual">${comparaMediaProduto(produto,mercado)}% ${comparaMediaProduto(produto,mercado) >= 0 ? "maior":"menor"} que a média</p>`
 
 
     }
-
 
 
     function carregarSeletorProduto() {
@@ -289,8 +291,6 @@
     function dropPlot() {
         Plotly.purge("myDiv")
     }
-
-    carregarSeletorProduto()
 
     var layoutGrafico = {
             title: {

@@ -100,11 +100,53 @@ function getValorAtual(supermercado, produto){
    
 }
 
-function comparaMediaMercado(produto){
+function criaListaMediaMercado() {
+    // Calculo para ordenar os supermercados do mais barato ao mais caro
+    let rank = Object.keys(dados[dados.length - 1].supermercados)
+    .map(nome_mercado => {
+        return {
+            supermercado: nome_mercado,
+            precos: dados[dados.length-1].supermercados[nome_mercado].map(produto => produto.preco)
+        }
+    })
+    .map(supermercado => {
+        return {
+            ...supermercado,
+            media: supermercado.precos.reduce((acc, num) => acc += num, 0) / supermercado.precos.length
+        }
+    })
+    .sort((mercadoa,mercadob) => mercadoa.media - mercadob.media)
+
+    return rank
+}
+
+function criaListaMediaProduto() {
+    // Calculo para ordenar os produtos do mais barato ao mais caro
+    let rank = Object.keys(dados[dados.length - 1].itens)
+    .map(nome_produto => {
+        return {
+            produto: nome_produto,
+            precos: dados[dados.length-1].itens[nome_produto].map(produto => produto.preco)
+        }
+    })
+    .map(produto => {
+        return {
+            ...produto,
+            media: Math.round(produto.precos.reduce((acc, num) => acc += num, 0) / produto.precos.length *100)/100
+        }
+    })
+    .sort((produtoa,produtob) => produtoa.media - produtob.media)
+
+    return rank
+}
+
+function comparaMediaProduto(produto,mercado){
     // lista de preços do produto por mercado
-    // média dos preços pra cada supermercado
-    // média das médias de cada supermercado
+    let media = criaListaMediaProduto().filter(prod => prod.produto == produto)[0].media
+    let valorAtual = dados[dados.length-1].itens[produto].filter(prod => prod.supermercado == mercado).flatMap(prod=>prod.preco)[0]
+
     // comparação do valor atual com a média geral
+    return Math.round((valorAtual-media) / media * 100)
 }
 
 

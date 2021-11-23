@@ -99,60 +99,70 @@
 
     function carregarTableRank(){ // Rank baseado nos ultimos dados inseridos
         // Calculo para ordenar os supermercados do mais barato ao mais caro
-        let rank = Object.keys(dados[dados.length - 1].supermercados)
-            .map(nome_mercado => {
-                return {
-                    supermercado: nome_mercado,
-                    precos: dados[dados.length-1].supermercados[nome_mercado].map(produto => produto.preco)
-                }
-            })
-            .map(supermercado => {
-                return {
-                    ...supermercado,
-                    media: supermercado.precos.reduce((acc, num) => acc += num, 0) / supermercado.precos.length
-                }
-            })
-            .sort((mercadoa,mercadob) => mercadoa.avg > mercadob.avg ? -1:1)
-            console.log(rank)
+        let rank = criaListaMediaMercado()
         // Uma vez ordenado, transformar cada supermercado em uma tr html
         tbodyRank.innerHTML = rank.reduce((html, supermercado, index) => html += `<tr onclick="boxSupermercado('${supermercado.supermercado}')" style="cursor: pointer;"><td>${index+1}</td><td>${conversorMercado(supermercado.supermercado).tela}</td></tr>`, "")
 
     }
 
     function boxSupermercado(nome_supermercado){
+        let lista = criaListaMediaProduto().filter(prod => Array.from(dados[dados.length-1].supermercados[nome_supermercado].map(pd => pd.produto)).includes(prod.produto))
+        console.log(lista)
+
+        lista = lista.map(item_produto => {
+            let prod = dados[dados.length-1].supermercados[nome_supermercado].filter(prod=>prod.produto == item_produto.produto)[0]
+            let maior = (maior, num) => maior = num > maior ? num : maior
+            let menor = (menor, num) => menor = num < menor ? num : menor
+
+            // classificar pelos tipos
+            if(prod.preco == item_produto.precos.reduce(maior, 0))
+                prod.tipo = 1 // Mais caro da lista
+            else if(prod.preco > item_produto.media)
+                prod.tipo = 2
+            else if(prod.preco == item_produto.media)
+                prod.tipo = 3
+            else if(prod.preco == item_produto.precos.reduce(menor, 0))
+                prod.tipo = 5 // O mais barato da lista
+            else
+                prod.tipo = 4 // Preco abaixo da media
+
+            return prod
+        }).sort((itA, itB) => itA.tipo - itB.tipo)
+        console.log(lista)
+
+        let listaHtml = lista.reduce((html, produto) => {
+            let icone;
+            switch(produto.tipo) {
+                case 1: icone = "fa-arrow-circle-up"; break;
+                case 2: icone = "fa-arrow-up"; break;
+                case 3: icone = "fa-equals"; break;
+                case 4: icone = "fa-arrow-down"; break;
+                case 5: icone = "fa-arrow-circle-down";
+            }
+            return html += `
+                <div class="pill ${produto.tipo <= 2 ? "bg-danger" : produto.tipo >= 4 ? "bg-success":""}">
+                    <span><i class="fas ${icone}"></i></span>
+                    ${conversorProduto(produto.produto).tela}
+                </div>
+            `
+        }, "")
+
         $(divBoxSupermercado).html(`
             <h4>${conversorMercado(nome_supermercado).tela}</h4>
             <button type="button" class="btn-close position-absolute" aria-label="Close" style="right:5px; top:15px;" onclick="$(divBoxSupermercado).hide()"></button>
             <hr/>
             <h5>Preços:</h5>
             <div class="container-fluid">
-                <div class="pill bg-danger">
-                    <span><i class="fas fa-arrow-circle-up"></i></span>
-                    Arroz Branco
-                </div>
-                <div class="pill bg-danger">
-                    <span><i class="fas fa-arrow-circle-up"></i></span>
-                    Leite Condensado
-                </div>
-                <div class="pill">
-                    <span><i class="fas fa-equals"></i></span>
-                    Creme Dental
-                </div>
-                <div class="pill">
-                    <span><i class="fas fa-equals"></i></span>
-                    Manteiga
-                </div>
-                <div class="pill bg-success">
-                    <span><i class="fas fa-arrow-circle-down"></i></span>
-                    Macarrão
-                </div>
-                <div class="pill bg-success">
-                    <span><i class="fas fa-arrow-circle-down"></i></span>
-                    Extrato de Tomate
-                </div>
-                <div class="pill bg-success">
-                    <span><i class="fas fa-arrow-circle-down"></i></span>
-                    Óleo de Soja
+                ${listaHtml}
+            </div>
+            <div class="bg-dark p-2">
+                <h5 class="text-white">Legenda</h5>
+                <div class="pill bg-dark d-inline-flex flex-wrap justify-content-between">
+                    <span><i class="fas fa-arrow-circle-up"></i>Maior preço</span>
+                    <span><i class="fas fa-arrow-up"></i>Acima da média</span>
+                    <span><i class="fas fa-equals"></i>Média</span>
+                    <span><i class="fas fa-arrow-down"></i>Abaixo da média</span>
+                    <span><i class="fas fa-arrow-circle-down"></i>Menor preço</span>
                 </div>
             </div>
 

@@ -45,15 +45,15 @@ def scraping(list_mercado, list_produtos):
 		except:
 			continue
 
-		regex_match = re.search(produto[2], div_produto.text, flags=re.IGNORECASE)
-
-		if not regex_match:
-			continue
-
 		# Pegar objeto
 		infos = extraiProduto(div_produto.text)
 
 		if not infos:
+			continue
+		
+		regex_match = re.search(produto[2], infos[0], flags=re.IGNORECASE)
+
+		if not regex_match:
 			continue
 
 		itens[produto[0]] = {
