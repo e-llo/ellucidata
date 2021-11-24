@@ -82,7 +82,8 @@ a {
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
     transition: .5s;
-    z-index: var(--z-fixed)
+    z-index: var(--z-fixed);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);
 }
 
 .nav {
@@ -161,7 +162,8 @@ a {
 
 .container{
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.05);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);
+    background: linear-gradient(to bottom, rgba(165, 165, 165, 0.25) 0%, rgba(255, 255, 255, 0) 50%);
+    backdrop-filter: blur(linear-gradient(to bottom, rgba(126, 75, 75, 0.25) 0%, rgba(255, 255, 255, 0) 50%));
 }
 
 .glass{
@@ -173,6 +175,12 @@ a {
     /* border-radius: 1rem; */
     backdrop-filter: blur(2rem);
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.05);
+
+    border: 1px solid transparent;
+    border-top-color: rgba(255, 255, 255, 0.25);
+    border-left-color: rgba(255, 255, 255, 0.25);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-right-color: rgba(255, 255, 255, 0.1);    
 }
 
 .cb1{
