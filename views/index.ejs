@@ -4,50 +4,37 @@
         <h2> Dashboard Principal</h2>
         <div class="row">
 
-            <div class="col-md-8">
-                <div class="card medium-card" >
-                   
+            <div class="col-md-6">
+                <div class="card large-card border-0 cb1 glass text-center rounded" style="backdrop-filter: none; box-shadow: none;" >
+                    <div  id="div3d" style="height: 100%;">
+        
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h4>Variação Mensal</h4>
-                <div class="card small-card" >
+            <div class="col-md-6">
+                <div class="card border-0 p-3 mb-5 cb1 glass text-center rounded ml-4" id="barras">
+                    <div class="card-body " >
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Barras</h5>
+                            </div>
+                        </div>
+                        <div class=" chart-card" id="barplot">
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-6">
-                        
-                        <h4>Variação Mensal</h4>
-                        <form class ="form-group row " action="#">
-                            <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
-                            <div class="col-sm-9">
-                                <select class=" form-control form-control-sm" name="products" id="products"
-                                    onchange="criarBoxPlot(value)">
-                                    <option value="" selected>Selecione...</option>
-                                </select>
-                            </div>
-                        
-                        </form>
-                        <div class=" card chart-card" id="boxplot">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <h4>Mínimo e máximo mensais</h4>
-                        <div class="card small-card">
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+        <div class="row mt-4">
+            
             <div class="col-md-4">
-                <h4>Rank dos supermercados</h4>
-                <div class="container py-4 glass">
-                    <div class="form-group">
-                        <label for="filtroRankMercados" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">
+                
+                <div class="card border-0 p-3 mb-5 cb1 glass  rounded ml-4">
+                    <div class="col text-center">
+                        <h5>Rank dos supermercados</h5>
+                    </div>
+                    <div class="form-group text-center mb-3">
+                        <label for="filtroRankMercados" class="col-sm-3 col-form-label col-form-label-sm " style="color: #ebebeb">
                             Filtrar por
                         </label>
                         <div class="col-sm-5 d-inline-block">
@@ -73,7 +60,31 @@
                         </table>
                     </div>
 
-                    <div id="divBoxSupermercado" class="p-2 position-relative" style="background-color: white; color: #000; border-radius: 10px; display:none">
+                    <div id="divBoxSupermercado" class=" text-center glass2 mt-2 p-2 d-none position-relative" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                
+                <div class="card border-0 p-3 mb-5 cb1 glass text-center rounded ml-4" id="variacaoMensal">
+                    <div class="card-body " >
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Boxplot</h5>
+                            </div>
+                        </div>
+                        <form class ="form-group row  mt-1 mb-3" action="#">
+                            <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
+                            <div class="col-sm-9">
+                                <select class=" form-control form-control-sm" name="products" id="products"
+                                    onchange="criarBoxPlot(value)">
+                                    <option value="" selected>Selecione...</option>
+                                </select>
+                            </div>
+                        </form>
+                        
+                        <div class=" chart-card d-none" id="boxplot">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +100,9 @@
     const seletorProduto = document.querySelector("select#products")
     const tbodyRank = document.querySelector("#tbodyRank")
     const divBoxSupermercado = document.getElementById("divBoxSupermercado")
+    const boxplot = document.getElementById("boxplot")
+    const div3d = document.getElementById("div3d")
+    const barplot = document.getElementById("barplot")
 
     $(function() { // document.ready()
         carregarSeletorProduto()
@@ -133,40 +147,46 @@
         let listaHtml = lista.reduce((html, produto) => {
             let icone;
             switch(produto.tipo) {
-                case 1: icone = "fa-arrow-circle-up"; break;
-                case 2: icone = "fa-arrow-up"; break;
+                case 1: icone = "fa-arrow-circle-up text-danger"; break;
+                case 2: icone = "fa-arrow-up text-danger"; break;
                 case 3: icone = "fa-equals"; break;
-                case 4: icone = "fa-arrow-down"; break;
-                case 5: icone = "fa-arrow-circle-down";
+                case 4: icone = "fa-arrow-down text-success"; break;
+                case 5: icone = "fa-arrow-circle-down text-success";
             }
             return html += `
-                <div class="pill ${produto.tipo <= 2 ? "bg-danger" : produto.tipo >= 4 ? "bg-success":""}">
-                    <span><i class="fas ${icone}"></i></span>
-                    ${conversorProduto(produto.produto).tela}
+                <div class="row p-1">
+                    <div class="">
+                        <div class="pill rounded-0">
+                            <span><i class="fas ${icone}"></i></span>
+                            ${conversorProduto(produto.produto).tela}
+                        </div>
+                    </div>
+                    
                 </div>
-            `
+                    `
         }, "")
 
         $(divBoxSupermercado).html(`
-            <h4>${conversorMercado(nome_supermercado).tela}</h4>
-            <button type="button" class="btn-close position-absolute" aria-label="Close" style="right:5px; top:15px;" onclick="$(divBoxSupermercado).hide()"></button>
+            <h5 class="mt-1">${conversorMercado(nome_supermercado).tela}</h5>
+            <button type="button" class="btn-close position-absolute" aria-label="Close" style="right:5px; top:10px;" onclick="$(divBoxSupermercado).hide()"></button>
             <hr/>
             <h5>Preços:</h5>
-            <div class="container-fluid">
+            <div class="mb-2">
                 ${listaHtml}
             </div>
             <div class="bg-dark p-2">
                 <h5 class="text-white">Legenda</h5>
                 <div class="pill bg-dark d-inline-flex flex-wrap justify-content-between">
-                    <span><i class="fas fa-arrow-circle-up"></i>Maior preço</span>
-                    <span><i class="fas fa-arrow-up"></i>Acima da média</span>
-                    <span><i class="fas fa-equals"></i>Média</span>
-                    <span><i class="fas fa-arrow-down"></i>Abaixo da média</span>
-                    <span><i class="fas fa-arrow-circle-down"></i>Menor preço</span>
+                    <span><i class="fas fa-arrow-circle-up"></i> Maior preço</span>
+                    <span><i class="fas fa-arrow-up"></i> Acima da média</span>
+                    <span><i class="fas fa-equals"></i> Média</span>
+                    <span><i class="fas fa-arrow-down"></i> Abaixo da média</span>
+                    <span><i class="fas fa-arrow-circle-down"></i> Menor preço</span>
                 </div>
             </div>
 
         `)
+        divBoxSupermercado.classList.remove("d-none")
         $(divBoxSupermercado).show()
     }
 
@@ -174,6 +194,7 @@
 
         if(produto == ""){
             Plotly.purge("boxplot")
+            boxplot.classList.add("d-none")
             return
         };
 
@@ -216,14 +237,35 @@
         
         meses.forEach(mes => {
             let trace = {
-                y: mes.precos,
+                x: mes.precos,
                 name: mes.nome,
                 type: "box"
             }
             data.push(trace)
         })
+        var layout = {
+            showlegend: true,
+            title: {
+                text: "Variação Mensal dos Preços",
+                font: {
+                    family: "Montserrat",
+                    size: 22
+                },
+            },
+            xaxis: {
+                title: {
+                    text: "Preço em reais",
+                    font: {
+                        family: "Montserrat",
+                        size: 16
+                    }
+                }
+            }
+        };
 
-        Plotly.newPlot('boxplot', data);
+        boxplot.classList.remove("d-none")
+        Plotly.newPlot('boxplot', data, layout);
+
     }
 
     function carregarSeletorProduto() {
@@ -238,5 +280,38 @@
                 ${conversorProduto(produto).tela}</option>`,
                 "<option value='' selected>Selecione...</option>")
     }
+
+
+
+
+
+
+
+function geraDados() {
+    var arr = [];
+    for(let i=0;i<10;i++)
+        arr.push(Array(10).fill().map(() => Math.random()))
+    return arr;
+}
+var data = geraDados();
+
+Plotly.newPlot('div3d', [{ //multiple traces
+    z: data,
+    type: 'surface'
+}]);
+ 
+
+var data2 = [
+  {
+    x: ['giraffes', 'orangutans', 'monkeys'],
+    y: [20, 14, 23],
+    type: 'bar'
+  }
+];
+
+Plotly.newPlot('barplot', data2);
+
+
+
 
 </script>

@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="col-4">
-                    <div class="card border-0 mb-5 cb1 text-center rounded " style="backdrop-filter: none; box-shadow: none;" >
-                        <img src="/imagens/prod/emBranco.png" id="imgProduto" class="card-img-top" style="max-height: 355px; max-width: 355px;" alt="...">
+                    <div class="card border-0 mb-5 cb1 text-center rounded " style="backdrop-filter: none; box-shadow: none; " >
+                        <img src="/imagens/prod/emBranco.png" id="imgProduto" class="card-img-top"  alt="...">
                     </div>
                 </div>
             </div> 
@@ -98,7 +98,7 @@
                             </div>
                             
                             <div class="mb-0">
-                                <span class="text-muted">Ao longo de todo o período</span>
+                                <span class="">Ao longo de todo o período</span>
                             </div>
                         </div>
                     </div>
@@ -216,8 +216,8 @@
         Plotly.newPlot('myDiv', [trace], layoutGrafico);
 
         document.querySelector("#bodyMaxMin").classList.remove("d-none")
-        h1MaxValue.textContent = getMax(mercado, produto)
-        h1MinValue.textContent = getMin(mercado, produto)
+        h1MaxValue.textContent = getMax(mercado, produto) 
+        h1MinValue.textContent = getMin(mercado, produto) +" - "
         if(getValorAtual(mercado, produto) != null){
             titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual"> ${comparaMediaProduto(produto,mercado) >= 0 ? comparaMediaProduto(produto,mercado)+ "% maior": comparaMediaProduto(produto,mercado)*(-1)+"% menor"} que a média</p>`
         }
@@ -320,7 +320,7 @@
                     }
                 }
             },
-            showlegend:true,
+            showlegend:true
             // plot_bgcolor:"transparent",
             // paper_bgcolor:"rgba(255, 255, 255, 0.6)"
         }
