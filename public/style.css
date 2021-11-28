@@ -5,10 +5,10 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #07aeb3;
+    --first-color: #00aadd;
     --first-color-light: #d3d3d3;
     --white-color: #ebebeb;
-    --detail-color: #07aeb3;
+    --detail-color: #00aadd;
     --body-font:  sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -28,7 +28,7 @@ body {
     padding: 0 1rem;
     font-size: var(--normal-font-size);
     transition: .5s;
-    background-image: url(/imagens/background/bg5.jpg);
+    background-image: url(/imagens/background/bg10.jpeg);
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -56,6 +56,7 @@ a {
 
 .header_toggle {
     color: var(--first-color);
+    margin-top: 14px;
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -167,12 +168,12 @@ a {
 }
 
 .glass{
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(20px);
     background-color: rgba(255,255,255,0.05);
 }
 .glass2{
-    backdrop-filter: blur(40px);
-    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(100px);
+    background-color: rgba(255,255,255,0.05);
 }
 .card{
     /* border-radius: 1rem; */
@@ -198,7 +199,7 @@ a {
     height: 300px;
 }
 .large-card{
-    height: 400px;
+    height: 350px;
 }
 .card-title{
     font-weight: 600;
@@ -231,12 +232,12 @@ a {
     width: auto;
 	height: 38px;
 	
-	background-color: #098e92;
+	background-color: #0166a3;;
 	-webkit-border-radius: 3px 4px 4px 3px;
 	-moz-border-radius: 3px 4px 4px 3px;
 	border-radius: 3px 4px 4px 3px;
 	
-	border-left: 1px solid #098e92;
+	border-left: 1px solid #0166a3;;
 
 	/* This makes room for the triangle */
 	margin-left: 19px;
@@ -262,7 +263,7 @@ a {
 	height: 0;
 	border-top: 19px solid transparent;
 	border-bottom: 19px solid transparent;
-	border-right: 19px solid #098e92;
+	border-right: 19px solid #0166a3;;
 }
 
 /* Makes the circle */

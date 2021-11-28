@@ -1,5 +1,5 @@
 <!--Container Main start-->
-<div class=" " style="max-height: 720px; height: 720px;">
+<div class=" " >
     <div class="container p-5 mt-5 glass">
         <h2 id="titulo" style="color: #ebebeb">Produtos </h2> 
         <div class="product-header mb-3 mt-3">
@@ -140,10 +140,14 @@
         // limpar o grafico caso esteja na opcao "selecione"
         if(produto == ""){
             titulo.textContent = "Produtos"
-            bodyMaxMin.classList.add("d-none")
+            document.querySelector("#bodyMaxMin").classList.add("d-none")
             dropPlot()
             return
         };
+        if(seletorMercado.value==""){
+            document.querySelector("#bodyMaxMin").classList.add("d-none")
+
+        }
 
         let lista = dados.filter(dia => dia.itens[produto] != undefined)
             .map(dia => {
@@ -188,8 +192,7 @@
 
         // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
         if(mercado == ""){
-            criarGraficoProduto(produto)
-            bodyMaxMin.classList.add("d-none")
+            criarGraficoProduto(produto);
             // h1MinValue.textContent = "Selecione o Supermercado"
             // h1MaxValue.textContent = ""
             return;
