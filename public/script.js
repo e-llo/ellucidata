@@ -286,3 +286,13 @@ function variacaoSemanalTodosMercado(mercado){ // retorna a variação semanal e
     return varSemanas
     
 }
+
+function calculaCestaBasica(){
+    let ultimoDia = dados[dados.length-1]
+
+    let listaPrecos = Object.keys(ultimoDia.supermercados).map(mercado => ultimoDia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+
+    let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
+  
+    
+}

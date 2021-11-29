@@ -290,8 +290,8 @@
 
 var data2 = [
   {
-    x: ['giraffes', 'orangutans', 'monkeys', 'ducks', 'flamingos', 'pedro', 'raphael', 'akki atacadista'],
-    y: [20, 14, 23,10,40, 55, 20, 33 ],
+    x: calculaCestaBasica().map(objMercado => objMercado.mercado),
+    y: calculaCestaBasica().map(objMercado => objMercado.preco),
     type: 'bar',
     marker: {
     color: '#327590'
