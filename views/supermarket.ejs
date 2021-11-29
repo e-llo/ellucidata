@@ -4,58 +4,52 @@
         <h2 id="titulo" style="color: #ebebeb">Supermercados</h2> 
         <div class="product-header mb-3 mt-3">
             <div class="row">
-                <div class="col-4">
-                    <form class ="form-group row " action="#">
-                        <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm" style="color: #ebebeb">Supermercado</label>
-                        <div class="col-sm-8">
-                            <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
-                                onchange="criarGraficoMercado(value)">
-                                <option value="" selected>Selecione...</option>
-                            </select>
+                <div class="col-8">
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <form class ="form-group row " action="#">
+                                <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm" style="color: #ebebeb">Supermercado</label>
+                                <div class="col-sm-8">
+                                    <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
+                                        onchange="criarGraficoMercado(value)">
+                                        <option value="" selected>Selecione...</option>
+                                    </select>
+                                </div>
+                               
+                            </form>
                         </div>
-                       
-                    </form>
-                </div>
-                <div class="col-3">
-                    <form class ="form-group row " action="#">
-                        <label for="products" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">Produto</label>
-                        <div class="col-sm-9">
-                            <select class=" form-control form-control-sm" name="products" id="products"
-                                onchange="criarGraficoProduto(value)">
-                                <option value="" selected>Selecione...</option>
-                                    <!-- <option value="arroz">Arroz Branco</option>
-                                    <option value="extrato_tomate">Extrato de Tomate</option>
-                                    <option value="acucar">Açúcar Refinado</option>
-                                    <option value="oleo_soja">Óleo de Soja</option>
-                                    <option value="manteiga">Manteiga</option>
-                                    <option value="pao">Pão de Forma</option>
-                                    <option value="cafe">Café</option>
-                                    <option value="fuba">Fubá Mimoso</option>
-                                    <option value="leite_condensado">Leite Condensado</option>
-                                    <option value="macarrao">Macarrão Espaguete</option>
-                                    <option value="creme_dental">Creme Dental</option>
-                                    <option value="sabonete">Sabonete em Barra</option>
-                                    <option value="sal">Sal Refinado</option>
-                                    <option value="papel_higienico">Papel Higiênico</option>
-                                    <option value="feijao">Feijão</option> -->
-                            </select>
+                        <div class="col-6">
+                            <form class ="form-group row " action="#">
+                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">Produto</label>
+                                <div class="col-sm-9">
+                                    <select class=" form-control form-control-sm" name="products" id="products"
+                                        onchange="criarGraficoProduto(value)">
+                                        <option value="" selected>Selecione...</option>
+                                    </select>
+                                </div>
+                               
+                            </form>
                         </div>
-                       
-                    </form>
-                </div>
-                
-            </div>
-            
-        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="card medium-card border-0 mb-5 cb1 glass text-center rounded" style="backdrop-filter: none; box-shadow: none;">
+                            <div id="myDiv" style="height: 100%;">
         
-        <div class="row">
-
-            <div class="col-md-8">
-                <div class="card medium-card border-0 shadow-sm mb-5 cb1 glass text-center rounded"  style="backdrop-filter: none; box-shadow: none;">
-                    <div id="myDiv" style="height: 100%;">
-
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="col-4">
+                    <div class="card border-0 mb-5 cb1 text-center rounded " style="backdrop-filter: none; box-shadow: none; " >
+                        <img src="/imagens/prod/emBranco.png" id="imgMercado" class="card-img-top"  alt="...">
+                    </div>
+                </div>
+            </div> 
+        </div>    
+        
+        <div class="row">
+            <div class="col-md-8">
                 <div style="height: 270px; overflow: auto;" class="d-none" id="tabelaSemanal">
                 
                     <h5 class="card-title">Variação Semanal de Preços</h5>
@@ -87,10 +81,8 @@
                     </table>
                 
                 </div>
-               
             </div>
             <div class="col-md-4">
-
                 <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded d-none"id="bodyMaxMin">
                     <div class="card-body">
                         <div class="row">
@@ -108,8 +100,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>    
+            
         
 
     </div>
@@ -132,6 +125,7 @@
 
     function criarGraficoMercado(mercado) {
         carregarSeletorProduto()
+        carregarImagemMercado(mercado)
         criarTabela()
 
         // limpar o grafico caso esteja na opcao "selecione"
@@ -141,6 +135,10 @@
             dropPlot()
             return
         };
+        if(seletorProduto.value==""){
+            document.querySelector("#bodyMaxMin").classList.add("d-none")
+
+        }
         
         let lista = dados.filter(dia => dia.supermercados[mercado] != undefined)
             .map(dia => {
@@ -158,7 +156,7 @@
         Array.from(nome_produtos)
          .sort() // ordem alfabetica
          .forEach(produto => {
-            console.log("DIA: ", dia)
+            // console.log("DIA: ", dia)
             let infos = lista
                 .flatMap(dia => dia.produtos)
                 .filter(produtoAux => produtoAux.produto == produto)
@@ -177,7 +175,7 @@
         titulo.textContent = conversorMercado(mercado).tela
         seletorProduto.selectedIndex = 0
         carregarSeletorProduto()
-        console.log(valorCestaBasica(mercado))
+        // console.log(valorCestaBasica(mercado))
     }
 
     function criarGraficoProduto(produto) {
@@ -317,5 +315,14 @@
             // plot_bgcolor:"transparent",
             // paper_bgcolor:"rgba(255, 255, 255, 0.6)"
         }
+
+    function carregarImagemMercado(mercado){
+        if(mercado == "") {
+            $("#imgMercado").attr("src", "/imagens/prod/emBranco.png")
+            document.querySelector("#bodyMaxMin").classList.add("d-none")
+            return
+        }
+        $("#imgMercado").attr("src", "/imagens/supermarket/"+mercado+".png")
+    }
 </script>
 <script type="text/javascript" src = "script.js"></script>
