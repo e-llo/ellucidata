@@ -32,6 +32,7 @@ for dia in dados:
         {"_id": dia["_id"]}, # query
         {"$set": {"supermercados": supermercados}} # novos valores
     )
+    print("update concluido dia", dia['data'].day,"do", dia["data"].month)
 
 
 print("Update bem sucedido.")

@@ -117,28 +117,29 @@
 
     function boxSupermercado(nome_supermercado){
         let lista = criaListaMediaProduto().filter(prod => Array.from(dados[dados.length-1].supermercados[nome_supermercado].map(pd => pd.produto)).includes(prod.produto))
-        console.log(lista)
 
         lista = lista.map(item_produto => {
             let prod = dados[dados.length-1].supermercados[nome_supermercado].filter(prod=>prod.produto == item_produto.produto)[0]
             let maior = (maior, num) => maior = num > maior ? num : maior
             let menor = (menor, num) => menor = num < menor ? num : menor
 
+            
+
             // classificar pelos tipos
-            if(prod.preco == item_produto.precos.reduce(maior, 0))
+            if(prod.preco == item_produto.precos.reduce(maior))
                 prod.tipo = 1 // Mais caro da lista
-            else if(prod.preco > item_produto.media)
-                prod.tipo = 2
+            else if(prod.preco == item_produto.precos.reduce(menor))
+                prod.tipo = 5 // O mais barato da lista
             else if(prod.preco == item_produto.media)
                 prod.tipo = 3
-            else if(prod.preco == item_produto.precos.reduce(menor, 0))
-                prod.tipo = 5 // O mais barato da lista
+            else if(prod.preco > item_produto.media)
+                prod.tipo = 2
             else
                 prod.tipo = 4 // Preco abaixo da media
 
             return prod
         }).sort((itA, itB) => itA.tipo - itB.tipo)
-        console.log(lista)
+        
 
         let listaHtml = lista.reduce((html, produto) => {
             let icone;

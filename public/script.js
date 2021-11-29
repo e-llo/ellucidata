@@ -1,6 +1,3 @@
-const { get } = require("mongoose");
-
-
 function getMax(supermercado, produto){
 
     let lista = dados.flatMap(dia => 
