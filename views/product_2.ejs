@@ -260,8 +260,8 @@
         divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col" style="color: white">${semana.semana+1}</th>`, "<tr><th scope='col' style='color: white'>Mercado/Semana</th>").concat("</tr>")
         let htmlBody = ""
         for(mercado of nomes_mercado){
-            htmlBody += `<tr><th scope="row" style="color: white">${conversorMercado(mercado).tela}</th>`
-            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
+            htmlBody += `<tr><th scope="row" style="color: white;">${conversorMercado(mercado).tela}</th>`
+            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td  ${
                 semana[mercado] == undefined ? "-": semana[mercado] < 0 ? ` style="color: limegreen">${semana[mercado]}%` :  semana[mercado] > 0 ? ` style="color: red">${semana[mercado]}%` : ` style="color: white">${semana[mercado]}%`
             }</td>`, "").concat("</tr>")
         }
