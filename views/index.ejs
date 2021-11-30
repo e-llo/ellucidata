@@ -286,12 +286,20 @@
                 "<option value='' selected>Selecione...</option>")
     }
 
+    function calculaCestaBasica(){
+        let ultimoDia = dados[dados.length-1]
 
+        let listaPrecos = Object.keys(ultimoDia.supermercados).map(mercado => ultimoDia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+
+        let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
+    
+        return cestaBasica
+    }
 
 var data2 = [
   {
     x: calculaCestaBasica().map(objMercado => objMercado.mercado),
-    y: calculaCestaBasica().map(objMercado => objMercado.preco),
+    y: calculaCestaBasica().map(objMercado => objMercado.soma),
     type: 'bar',
     marker: {
     color: '#327590'
@@ -319,8 +327,5 @@ var layoutBarras = {
 };
 
 Plotly.newPlot('barplot', data2,layoutBarras);
-
-
-
 
 </script>
