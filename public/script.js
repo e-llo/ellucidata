@@ -103,20 +103,24 @@ function getValorAtual(supermercado, produto){
 
 function criaListaMediaMercado() {
     // Calculo para ordenar os supermercados do mais barato ao mais caro
+    let listaProdutos = criaListaMediaProduto()
     let rank = Object.keys(dados[dados.length - 1].supermercados)
     .map(nome_mercado => {
         return {
             supermercado: nome_mercado,
-            precos: dados[dados.length-1].supermercados[nome_mercado].map(produto => produto.preco)
+            variacoes: dados[dados.length-1].supermercados[nome_mercado].map(
+                produto => produto.preco / listaProdutos.filter(prodLista => prodLista.produto == produto.produto)[0].media
+            )
+            .map(variacao => Math.round(variacao * 100) - 100)
         }
     })
     .map(supermercado => {
         return {
             ...supermercado,
-            media: supermercado.precos.reduce((acc, num) => acc += num, 0) / supermercado.precos.length
+            variacaoMedia: supermercado.variacoes.reduce((acc, num) => acc += num, 0) / supermercado.variacoes.length
         }
     })
-    .sort((mercadoa,mercadob) => mercadoa.media - mercadob.media)
+    .sort((mercadoa,mercadob) => mercadoa.variacaoMedia - mercadob.variacaoMedia)
 
     return rank
 }
