@@ -56,8 +56,8 @@
                         </label>
                         <div class="col-sm-5 d-inline-block">
                             <select class="form-control form-control-sm" name="filtroMercado" id="filtroRankMercado">
-                                <option value="caro">Mais barato</option>
-                                <option value="caro">Mais caro</option>
+                                <option value="0">Mais barato</option>
+                                <option value="1">Mais caro</option>
                             </select>
                         </div>
                     </div>
@@ -92,6 +92,7 @@
     var dados = <%- JSON.stringify(dados) %>;
     let elementoAtivo = document.getElementById("index").classList.add("active")
     const seletorProduto = document.querySelector("select#products")
+    const seletorRank = document.querySelector("#filtroRankMercado")
     const tbodyRank = document.querySelector("#tbodyRank")
     const divBoxSupermercado = document.getElementById("divBoxSupermercado")
     const boxplot = document.getElementById("boxplot")
@@ -104,13 +105,16 @@
 
     document.querySelectorAll("tbody > tr").forEach(linha => linha.style.cursor = "pointer")
 
-    function carregarTableRank(){ // Rank baseado nos ultimos dados inseridos
+    function carregarTableRank(maisCaro = 0){ // Rank baseado nos ultimos dados inseridos
         // Calculo para ordenar os supermercados do mais barato ao mais caro
         let rank = criaListaMediaMercado()
+        if(maisCaro == 1) rank.reverse()
         // Uma vez ordenado, transformar cada supermercado em uma tr html
         tbodyRank.innerHTML = rank.reduce((html, supermercado, index) => html += `<tr onclick="boxSupermercado('${supermercado.supermercado}')" style="cursor: pointer;"><td>${index+1}</td><td>${conversorMercado(supermercado.supermercado).tela}</td></tr>`, "")
 
     }
+
+    seletorRank.addEventListener("change", () => carregarTableRank(seletorRank.value))
 
     function boxSupermercado(nome_supermercado){
         let lista = criaListaMediaProduto().filter(prod => Array.from(dados[dados.length-1].supermercados[nome_supermercado].map(pd => pd.produto)).includes(prod.produto))
