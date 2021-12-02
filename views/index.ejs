@@ -297,10 +297,78 @@
         return cestaBasica
     }
 
+    function calculaCestaBasicaComFiltro(){
+        // Passo 1: checa se há algum mercado com os 15 itens
+        // Passo 2: se não há, checa no dia anterior. se não há, repete o processo (voltando os dias)
+
+        let haMercadoComOsItens = false
+        let auxDia = 1 // Começa no dia atual: dados.length - auxDia === dados.length - 1
+        let dia
+        let indexMercado
+        let arrayIndexesMercado
+
+        while(!haMercadoComOsItens){
+            dia = dados[dados.length-auxDia]
+
+            indexMercado = 0
+            arrayIndexesMercado = []
+            for (var indexTamanho in getNumItens(dia)){ // Checa se há algum mercado com todos os 15 itens
+                // Passo 1: 
+                if(getNumItens(dia)[indexTamanho] == 15){ // Se nesse dia houver qualquer mercado com 15 itens, usa os dados desse dia
+                    haMercadoComOsItens = true
+
+                    arrayIndexesMercado.push(indexMercado)
+                } else{ // Passo 2: Se não houver, volta um dia (somando)
+                    auxDia++;
+                }
+                indexMercado++
+            }
+        }
+
+        let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+
+        let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
+
+        // Retira os mercados sem 15 itens
+        return deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado)
+        
+    }
+
+    function getNumItens(dia){
+        let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+        let numItens = []
+
+        for (var i in listaPrecos){
+            numItens.push(listaPrecos[i].length)
+        }
+
+        return numItens
+    }
+
+    function deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado){
+        let aux = 0
+        console.log(cestaBasica)
+
+        let arrayAux = [...Array(cestaBasica.length).keys()] // Equivalente a range(0, cestaBasica.length + 1)
+        
+        for(var indexMercado in arrayAux){
+            if(indexMercado != arrayIndexesMercado[aux]){
+                // console.log("CESTA BASICA ATUALIZADA")
+                // console.log(cestaBasica)
+                delete cestaBasica[indexMercado]
+            } else{
+                aux++
+            }
+            
+        }
+
+        return cestaBasica
+    }
+
 var data2 = [
   {
-    x: calculaCestaBasica().map(objMercado => conversorMercado(objMercado.mercado).tela),
-    y: calculaCestaBasica().map(objMercado => objMercado.soma),
+    x: calculaCestaBasicaComFiltro().map(objMercado => conversorMercado(objMercado.mercado).tela),
+    y: calculaCestaBasicaComFiltro().map(objMercado => objMercado.soma),
     type: 'bar',
     marker: {
     color: '#00aadd'
