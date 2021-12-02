@@ -232,7 +232,7 @@
 
         let data = []
         
-        let colors = ['#327590','#444245', '#0c3e59', '#6b99a8', '#295c6f','#050a0e','#16333b','#738d8c','#7c8083']
+        let colors = ['#327590','#444245', '#8d173e', '#6b99a8', '#295c6f','#050a0e','#16333b','#738d8c','#7c8083']
         let cont = 0
         meses.forEach(mes => {
             let trace = {
@@ -299,11 +299,11 @@
 
 var data2 = [
   {
-    x: calculaCestaBasica().map(objMercado => objMercado.mercado),
+    x: calculaCestaBasica().map(objMercado => conversorMercado(objMercado.mercado).tela),
     y: calculaCestaBasica().map(objMercado => objMercado.soma),
     type: 'bar',
     marker: {
-    color: '#327590'
+    color: '#00aadd'
   }
   }
 ];
