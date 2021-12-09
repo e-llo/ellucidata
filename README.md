@@ -1,16 +1,18 @@
 # ellucidata
 
-This project contains an efficient webscraping tool (Selenium) and data visualization dashboard (_comming soon_). 
+This project contains an efficient webscraping tool (Selenium) and data visualization dashboards. 
 
 
 ## 📖How does it work?
 We developed an algorithm capable of scraping a website's interface, collecting data of a list of products in many supermarkets and send to a cloud MongoDB.
-Also, a dashboard will be developed (using HMTL, CSS and Javascript) to allow future analysis on products' price changes over time.
+Also, some dashboards were developed (using HMTL, CSS and Javascript) to allow analysis on products' price changes over time.
 
 ## 🧰Languages and Tools
 - Python
 - MongoDB
 - Selenium
+- JavaScript
+- NodeJS
 
 ## ⁉️Why?
 Our goal is to collect data from online supermarkets' products in order to analyse price changes during some period of time.
@@ -19,8 +21,12 @@ Our goal is to collect data from online supermarkets' products in order to analy
 ## How can I run this locally?
 
  ### 💻 Prerequisites
+ #### Scraper
 * [Python3](https://www.python.org/downloads/)
 * [Chrome Driver](https://chromedriver.chromium.org/downloads) (_make sure that the driver's version matches Google Chrome's version in your computer_)
+#### Data Visualization
+* [NodeJS](https://nodejs.org/en/download/)
+* [NPM](https://www.npmjs.com/package/download)
 
 ### ☁️ Clone this repository
 ```bash
@@ -29,15 +35,27 @@ https://github.com/e-llo/ellucidata.git
 
 ### 🌿 Install Dependencies
 On the command line (Windows OS):
+#### Scraper
 ```bash
 python -m pip install -r requirements.txt
+```
+#### Visualization
+```bash
+npm install
+npm run env
 ```
 
 ### 🏃‍♀️ Run 
 On the command line:
+#### Scraper
 ```bash
 python insert_data.py
 ```
+#### Visualization
+```bash
+npm start
+```
+After the application is running, access http://localhost:1337/ from your browser
 
 ---
 

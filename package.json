@@ -4,7 +4,8 @@
   "description": "Web Scraping and Data Visualization Project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "env": "node ./public/create_env.js"
   },
   "repository": {
     "type": "git",
