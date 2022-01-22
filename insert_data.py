@@ -29,7 +29,6 @@ lista_produtos = [
 
 # Nome da chave no banco, Url no site
 mercados = [
-	["extra_hiper","extra-hiper-interlagos"],
 	["big","hipermercado-big-indianopolis"],
 	["pao_de_acucar","pao-de-acucar-real-parque"],
 	["mercado_extra","mercado-extra-americo-brasiliense"],

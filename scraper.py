@@ -12,9 +12,10 @@ def extraiProduto(texto_produto):
 		lista_infos = texto_produto.split("\n")
 		lista_infos = filter(lambda txt: re.search(r"^(?!.* OFF)", txt, flags=re.IGNORECASE),lista_infos)
 		lista_infos = list(filter(lambda txt: re.search(r"(R\$[\s\S]*cada)|^[^R\$]", txt, flags=re.IGNORECASE),lista_infos))
-		preco = float(lista_infos[0].replace("R$ ", "").replace(",", ".").replace("cada", ""))
-		fabricante = lista_infos[1]
-		descricao = lista_infos[2]
+
+		fabricante = lista_infos[0]
+		descricao = lista_infos[1]
+		preco = float(lista_infos[2].replace("R$ ", "").replace(",", ".").replace("cada", ""))
 	except:
 		return
 	return [descricao, fabricante, preco]
@@ -35,12 +36,12 @@ def scraping(list_mercado, list_produtos):
 		try:
 			# Regex para capturar a lista de produtos através da classe dinamica "styles__Container"
 			classe = driver.execute_script(
-				"return document.body.innerHTML.toString().match(/class=\"styles__Container-sc-[\w-]+\s/gi)"
+				"return document.body.innerHTML.toString().match(/class=\"[\S]+ styles__Container-sc-[\w-]+/gi)"
 			)[6] #sexta classe da lista (muito provavel ser a classe dos produtos))
 
-			classe = classe.replace('class="', ".")
+			classe = re.sub('class=\"[\S]+\s?', ".", classe)
 			div_produto = WebDriverWait(driver, 20).until(
-			EC.presence_of_element_located((By.CSS_SELECTOR, classe))
+				EC.presence_of_element_located((By.CSS_SELECTOR, classe))
 			)
 		except:
 			continue
