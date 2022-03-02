@@ -1,400 +1,426 @@
 <!--Container Main start-->
-<div >
-    <div class="container p-5 mt-5 glass" >
-        <h2> Dashboard Principal</h2>
-        <div class="row">
+<div>
+  <div class="container p-5 mt-5 glass">
+    <h2>Dashboard Principal</h2>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row mb-3">
+          <div
+            class="card border-0 p-3 cb1 glass text-center rounded ml-4"
+            id="variacaoMensal"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col mt-0">
+                  <h5 class="card-title">Boxplot</h5>
+                </div>
+              </div>
+              <form class="form-group row mt-1 mb-3" action="#">
+                <label
+                  for="products"
+                  class="col-sm-3 col-form-label col-form-label-sm"
+                  >Produto</label
+                >
+                <div class="col-sm-9">
+                  <select
+                    class="form-control form-control-sm"
+                    name="products"
+                    id="products"
+                    onchange="criarBoxPlot(value)"
+                  >
+                    <option value="" selected>Selecione...</option>
+                  </select>
+                </div>
+              </form>
 
-            <div class="col-md-8">
-                <div class="row mb-3">
-                    <div class="card border-0 p-3 cb1 glass text-center rounded ml-4" id="variacaoMensal">
-                        <div class="card-body " >
-                            <div class="row">
-                                <div class="col mt-0">
-                                    <h5 class="card-title">Boxplot</h5>
-                                </div>
-                            </div>
-                            <form class ="form-group row  mt-1 mb-3" action="#">
-                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm">Produto</label>
-                                <div class="col-sm-9">
-                                    <select class=" form-control form-control-sm" name="products" id="products"
-                                        onchange="criarBoxPlot(value)">
-                                        <option value="" selected>Selecione...</option>
-                                    </select>
-                                </div>
-                            </form>
-                            
-                            <div class=" chart-card d-none" id="boxplot">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8"> 
-                        <div class="card border-0 p-3  cb1 glass text-center rounded " id="divbarras">
-                            <div class="card-body " >
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Preço da cesta básica nos supermercados</h5>
-                                    </div>
-                                </div>
-                                <div class=" chart-card" id="barplot">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
+              <div class="chart-card d-none" id="boxplot"></div>
             </div>
-            <div class="col-md-4">
-                <div class="card border-0 p-3 mb-5 cb1 glass text-center rounded ml-4" id="barras">
-                    <div class="col text-center">
-                        <h5>Rank dos supermercados</h5>
-                    </div>
-                    <div class="form-group text-center mb-3">
-                        <label for="filtroRankMercados" class="col-sm-3 col-form-label col-form-label-sm " style="color: #ebebeb">
-                            Filtrar por
-                        </label>
-                        <div class="col-sm-5 d-inline-block">
-                            <select class="form-control form-control-sm" name="filtroMercado" id="filtroRankMercado">
-                                <option value="0">Mais barato</option>
-                                <option value="1">Mais caro</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <h4 class="my-2" style="color: #ebebeb; font-size: 14px;">*Clique na linha do supermercado para verificar o preço dos produtos em relação aos demais mercados</h4>
-
-                    <div class="mb-2" style="height: 200px; overflow-x: auto;">
-                        <table class="table table-sm">
-                            <thead class="text-white">
-                                <tr>
-                                    <th>Posição</th>
-                                    <th>Supermercado</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbodyRank" class="text-white">
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="divBoxSupermercado" class=" text-center glass2 mt-2 p-2 d-none position-relative" >
-                    </div>
-
-
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div
+              class="card border-0 p-3 cb1 glass text-center rounded"
+              id="divbarras"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col mt-0">
+                    <h5 class="card-title">
+                      Preço da cesta básica nos supermercados
+                    </h5>
+                  </div>
+                </div>
+                <div class="chart-card" id="barplot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card border-0 p-3 mb-5 cb1 glass text-center rounded ml-4"
+          id="barras"
+        >
+          <div class="col text-center">
+            <h5>Rank dos supermercados</h5>
+          </div>
+          <div class="form-group text-center mb-3">
+            <label
+              for="filtroRankMercados"
+              class="col-sm-3 col-form-label col-form-label-sm"
+              style="color: #ebebeb"
+            >
+              Filtrar por
+            </label>
+            <div class="col-sm-5 d-inline-block">
+              <select
+                class="form-control form-control-sm"
+                name="filtroMercado"
+                id="filtroRankMercado"
+              >
+                <option value="0">Mais barato</option>
+                <option value="1">Mais caro</option>
+              </select>
+            </div>
+          </div>
+
+          <h4 class="my-2" style="color: #ebebeb; font-size: 14px">
+            *Clique na linha do supermercado para verificar o preço dos produtos
+            em relação aos demais mercados
+          </h4>
+
+          <div class="mb-2" style="height: 200px; overflow-x: auto">
+            <table class="table table-sm">
+              <thead class="text-white">
+                <tr>
+                  <th>Posição</th>
+                  <th>Supermercado</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyRank" class="text-white"></tbody>
+            </table>
+          </div>
+
+          <div
+            id="divBoxSupermercado"
+            class="text-center glass2 mt-2 p-2 d-none position-relative"
+          ></div>
+        </div>
+      </div>
     </div>
-        
+  </div>
 </div>
-<script type="text/javascript" src = "conversor_nomes_mercados_e_produtos.js"></script>
+<script
+  type="text/javascript"
+  src="conversor_nomes_mercados_e_produtos.js"
+></script>
 <script type="text/javascript">
-    var dados = <%- JSON.stringify(dados) %>;
-    let elementoAtivo = document.getElementById("index").classList.add("active")
-    const seletorProduto = document.querySelector("select#products")
-    const seletorRank = document.querySelector("#filtroRankMercado")
-    const tbodyRank = document.querySelector("#tbodyRank")
-    const divBoxSupermercado = document.getElementById("divBoxSupermercado")
-    const boxplot = document.getElementById("boxplot")
-    const barplot = document.getElementById("barplot")
+      var dados = <%- JSON.stringify(data) %>;
+      let elementoAtivo = document.getElementById("index").classList.add("active")
+      const seletorProduto = document.querySelector("select#products")
+      const seletorRank = document.querySelector("#filtroRankMercado")
+      const tbodyRank = document.querySelector("#tbodyRank")
+      const divBoxSupermercado = document.getElementById("divBoxSupermercado")
+      const boxplot = document.getElementById("boxplot")
+      const barplot = document.getElementById("barplot")
 
-    $(function() { // document.ready()
-        carregarSeletorProduto()
-        carregarTableRank()
-    })
+      $(function() { // document.ready()
+          carregarSeletorProduto()
+          carregarTableRank()
+      })
 
-    document.querySelectorAll("tbody > tr").forEach(linha => linha.style.cursor = "pointer")
+      document.querySelectorAll("tbody > tr").forEach(linha => linha.style.cursor = "pointer")
 
-    function carregarTableRank(maisCaro = 0){ // Rank baseado nos ultimos dados inseridos
-        // Calculo para ordenar os supermercados do mais barato ao mais caro
-        let rank = criaListaMediaMercado()
-        if(maisCaro == 1) rank.reverse()
-        // Uma vez ordenado, transformar cada supermercado em uma tr html
-        tbodyRank.innerHTML = rank.reduce((html, supermercado, index) => html += `<tr onclick="boxSupermercado('${supermercado.supermercado}')" style="cursor: pointer;"><td>${index+1}</td><td>${conversorMercado(supermercado.supermercado).tela}</td></tr>`, "")
+      function carregarTableRank(maisCaro = 0){ // Rank baseado nos ultimos dados inseridos
+          // Calculo para ordenar os supermercados do mais barato ao mais caro
+          let rank = criaListaMediaMercado()
+          if(maisCaro == 1) rank.reverse()
+          // Uma vez ordenado, transformar cada supermercado em uma tr html
+          tbodyRank.innerHTML = rank.reduce((html, supermercado, index) => html += `<tr onclick="boxSupermercado('${supermercado.supermercado}')" style="cursor: pointer;"><td>${index+1}</td><td>${conversorMercado(supermercado.supermercado).tela}</td></tr>`, "")
 
+      }
+
+      seletorRank.addEventListener("change", () => carregarTableRank(seletorRank.value))
+
+      function boxSupermercado(nome_supermercado){
+          let lista = criaListaMediaProduto().filter(prod => Array.from(dados[dados.length-1].supermercados[nome_supermercado].map(pd => pd.produto)).includes(prod.produto))
+
+          lista = lista.map(item_produto => {
+              let prod = dados[dados.length-1].supermercados[nome_supermercado].filter(prod=>prod.produto == item_produto.produto)[0]
+              let maior = (maior, num) => maior = num > maior ? num : maior
+              let menor = (menor, num) => menor = num < menor ? num : menor
+
+
+
+              // classificar pelos tipos
+              if(prod.preco == item_produto.precos.reduce(maior))
+                  prod.tipo = 1 // Mais caro da lista
+              else if(prod.preco == item_produto.precos.reduce(menor))
+                  prod.tipo = 5 // O mais barato da lista
+              else if(prod.preco == item_produto.media)
+                  prod.tipo = 3
+              else if(prod.preco > item_produto.media)
+                  prod.tipo = 2
+              else
+                  prod.tipo = 4 // Preco abaixo da media
+
+              return prod
+          }).sort((itA, itB) => itA.tipo - itB.tipo)
+
+
+          let listaHtml = lista.reduce((html, produto) => {
+              let icone;
+              switch(produto.tipo) {
+                  case 1: icone = "fa-arrow-circle-up text-danger"; break;
+                  case 2: icone = "fa-arrow-up text-danger"; break;
+                  case 3: icone = "fa-equals"; break;
+                  case 4: icone = "fa-arrow-down text-success"; break;
+                  case 5: icone = "fa-arrow-circle-down text-success";
+              }
+              return html += `
+                  <div class="row ">
+                      <div class="">
+                          <div class=" rounded-0">
+                              <span><i class="fas ${icone}"></i></span>
+                              ${conversorProduto(produto.produto).tela}
+                          </div>
+                      </div>
+
+                  </div>
+                      `
+          }, "")
+
+          $(divBoxSupermercado).html(`
+              <h5 class="mt-1">Preços no ${conversorMercado(nome_supermercado).tela}</h5>
+              <button type="button" class="btn-close btn-close-white position-absolute " aria-label="Close" style="right:10px; top:10px;" onclick="$(divBoxSupermercado).hide()"></button>
+              <hr/>
+              <div class="mb-2">
+                  ${listaHtml}
+              </div>
+              <div class="bg-dark p-2">
+                  <!-- <h5 class="text-white">Legenda</h5> -->
+                  <div class="pill bg-dark d-inline-flex flex-wrap justify-content-between">
+                      <span><i class="fas fa-arrow-circle-up"></i> Maior preço</span>
+                      <span><i class="fas fa-arrow-up"></i> Acima da média</span>
+                      <span><i class="fas fa-equals"></i> Média</span>
+                      <span><i class="fas fa-arrow-down"></i> Abaixo da média</span>
+                      <span><i class="fas fa-arrow-circle-down"></i> Menor preço</span>
+                  </div>
+              </div>
+
+          `)
+          divBoxSupermercado.classList.remove("d-none")
+          $(divBoxSupermercado).show()
+      }
+
+      function criarBoxPlot(produto){
+
+          if(produto == ""){
+              Plotly.purge("boxplot")
+              boxplot.classList.add("d-none")
+              return
+          };
+
+          // dados separados por mês
+          let meses = []
+          let mes_atual = dados[0].data.slice(5,7)
+
+          dados.forEach(dia => {
+              if(meses.length == 0){
+                  meses.push([dia])
+                  return
+              }
+
+              let mes = dia.data.slice(5,7)
+              if(mes == mes_atual) {
+                  meses[meses.length - 1].push(dia)
+              } else {
+                  meses.push([dia])
+                  mes_atual = mes
+              }
+
+          })
+
+          // formatar cada array de mes em um objeto com nome e precos
+          meses = meses.map(dias => {
+              return {
+                  nome: new Date(dias[0].data).toLocaleDateString("pt-br",{month: "long"}),
+                  precos: dias.flatMap(dia => dia.itens[produto].map(produto => produto.preco))
+              }
+          })
+
+          /* meses - ESTRUTURA
+              [
+                  {nome: "outubro", precos: [25.9, 26.7, 39.4,...]}
+                  {nome: "novembro", precos: [25.9, 26.7, 39.4,...]}
+              ]
+          */
+
+          let data = []
+
+          let colors = ['#327590','#444245', '#8d173e', '#6b99a8', '#295c6f','#050a0e','#16333b','#738d8c','#7c8083']
+          let cont = 0
+          meses.forEach(mes => {
+              let trace = {
+                  x: mes.precos,
+                  name: mes.nome,
+                  type: "box",
+                  marker: {color: colors[cont]}
+              }
+              if(cont==colors.length){
+                  cont = 0
+              }else{
+                 cont++
+
+              }
+              data.push(trace)
+          })
+          var layout = {
+              showlegend: true,
+              title: {
+                  text: "Variação Mensal dos Preços",
+                  font: {
+                      family: "Montserrat",
+                      size: 22
+                  },
+              },
+              xaxis: {
+                  title: {
+                      text: "Preço em reais",
+                      font: {
+                          family: "Montserrat",
+                          size: 16
+                      }
+                  }
+              }
+          };
+
+          boxplot.classList.remove("d-none")
+          Plotly.newPlot('boxplot', data, layout);
+
+      }
+
+      function carregarSeletorProduto() {
+          let produtos = dados
+              .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de produtos
+          produtos = [...new Set(produtos)] //sem repeticao
+              .sort() //ordem alfabetica
+
+          // Criar as opcoes referentes aos mercados
+          seletorProduto.innerHTML =
+              produtos.reduce((html, produto) => html += `<option value=${produto}>
+                  ${conversorProduto(produto).tela}</option>`,
+                  "<option value='' selected>Selecione...</option>")
+      }
+
+      function calculaCestaBasica(){
+          let ultimoDia = dados[dados.length-1]
+
+          let listaPrecos = Object.keys(ultimoDia.supermercados).map(mercado => ultimoDia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+
+          let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
+
+          return cestaBasica
+      }
+
+      function calculaCestaBasicaComFiltro(){
+          // Passo 1: checa se há algum mercado com os 15 itens
+          // Passo 2: se não há, checa no dia anterior. se não há, repete o processo (voltando os dias)
+
+          let haMercadoComOsItens = false
+          let auxDia = 1 // Começa no dia atual: dados.length - auxDia === dados.length - 1
+          let dia
+          let indexMercado
+          let arrayIndexesMercado
+
+          while(!haMercadoComOsItens){
+              dia = dados[dados.length-auxDia]
+
+              indexMercado = 0
+              arrayIndexesMercado = []
+              for (var indexTamanho in getNumItens(dia)){ // Checa se há algum mercado com todos os 15 itens
+                  // Passo 1:
+                  if(getNumItens(dia)[indexTamanho] == 15){ // Se nesse dia houver qualquer mercado com 15 itens, usa os dados desse dia
+                      haMercadoComOsItens = true
+
+                      arrayIndexesMercado.push(indexMercado)
+                  } else{ // Passo 2: Se não houver, volta um dia (somando)
+                      auxDia++;
+                  }
+                  indexMercado++
+              }
+          }
+
+          let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+
+          let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
+
+          // Retira os mercados sem 15 itens
+          return deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado)
+
+      }
+
+      function getNumItens(dia){
+          let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
+          let numItens = []
+
+          for (var i in listaPrecos){
+              numItens.push(listaPrecos[i].length)
+          }
+
+          return numItens
+      }
+
+      function deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado){
+          let aux = 0
+          console.log(cestaBasica)
+
+          let arrayAux = [...Array(cestaBasica.length).keys()] // Equivalente a range(0, cestaBasica.length + 1)
+
+          for(var indexMercado in arrayAux){
+              if(indexMercado != arrayIndexesMercado[aux]){
+                  // console.log("CESTA BASICA ATUALIZADA")
+                  // console.log(cestaBasica)
+                  delete cestaBasica[indexMercado]
+              } else{
+                  aux++
+              }
+
+          }
+
+          return cestaBasica
+      }
+
+  var data2 = [
+    {
+      x: calculaCestaBasicaComFiltro().map(objMercado => conversorMercado(objMercado.mercado).tela),
+      y: calculaCestaBasicaComFiltro().map(objMercado => objMercado.soma),
+      type: 'bar',
+      marker: {
+      color: '#00aadd'
     }
-
-    seletorRank.addEventListener("change", () => carregarTableRank(seletorRank.value))
-
-    function boxSupermercado(nome_supermercado){
-        let lista = criaListaMediaProduto().filter(prod => Array.from(dados[dados.length-1].supermercados[nome_supermercado].map(pd => pd.produto)).includes(prod.produto))
-
-        lista = lista.map(item_produto => {
-            let prod = dados[dados.length-1].supermercados[nome_supermercado].filter(prod=>prod.produto == item_produto.produto)[0]
-            let maior = (maior, num) => maior = num > maior ? num : maior
-            let menor = (menor, num) => menor = num < menor ? num : menor
-
-            
-
-            // classificar pelos tipos
-            if(prod.preco == item_produto.precos.reduce(maior))
-                prod.tipo = 1 // Mais caro da lista
-            else if(prod.preco == item_produto.precos.reduce(menor))
-                prod.tipo = 5 // O mais barato da lista
-            else if(prod.preco == item_produto.media)
-                prod.tipo = 3
-            else if(prod.preco > item_produto.media)
-                prod.tipo = 2
-            else
-                prod.tipo = 4 // Preco abaixo da media
-
-            return prod
-        }).sort((itA, itB) => itA.tipo - itB.tipo)
-        
-
-        let listaHtml = lista.reduce((html, produto) => {
-            let icone;
-            switch(produto.tipo) {
-                case 1: icone = "fa-arrow-circle-up text-danger"; break;
-                case 2: icone = "fa-arrow-up text-danger"; break;
-                case 3: icone = "fa-equals"; break;
-                case 4: icone = "fa-arrow-down text-success"; break;
-                case 5: icone = "fa-arrow-circle-down text-success";
-            }
-            return html += `
-                <div class="row ">
-                    <div class="">
-                        <div class=" rounded-0">
-                            <span><i class="fas ${icone}"></i></span>
-                            ${conversorProduto(produto.produto).tela}
-                        </div>
-                    </div>
-                    
-                </div>
-                    `
-        }, "")
-
-        $(divBoxSupermercado).html(`
-            <h5 class="mt-1">Preços no ${conversorMercado(nome_supermercado).tela}</h5>
-            <button type="button" class="btn-close btn-close-white position-absolute " aria-label="Close" style="right:10px; top:10px;" onclick="$(divBoxSupermercado).hide()"></button>
-            <hr/>
-            <div class="mb-2">
-                ${listaHtml}
-            </div>
-            <div class="bg-dark p-2">
-                <!-- <h5 class="text-white">Legenda</h5> -->
-                <div class="pill bg-dark d-inline-flex flex-wrap justify-content-between">
-                    <span><i class="fas fa-arrow-circle-up"></i> Maior preço</span>
-                    <span><i class="fas fa-arrow-up"></i> Acima da média</span>
-                    <span><i class="fas fa-equals"></i> Média</span>
-                    <span><i class="fas fa-arrow-down"></i> Abaixo da média</span>
-                    <span><i class="fas fa-arrow-circle-down"></i> Menor preço</span>
-                </div>
-            </div>
-
-        `)
-        divBoxSupermercado.classList.remove("d-none")
-        $(divBoxSupermercado).show()
     }
+  ];
+  var layoutBarras = {
+    autosize: true,
+    margin: {
+      l: 50,
+      r: 50,
+      t: 70,
+      pad: 3
+    },
+    yaxis: {
+      title: {
+          text: "Preço em reais",
+          font: {
+              family: "Montserrat",
+              size: 16
+          }
+      }
+    },
 
-    function criarBoxPlot(produto){
+  };
 
-        if(produto == ""){
-            Plotly.purge("boxplot")
-            boxplot.classList.add("d-none")
-            return
-        };
-
-        // dados separados por mês
-        let meses = []
-        let mes_atual = dados[0].data.slice(5,7)
-
-        dados.forEach(dia => {
-            if(meses.length == 0){ 
-                meses.push([dia])
-                return
-            }
-
-            let mes = dia.data.slice(5,7)
-            if(mes == mes_atual) {
-                meses[meses.length - 1].push(dia)
-            } else {
-                meses.push([dia])
-                mes_atual = mes
-            }
-
-        })
-        
-        // formatar cada array de mes em um objeto com nome e precos
-        meses = meses.map(dias => {
-            return {
-                nome: new Date(dias[0].data).toLocaleDateString("pt-br",{month: "long"}),
-                precos: dias.flatMap(dia => dia.itens[produto].map(produto => produto.preco))
-            }
-        })
-
-        /* meses - ESTRUTURA
-            [
-                {nome: "outubro", precos: [25.9, 26.7, 39.4,...]}
-                {nome: "novembro", precos: [25.9, 26.7, 39.4,...]}
-            ]
-        */
-
-        let data = []
-        
-        let colors = ['#327590','#444245', '#8d173e', '#6b99a8', '#295c6f','#050a0e','#16333b','#738d8c','#7c8083']
-        let cont = 0
-        meses.forEach(mes => {
-            let trace = {
-                x: mes.precos,
-                name: mes.nome,
-                type: "box", 
-                marker: {color: colors[cont]}
-            }
-            if(cont==colors.length){
-                cont = 0
-            }else{
-               cont++
-
-            }
-            data.push(trace)
-        })
-        var layout = {
-            showlegend: true,
-            title: {
-                text: "Variação Mensal dos Preços",
-                font: {
-                    family: "Montserrat",
-                    size: 22
-                },
-            },
-            xaxis: {
-                title: {
-                    text: "Preço em reais",
-                    font: {
-                        family: "Montserrat",
-                        size: 16
-                    }
-                }
-            }
-        };
-
-        boxplot.classList.remove("d-none")
-        Plotly.newPlot('boxplot', data, layout);
-
-    }
-
-    function carregarSeletorProduto() {
-        let produtos = dados
-            .flatMap(dia => Object.keys(dia.itens)) //lista de nomes de produtos
-        produtos = [...new Set(produtos)] //sem repeticao
-            .sort() //ordem alfabetica
-
-        // Criar as opcoes referentes aos mercados
-        seletorProduto.innerHTML = 
-            produtos.reduce((html, produto) => html += `<option value=${produto}>
-                ${conversorProduto(produto).tela}</option>`,
-                "<option value='' selected>Selecione...</option>")
-    }
-
-    function calculaCestaBasica(){
-        let ultimoDia = dados[dados.length-1]
-
-        let listaPrecos = Object.keys(ultimoDia.supermercados).map(mercado => ultimoDia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
-
-        let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
-    
-        return cestaBasica
-    }
-
-    function calculaCestaBasicaComFiltro(){
-        // Passo 1: checa se há algum mercado com os 15 itens
-        // Passo 2: se não há, checa no dia anterior. se não há, repete o processo (voltando os dias)
-
-        let haMercadoComOsItens = false
-        let auxDia = 1 // Começa no dia atual: dados.length - auxDia === dados.length - 1
-        let dia
-        let indexMercado
-        let arrayIndexesMercado
-
-        while(!haMercadoComOsItens){
-            dia = dados[dados.length-auxDia]
-
-            indexMercado = 0
-            arrayIndexesMercado = []
-            for (var indexTamanho in getNumItens(dia)){ // Checa se há algum mercado com todos os 15 itens
-                // Passo 1: 
-                if(getNumItens(dia)[indexTamanho] == 15){ // Se nesse dia houver qualquer mercado com 15 itens, usa os dados desse dia
-                    haMercadoComOsItens = true
-
-                    arrayIndexesMercado.push(indexMercado)
-                } else{ // Passo 2: Se não houver, volta um dia (somando)
-                    auxDia++;
-                }
-                indexMercado++
-            }
-        }
-
-        let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
-
-        let cestaBasica = listaPrecos.map(mercado => {return {mercado: mercado[0].mercado, soma: mercado.reduce((soma, precoProd) => soma + precoProd.preco, 0)}})
-
-        // Retira os mercados sem 15 itens
-        return deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado)
-        
-    }
-
-    function getNumItens(dia){
-        let listaPrecos = Object.keys(dia.supermercados).map(mercado => dia.supermercados[mercado].map(produto => {return {mercado, preco: produto.preco}}))
-        let numItens = []
-
-        for (var i in listaPrecos){
-            numItens.push(listaPrecos[i].length)
-        }
-
-        return numItens
-    }
-
-    function deletaMercadosInvalidos(cestaBasica, arrayIndexesMercado){
-        let aux = 0
-        console.log(cestaBasica)
-
-        let arrayAux = [...Array(cestaBasica.length).keys()] // Equivalente a range(0, cestaBasica.length + 1)
-        
-        for(var indexMercado in arrayAux){
-            if(indexMercado != arrayIndexesMercado[aux]){
-                // console.log("CESTA BASICA ATUALIZADA")
-                // console.log(cestaBasica)
-                delete cestaBasica[indexMercado]
-            } else{
-                aux++
-            }
-            
-        }
-
-        return cestaBasica
-    }
-
-var data2 = [
-  {
-    x: calculaCestaBasicaComFiltro().map(objMercado => conversorMercado(objMercado.mercado).tela),
-    y: calculaCestaBasicaComFiltro().map(objMercado => objMercado.soma),
-    type: 'bar',
-    marker: {
-    color: '#00aadd'
-  }
-  }
-];
-var layoutBarras = {
-  autosize: true,
-  margin: {
-    l: 50,
-    r: 50,
-    t: 70,
-    pad: 3
-  },
-  yaxis: {
-    title: {
-        text: "Preço em reais",
-        font: {
-            family: "Montserrat",
-            size: 16
-        }
-    }
-  },
- 
-};
-
-Plotly.newPlot('barplot', data2,layoutBarras);
-
+  Plotly.newPlot('barplot', data2,layoutBarras);
 </script>

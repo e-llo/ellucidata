@@ -1,73 +1,100 @@
 <!--Container Main start-->
 <div>
-    <div class="container p-5 mt-5 glass">
-        <h2 id="titulo" style="color: #ebebeb">Supermercados</h2> 
-        <div class="product-header mb-3 mt-3">
-            <div class="row">
-                <div class="col-8">
-                    <div class="row mb-4">
-                        <div class="col-6">
-                            <form class ="form-group row " action="#">
-                                <label for="supermarkets" class="col-sm-4 col-form-label col-form-label-sm" style="color: #ebebeb">Supermercado</label>
-                                <div class="col-sm-8">
-                                    <select class=" form-control form-control-sm" name="supermarkets" id="supermarkets"
-                                        onchange="criarGraficoMercado(value)">
-                                        <option value="" selected>Selecione...</option>
-                                    </select>
-                                </div>
-                               
-                            </form>
-                        </div>
-                        <div class="col-6">
-                            <form class ="form-group row " action="#">
-                                <label for="products" class="col-sm-3 col-form-label col-form-label-sm" style="color: #ebebeb">Produto</label>
-                                <div class="col-sm-9">
-                                    <select class=" form-control form-control-sm" name="products" id="products"
-                                        onchange="criarGraficoProduto(value)">
-                                        <option value="" selected>Selecione...</option>
-                                    </select>
-                                </div>
-                               
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row" >
-                        <div class="card medium-card border-0 mb-5 cb1 glass text-center rounded" style="backdrop-filter: none; box-shadow: none;">
-                            <div id="myDiv" style="height: 100%;">
-        
-                            </div>
-                        </div>
-                    </div>
+  <div class="container p-5 mt-5 glass">
+    <h2 id="titulo" style="color: #ebebeb">Supermercados</h2>
+    <div class="product-header mb-3 mt-3">
+      <div class="row">
+        <div class="col-8">
+          <div class="row mb-4">
+            <div class="col-6">
+              <form class="form-group row" action="#">
+                <label
+                  for="supermarkets"
+                  class="col-sm-4 col-form-label col-form-label-sm"
+                  style="color: #ebebeb"
+                  >Supermercado</label
+                >
+                <div class="col-sm-8">
+                  <select
+                    class="form-control form-control-sm"
+                    name="supermarkets"
+                    id="supermarkets"
+                    onchange="criarGraficoMercado(value)"
+                  >
+                    <option value="" selected>Selecione...</option>
+                  </select>
                 </div>
-
-                <div class="col-4">
-                    <div class="card border-0 mb-5 cb1 text-center rounded " style="backdrop-filter: none; box-shadow: none; " >
-                        <img src="/imagens/prod/emBranco.png" id="imgMercado" class="card-img-top"  alt="...">
-                    </div>
+              </form>
+            </div>
+            <div class="col-6">
+              <form class="form-group row" action="#">
+                <label
+                  for="products"
+                  class="col-sm-3 col-form-label col-form-label-sm"
+                  style="color: #ebebeb"
+                  >Produto</label
+                >
+                <div class="col-sm-9">
+                  <select
+                    class="form-control form-control-sm"
+                    name="products"
+                    id="products"
+                    onchange="criarGraficoProduto(value)"
+                  >
+                    <option value="" selected>Selecione...</option>
+                  </select>
                 </div>
-            </div> 
-        </div>    
-        
-        <div class="row">
-            <div class="col-md-8">
-                <div style="height: 270px; overflow: auto;" class="d-none" id="tabelaSemanal">
-                
-                    <h5 class="card-title">Variação Semanal de Preços</h5>
-                    <table class="table table-sm">
-                        <thead id="theadMercados">
-                            <tr style="color: white">
-                            <th scope="col" style="color: white">Produto/Semana</th>
-                            <th scope="col" style="color: white"> 1</th>
-                            <th scope="col" style="color: white"> 2</th>
-                            <th scope="col" style="color: white"> 3</th>
-                            <th scope="col" style="color: white"> 4</th>
-                            <th scope="col" style="color: white"> 5</th>
-                            <th scope="col" style="color: white"> 6</th>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="card medium-card border-0 mb-5 cb1 glass text-center rounded"
+              style="backdrop-filter: none; box-shadow: none"
+            >
+              <div id="myDiv" style="height: 100%"></div>
+            </div>
+          </div>
+        </div>
 
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyMercados">
-                            <!-- <tr>
+        <div class="col-4">
+          <div
+            class="card border-0 mb-5 cb1 text-center rounded"
+            style="backdrop-filter: none; box-shadow: none"
+          >
+            <img
+              src="/imagens/prod/emBranco.png"
+              id="imgMercado"
+              class="card-img-top"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div
+          style="height: 270px; overflow: auto"
+          class="d-none"
+          id="tabelaSemanal"
+        >
+          <h5 class="card-title">Variação Semanal de Preços</h5>
+          <table class="table table-sm">
+            <thead id="theadMercados">
+              <tr style="color: white">
+                <th scope="col" style="color: white">Produto/Semana</th>
+                <th scope="col" style="color: white">1</th>
+                <th scope="col" style="color: white">2</th>
+                <th scope="col" style="color: white">3</th>
+                <th scope="col" style="color: white">4</th>
+                <th scope="col" style="color: white">5</th>
+                <th scope="col" style="color: white">6</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMercados">
+              <!-- <tr>
                             <th scope="row">Hirota</th>
                             <td>11</td>
                             <td>10</td>
@@ -77,252 +104,293 @@
                             <td>9</td>
                             </tr>
                         -->
-                        </tbody>
-                    </table>
-                
-                </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded d-none"
+          id="bodyMaxMin"
+        >
+          <div class="card-body">
+            <div class="row">
+              <div class="col mt-0">
+                <h5 class="card-title">Mínimo e Máximo</h5>
+              </div>
             </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 mb-5 cb1 glass text-center rounded d-none"id="bodyMaxMin">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col mt-0">
-                                <h5 class="card-title">Mínimo e Máximo</h5>
-                            </div>
-                        </div>
-                        <div class="maxMinDiv">
-                            <h4 class="mt-2 mb-3" ><span id = "minValue"></span> - <span id = "maxValue"></span>  </h4>
-                        </div>
-                        
-                        <div class="mb-0">
-                            <span class="">Ao longo de todo o período</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="maxMinDiv">
+              <h4 class="mt-2 mb-3">
+                <span id="minValue"></span> - <span id="maxValue"></span>
+              </h4>
             </div>
 
-        </div>    
-            
-        
-
+            <div class="mb-0">
+              <span class="">Ao longo de todo o período</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-        
+  </div>
 </div>
-<script type="text/javascript" src = "conversor_nomes_mercados_e_produtos.js"></script>
+<script
+  type="text/javascript"
+  src="conversor_nomes_mercados_e_produtos.js"
+></script>
 <script type="text/javascript">
+  var dados =  <%- JSON.stringify(data) %>;
+  let elementoAtivo = document
+    .getElementById("supermercado")
+    .classList.add("active");
+  const seletorMercado = document.querySelector("select#supermarkets");
+  const seletorProduto = document.querySelector("select#products");
+  const h1MaxValue = document.querySelector("#maxValue");
+  const h1MinValue = document.querySelector("#minValue");
+  const titulo = document.querySelector("#titulo");
+  const divTableHead = document.querySelector("#theadMercados");
+  const divTableBody = document.querySelector("#tbodyMercados");
+  const tabelaSemanal = document.querySelector("#tabelaSemanal");
+  const bodyMaxMin = document.querySelector("#bodyMaxMin");
 
-    var dados = <%- JSON.stringify(dados) %>;
-    let elementoAtivo = document.getElementById("supermercado").classList.add("active")
-    const seletorMercado = document.querySelector("select#supermarkets")
-    const seletorProduto = document.querySelector("select#products")
-    const h1MaxValue = document.querySelector("#maxValue")
-    const h1MinValue = document.querySelector("#minValue")
-    const titulo = document.querySelector("#titulo")
-    const divTableHead = document.querySelector("#theadMercados")
-    const divTableBody = document.querySelector("#tbodyMercados")
-    const tabelaSemanal = document.querySelector("#tabelaSemanal")
-    const bodyMaxMin = document.querySelector("#bodyMaxMin")
+  const produtos = nomes_produtos.map((arrProduto) => arrProduto[0]);
 
-    function criarGraficoMercado(mercado) {
-        carregarSeletorProduto()
-        carregarImagemMercado(mercado)
-        criarTabela()
+  carregarSeletorMercado();
 
-        // limpar o grafico caso esteja na opcao "selecione"
-        if(mercado == ""){
-            titulo.textContent = "Supermercados"
-            bodyMaxMin.classList.add("d-none")
-            dropPlot()
-            return
-        };
-        if(seletorProduto.value==""){
-            document.querySelector("#bodyMaxMin").classList.add("d-none")
+  function criarGraficoMercado(mercado) {
+    carregarImagemMercado(mercado);
 
-        }
-        
-        let lista = dados.filter(dia => dia.supermercados[mercado] != undefined)
-            .map(dia => {
-            return {
-                data: dia.data,
-                mercado: mercado,
-                produtos: dia.supermercados[mercado]
-                    .map(item => {return {data: dia.data, ...item}}) // Inserir data em cada produto
-            }
-        })
-        
-        let dadosFinal = [];
-
-        let nome_produtos = new Set(dados.flatMap(dia => Object.keys(dia.itens)))
-        Array.from(nome_produtos)
-         .sort() // ordem alfabetica
-         .forEach(produto => {
-            // console.log("DIA: ", dia)
-            let infos = lista
-                .flatMap(dia => dia.produtos)
-                .filter(produtoAux => produtoAux.produto == produto)
-            
-            let trace = {
-                x: infos.map(produtoAux => produtoAux.data), // Datas
-                y: infos.map(produtoAux => produtoAux["preco"]), // Precos
-                name: conversorProduto(produto).tela,
-                type: "lines"
-            }
-    
-            dadosFinal.push(trace)        
-        })
-
-        Plotly.newPlot('myDiv', dadosFinal, layoutGrafico);
-        titulo.textContent = conversorMercado(mercado).tela
-        seletorProduto.selectedIndex = 0
-        carregarSeletorProduto()
-        // console.log(valorCestaBasica(mercado))
+    // limpar o grafico caso esteja na opcao "selecione"
+    if (!mercado) {
+      titulo.textContent = "Supermercados";
+      bodyMaxMin.classList.add("d-none");
+      dropPlot();
+      return;
+    }
+    if (seletorProduto.value === "") {
+      document.querySelector("#bodyMaxMin").classList.add("d-none");
     }
 
-    function criarGraficoProduto(produto) {
-        // Pegar o mercado atual pelo valor do seletor de mercados
-        let mercado = seletorMercado.value
+    const diasComMercado = dados.filter(
+      (dia) => dia.supermercados[mercado]?.length
+    );
 
-        if(mercado == ""){
-            bodyMaxMin.classList.add("d-none")
-            return
-        } 
+    if (!diasComMercado.length) return;
 
-        // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
-        if(produto == ""){
-            criarGraficoMercado(mercado)
-            return;
-        }
+    const dadosGrafico = produtos.map((produto) => {
+      const nomeProdutoConvertido = conversorProduto(produto).tela;
+      const diasComProduto = diasComMercado.filter((dia) =>
+        dia.supermercados[mercado]?.find((item) => item.produto === produto)
+      );
 
-        // Pegar os dados
-        let dadosProduto = dados.filter(dia => dia.supermercados[mercado] != undefined)
-            .map(dia => {
-            return {
-                data: dia.data, 
-                ...dia.supermercados[mercado].filter(prod => prod != undefined && prod.produto == produto)[0]
-            }
-        })
+      if (!diasComProduto.length) return;
 
-        let trace = {
-            x: dadosProduto.map(prod => prod.data),
-            y: dadosProduto.map(prod => prod.preco!= undefined ? prod.preco : null),
-            name: conversorProduto(produto).tela,
-            connectgaps: true
-        }
+      return {
+        x: diasComProduto.map((dia) => dia.data), // Datas
+        y: diasComProduto.map(
+          (dia) =>
+            dia.supermercados[mercado].find((item) => item.produto === produto)
+              .preco
+        ), // Precos
+        name: nomeProdutoConvertido,
+        type: "lines",
+      };
+    });
 
-        Plotly.newPlot('myDiv', [trace], layoutGrafico);
+    Plotly.newPlot(
+      "myDiv",
+      dadosGrafico.filter((dado) => dado),
+      layoutGrafico
+    );
+    titulo.textContent = conversorMercado(mercado).tela;
 
-        h1MaxValue.textContent = getMax(mercado, produto)
-        h1MinValue.textContent = getMin(mercado, produto) 
-        document.querySelector("#bodyMaxMin").classList.remove("d-none")
-        if(getValorAtual(mercado, produto) != null){
-            titulo.innerHTML = conversorProduto(produto).tela + `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${getValorAtual(mercado, produto)}</p> <p class="card-price d-none" id="mediaAtual"> ${comparaMediaProduto(produto,mercado) >= 0 ? comparaMediaProduto(produto,mercado)+ "% maior": comparaMediaProduto(produto,mercado)*(-1)+"% menor"} que a média</p>`
-        }
+    seletorProduto.selectedIndex = 0;
+    carregarSeletorProduto();
+    criarTabela();
+    // console.log(valorCestaBasica(mercado))
+  }
+
+  function criarGraficoProduto(produto) {
+    // Pegar o mercado atual pelo valor do seletor de mercados
+    const mercado = seletorMercado.value;
+
+    if (!mercado) {
+      bodyMaxMin.classList.add("d-none");
+      return;
     }
 
-    function carregarSeletorMercado() {
-        let mercados = dados
-            .flatMap(dia => Object.keys(dia.supermercados)) //lista de nomes de mercados 
-        mercados = [...new Set(mercados)] //sem repeticao
-            .sort() //ordem alfabetica
-
-        // Criar as opcoes referentes aos mercados
-        seletorMercado.innerHTML = 
-            mercados.reduce((html, mercado) => html += `<option value=${mercado}>
-                ${conversorMercado(mercado).tela}</option>`,
-                "<option value='' selected>Selecione...</option>")
+    // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
+    if (!produto) {
+      criarGraficoMercado(mercado);
+      return;
     }
 
-    function criarTabela(){
-        let mercado = seletorMercado.value
-        if(mercado == ""){ 
-            divTableBody.innerHTML = ""
-            tabelaSemanal.classList.add("d-none")
-            return
-        }
-    
-        let dadosTabela = variacaoSemanalTodosMercado(mercado)
-        let nomes_produto = new Set(dadosTabela.flatMap(semana => Object.keys(semana).filter(key => key != "semana")))
+    const diasComMercadoEproduto = dados
+      .filter(
+        (dia) =>
+          dia.supermercados[mercado]?.find((item) => item.produto === produto)
+            ?.preco
+      )
+      .filter((obj) => obj); // Remover undefineds
 
-        divTableHead.innerHTML = dadosTabela.reduce((html, semana) => html += `<th scope="col" style="color: white">${semana.semana+1}</th>`, "<tr><th scope='col' style='color: white'>Produto/Semana</th>").concat("</tr>")
-        let htmlBody = ""
-        for(produto of nomes_produto){
-            htmlBody += `<tr><th scope="row" style="color: white">${conversorProduto(produto).tela}</th>`
-            htmlBody += dadosTabela.reduce((linha, semana) => linha += `<td${
-                semana[produto] == undefined ? "-": semana[produto] < 0 ? ` style="color: limegreen">${semana[produto]}%` :  semana[produto] > 0 ? ` style="color: red">${semana[produto]}%` : ` style="color: white">${semana[produto]}%`
-            }</td>`, "").concat("</tr>")
-        }
-        tabelaSemanal.classList.remove("d-none")
+    if (!diasComMercadoEproduto.length) return;
 
-        divTableBody.innerHTML = htmlBody  
+    const trace = {
+      x: diasComMercadoEproduto.map((dia) => dia.data), // Datas
+      y: diasComMercadoEproduto.map(
+        (dia) =>
+          dia.supermercados[mercado].find((item) => item.produto === produto)
+            .preco
+      ), // Precos
+      name: conversorProduto(produto).tela,
+      type: "lines",
+      connectgaps: true,
+    };
+
+    Plotly.newPlot("myDiv", [trace], layoutGrafico);
+
+    h1MaxValue.textContent = getMax(mercado, produto);
+    h1MinValue.textContent = getMin(mercado, produto);
+    document.querySelector("#bodyMaxMin").classList.remove("d-none");
+    titulo.innerHTML = conversorProduto(produto).tela;
+    const valorAtual = getValorAtual(mercado, produto);
+
+    if (!valorAtual) {
+      return;
+    }
+    const percentMediaProduto = comparaMediaProduto(produto, mercado);
+    titulo.innerHTML += `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">R$ ${valorAtual.toFixed(2).replace(".", ",")}</p> <p class="card-price d-none" id="mediaAtual"> ${
+      percentMediaProduto >= 0
+        ? percentMediaProduto + "% maior"
+        : percentMediaProduto * -1 + "% menor"
+    } que a média</p>`;
+  }
+
+  function carregarSeletorMercado() {
+    let mercados = dados.flatMap((dia) => Object.keys(dia.supermercados)); //lista de nomes de mercados
+    mercados = [...new Set(mercados)] //sem repeticao
+      .sort(); //ordem alfabetica
+
+    // Criar as opcoes referentes aos mercados
+    seletorMercado.innerHTML = mercados.reduce(
+      (html, mercado) =>
+        (html += `<option value=${mercado}>
+              ${conversorMercado(mercado).tela}</option>`),
+      "<option value='' selected>Selecione...</option>"
+    );
+  }
+
+  function criarTabela() {
+    const mercado = seletorMercado.value;
+    if (!mercado) {
+      divTableBody.innerHTML = "";
+      tabelaSemanal.classList.add("d-none");
+      return;
     }
 
+    const dadosTabela = variacaoSemanalTodosMercado(mercado);
+    let nomes_produto = new Set(
+      dadosTabela.flatMap((semana) => Object.keys(semana)).filter((key) => key !== "semana")
+    );
+    debugger;
+    divTableHead.innerHTML = dadosTabela
+      .reduce(
+        (html, semana) =>
+          (html += `<th scope="col" style="color: white">${
+            semana.semana + 1
+          }</th>`),
+        "<tr><th scope='col' style='color: white'>Produto/Semana</th>"
+      )
+      .concat("</tr>");
+    let htmlBody = "";
+    for (produto of nomes_produto) {
+      htmlBody += `<tr><th scope="row" style="color: white">${
+        conversorProduto(produto).tela
+      }</th>`;
+      htmlBody += dadosTabela
+        .reduce(
+          (linha, semana) =>
+            (linha += `<td${
+              semana[produto] == undefined
+                ? "-"
+                : semana[produto] < 0
+                ? ` style="color: limegreen">${semana[produto]}%`
+                : semana[produto] > 0
+                ? ` style="color: red">${semana[produto]}%`
+                : ` style="color: white">${semana[produto]}%`
+            }</td>`),
+          ""
+        )
+        .concat("</tr>");
+    }
+    tabelaSemanal.classList.remove("d-none");
 
-    function carregarSeletorProduto() {
-        let mercado = seletorMercado.value
+    divTableBody.innerHTML = htmlBody;
+  }
 
-        if(mercado == "") {
-            seletorProduto.innerHTML = "<option value='' selected>Selecione...</option>"
-            return
-        }
-
-        let produtos = dados
-            .flatMap(dia => dia.supermercados[mercado])
-            .filter(obj => obj != undefined)
-            .map(obj => obj['produto']) //lista de nomes de produtos 
-        produtos = [...new Set(produtos)] //sem repeticao
-            .sort() //ordem alfabetica
-
-        // Criar as opcoes referentes aos mercados
-        seletorProduto.innerHTML = 
-            produtos.reduce((html, produto) => html += `<option value=${produto}>
-                ${conversorProduto(produto).tela}</option>`,
-                "<option value='' selected>Selecione...</option>")
+  function carregarSeletorProduto() {
+    const mercado = seletorMercado.value;
+    if (!mercado) {
+      seletorProduto.innerHTML =
+        "<option value='' selected>Selecione...</option>";
+      return;
     }
 
-    function dropPlot() {
-        Plotly.purge("myDiv")
+    let produtos = dados
+      .flatMap((dia) => dia.supermercados[mercado]?.map((item) => item.produto))
+      .filter((obj) => obj); // remove undefineds
+    produtos = [...new Set(produtos)] //sem repeticao
+      .sort(); //ordem alfabetica
+
+    // Criar as opcoes referentes aos mercados
+    seletorProduto.innerHTML = produtos.reduce(
+      (html, produto) =>
+        (html += `<option value=${produto}>
+              ${conversorProduto(produto).tela}</option>`),
+      "<option value='' selected>Selecione...</option>"
+    );
+  }
+
+  function dropPlot() {
+    Plotly.purge("myDiv");
+  }
+
+  var layoutGrafico = {
+    title: {
+      text: "Variação dos Preços x Tempo",
+      font: {
+        family: "Montserrat",
+        size: 22,
+      },
+    },
+    xaxis: {
+      title: {
+        text: "Tempo",
+        font: {
+          family: "Montserrat",
+          size: 16,
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Preço em reais",
+        font: {
+          family: "Montserrat",
+          size: 16,
+        },
+      },
+    },
+    showlegend: true,
+  };
+
+  function carregarImagemMercado(mercado) {
+    if (!mercado) {
+      $("#imgMercado").attr("src", "/imagens/prod/emBranco.png");
+      document.querySelector("#bodyMaxMin").classList.add("d-none");
+      return;
     }
-
-    carregarSeletorMercado()
-
-    var layoutGrafico = {
-            title: {
-                text: "Variação dos Preços x Tempo",
-                font: {
-                    family: "Montserrat",
-                    size: 22
-                },
-            },
-            xaxis: {
-                title: {
-                    text: "Tempo",
-                    font: {
-                        family: "Montserrat",
-                        size: 16
-                    }
-                }
-            },
-            yaxis: {
-                title: {
-                    text: "Preço em reais",
-                    font: {
-                        family: "Montserrat",
-                        size: 16
-                    }
-                }
-            },
-            showlegend:true,
-            // plot_bgcolor:"transparent",
-            // paper_bgcolor:"rgba(255, 255, 255, 0.6)"
-        }
-
-    function carregarImagemMercado(mercado){
-        if(mercado == "") {
-            $("#imgMercado").attr("src", "/imagens/prod/emBranco.png")
-            document.querySelector("#bodyMaxMin").classList.add("d-none")
-            return
-        }
-        $("#imgMercado").attr("src", "/imagens/supermarket/"+mercado+".png")
-    }
+    $("#imgMercado").attr("src", "/imagens/supermarket/" + mercado + ".png");
+  }
 </script>
-<script type="text/javascript" src = "script.js"></script>
+<script type="text/javascript" src="script.js"></script>
