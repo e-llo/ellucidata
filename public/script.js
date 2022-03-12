@@ -1,5 +1,5 @@
 Date.prototype.getWeek = function () {
-  var dt = new Date(this.getFullYear(), 0, 1);
+  const dt = new Date(this.getFullYear(), 0, 1);
   return Math.ceil(((this - dt) / 86400000 + dt.getDay() + 1) / 7);
 };
 
@@ -17,7 +17,7 @@ const getListaPrecos = (supermercado, produto) => {
 
 function getMax(supermercado, produto) {
   const precos = getListaPrecos(supermercado, produto);
-  var max = Math.max(...precos);
+  const max = Math.max(...precos);
   return "R$ " + max.toFixed(2).toString().replace(".", ",");
 }
 function getMin(supermercado, produto) {
@@ -25,34 +25,6 @@ function getMin(supermercado, produto) {
   const precos = getListaPrecos(supermercado, produto);
   const min = Math.min(...precos);
   return "R$ " + min.toFixed(2).replace(".", ",");
-}
-
-function maxMinSemanais(produto, supermercado) {
-  // retorna porcentagem de variação máxima e mínima dentro da semana
-
-  const lista = getListaPrecos(supermercado, produto);
-
-  var valoresSemanais = [];
-  var j = 0;
-  while (j < lista.length) {
-    if (lista.length >= j + 7) {
-      var listaSemanalAux = [];
-      for (var i = j; i < j + 7; i++) {
-        if (Number.isNaN(lista[i])) {
-        } else {
-          listaSemanalAux.push(lista[i]);
-        }
-      }
-      var variacaoPercent =
-        (Math.max(...listaSemanalAux) - Math.min(...listaSemanalAux)) /
-        Math.min(...listaSemanalAux);
-      valoresSemanais.push((variacaoPercent * 100).toFixed(1));
-      j = j + 7;
-    } else {
-      j = lista.length;
-    }
-  }
-  return valoresSemanais;
 }
 
 function getValorAtual(supermercado, produto) {
@@ -71,25 +43,19 @@ function criaListaMediaMercado() {
   let listaProdutos = criaListaMediaProduto();
   let rank = Object.keys(dados[dados.length - 1].supermercados)
     .map((nome_mercado) => {
+      const variacoes = dados[dados.length - 1].supermercados[nome_mercado]
+        .map(
+          (item) =>
+            item.preco /
+            (listaProdutos.find((pLista) => pLista.produto === item.produto)
+              ?.media || 1)
+        )
+        .map((variacao) => Math.round(variacao * 100) - 100);
       return {
         supermercado: nome_mercado,
-        variacoes: dados[dados.length - 1].supermercados[nome_mercado]
-          .map(
-            (produto) =>
-              produto.preco /
-              listaProdutos.filter(
-                (prodLista) => prodLista.produto == produto.produto
-              )[0].media
-          )
-          .map((variacao) => Math.round(variacao * 100) - 100),
-      };
-    })
-    .map((supermercado) => {
-      return {
-        ...supermercado,
+        variacoes,
         variacaoMedia:
-          supermercado.variacoes.reduce((acc, num) => (acc += num), 0) /
-          supermercado.variacoes.length,
+          variacoes.reduce((acc, num) => (acc += num), 0) / variacoes.length,
       };
     })
     .sort(
@@ -147,27 +113,24 @@ function mouseOutAtual() {
 //-                                VARIACAO POR PRODUTO
 //-------------------------------------------------------------------------------------
 function variacaoSemanalProduto(semana, index) {
-  // retorna a variação semanal em porcentagem
-  // recebe uma lista de dias
-  /* [
-        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia1
-        [{data: "...", supermercado: "...", preco: ...}, {data...}], - dia2
-       ]
-    */
-
-  let nomes_mercados = new Set(
-    semana.flatMap((dia) => dia).map((produto) => produto.supermercado)
+  console.log(semana);
+  const nomes_mercados = new Set(
+    semana
+      .flat()
+      .map((item) => item?.supermercado)
+      .filter((obj) => obj)
   );
-  let listaSemanal, variacao, percentual;
-  let valoresSemanais = { semana: index };
+  // console.log(nomes_mercados);
+  const valoresSemanais = { semana: index };
   for (mercado of nomes_mercados) {
-    listaSemanal = semana
-      .map((dia) => dia.filter((produto) => produto.supermercado == mercado))
-      .filter((dia) => dia.length != 0)
-      .map((dia) => dia[0]);
-    variacao =
-      listaSemanal[listaSemanal.length - 1].preco - listaSemanal[0].preco;
-    percentual = variacao / listaSemanal[0].preco;
+    const precosSemana = semana
+      .map((dia) => dia.find((item) => item.supermercado === mercado)?.preco)
+      .filter((obj) => obj);
+
+    if (!precosSemana.length) continue;
+
+    const variacao = precosSemana[precosSemana.length - 1] - precosSemana[0];
+    const percentual = variacao / precosSemana[0];
     valoresSemanais[mercado] = Math.round(percentual * 100);
   }
 
@@ -175,58 +138,37 @@ function variacaoSemanalProduto(semana, index) {
 }
 
 function variacaoSemanalTodosProduto(produto) {
-  // retorna a variação semanal em porcentagem
-
-  let dadosProduto = dados
-    .filter((dia) => dia.itens[produto])
+  const dadosProduto = dados
+    .filter((dia) => dia.itens[produto]?.length)
     .map((dia) =>
       dia.itens[produto].map((obj) => {
         return {
-          data: dia.data,
+          data: new Date(dia.data),
           supermercado: conversorMercado(obj.supermercado).banco,
           preco: obj.preco,
         };
       })
     );
-  console.log(dadosProduto);
 
-  /* dadosProduto - ESTRUTURA
-    [
-        [
-            {data: ..., supermercado: "...", preco: ...},
-            {data: ..., supermercado: "...", preco: ...},
-            {data: ..., supermercado: "...", preco: ...},
-        ], - dia
-        [], - dia
-    ]
-    */
+  const semanas = [];
 
-  // Objetivo: criar uma nova lista para distribuir os dias por semana
-  let semanas = [];
-
-  // Varre a lista de produtos
   for (dia of dadosProduto) {
-    // Pega a data do primeiro dia, checa o dia da semana
-    let dia_semana = new Date(dia[0].data).getDay(); // domingo: 0, segunda: 1, ... sabado: 7
+    // Pega a data do dia, e checa qual eh a semana comparando com 01/jan
+    const semana = dia[0].data.getWeek(); // 01/jan: 1, 08/jan: 2, ... 02/mar: 10
 
-    // Se a lista estiver vazia ou for domingo, cria uma nova semana dentro da lista de semanas
-    if (semanas.length == 0 || dia_semana == 0) {
+    // Se a lista estiver vazia ou for outra semana, cria uma nova semana dentro da lista de semanas
+    if (
+      !semanas.length ||
+      semana !== semanas[semanas.length - 1][0][0].data.getWeek()
+    ) {
       semanas.push([dia]);
     } else {
       // Insere o dia na ultima semana existente
       semanas[semanas.length - 1].push(dia);
     }
   }
-
-  // semanas - ESTRUTURA
-  /*[
-        [[dia1],[dia2]...], - semana 0
-        [[diaX]...], - semana 1
-        [...], - semana 2
-      ]
-    */
   // Chamar o calculo de variacao de semana para cada semana
-  let varSemanas = semanas.map((semana, index) =>
+  const varSemanas = semanas.map((semana, index) =>
     variacaoSemanalProduto(semana, index)
   );
 
@@ -282,11 +224,11 @@ function variacaoSemanalTodosMercado(mercado) {
       })
     );
 
-  let semanas = [];
+  const semanas = [];
 
   for (dia of dadosMercado) {
     // Pega a data do dia, e checa qual eh a semana comparando com 01/jan
-    let semana = dia[0].data.getWeek(); // 01/jan: 1, 08/jan: 2, ... 02/mar: 10
+    const semana = dia[0].data.getWeek(); // 01/jan: 1, 08/jan: 2, ... 02/mar: 10
 
     // Se a lista estiver vazia ou for domingo, cria uma nova semana dentro da lista de semanas
     if (

@@ -207,7 +207,6 @@
     seletorProduto.selectedIndex = 0;
     carregarSeletorProduto();
     criarTabela();
-    // console.log(valorCestaBasica(mercado))
   }
 
   function criarGraficoProduto(produto) {
@@ -292,7 +291,7 @@
     let nomes_produto = new Set(
       dadosTabela.flatMap((semana) => Object.keys(semana)).filter((key) => key !== "semana")
     );
-    debugger;
+
     divTableHead.innerHTML = dadosTabela
       .reduce(
         (html, semana) =>
