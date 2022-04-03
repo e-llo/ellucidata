@@ -31,7 +31,6 @@ lista_produtos = [
 mercados = [
 	["big","hipermercado-big-indianopolis"],
 	["pao_de_acucar","pao-de-acucar-real-parque"],
-	["mercado_extra","mercado-extra-americo-brasiliense"],
 	["akki_atacadista","akki-atacadista-joao-dias"],
 	["hirota_supermercados","supermercado-hirota-campo-belo"],
 	["quitanda","quitanda"],

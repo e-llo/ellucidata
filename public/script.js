@@ -1,5 +1,5 @@
 Date.prototype.getWeek = function () {
-  const dt = new Date(this.getFullYear(), 0, 1);
+  const dt = new Date(2021, 10, 1);
   return Math.ceil(((this - dt) / 86400000 + dt.getDay() + 1) / 7);
 };
 
@@ -113,14 +113,13 @@ function mouseOutAtual() {
 //-                                VARIACAO POR PRODUTO
 //-------------------------------------------------------------------------------------
 function variacaoSemanalProduto(semana, index) {
-  console.log(semana);
   const nomes_mercados = new Set(
     semana
       .flat()
       .map((item) => item?.supermercado)
       .filter((obj) => obj)
   );
-  // console.log(nomes_mercados);
+
   const valoresSemanais = { semana: index };
   for (mercado of nomes_mercados) {
     const precosSemana = semana
@@ -154,7 +153,7 @@ function variacaoSemanalTodosProduto(produto) {
 
   for (dia of dadosProduto) {
     // Pega a data do dia, e checa qual eh a semana comparando com 01/jan
-    const semana = dia[0].data.getWeek(); // 01/jan: 1, 08/jan: 2, ... 02/mar: 10
+    const semana = dia[0].data.getWeek(); // 01/out: 1, 08/out: 2, ... 01/abr: 27
 
     // Se a lista estiver vazia ou for outra semana, cria uma nova semana dentro da lista de semanas
     if (
@@ -228,7 +227,7 @@ function variacaoSemanalTodosMercado(mercado) {
 
   for (dia of dadosMercado) {
     // Pega a data do dia, e checa qual eh a semana comparando com 01/jan
-    const semana = dia[0].data.getWeek(); // 01/jan: 1, 08/jan: 2, ... 02/mar: 10
+    const semana = dia[0].data.getWeek(); // 01/out: 1, 08/out: 2, ... 01/abr: 27
 
     // Se a lista estiver vazia ou for domingo, cria uma nova semana dentro da lista de semanas
     if (

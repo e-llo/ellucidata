@@ -1,102 +1,383 @@
 <!--Container Main start-->
-<!-- <div class="height-100 bg-light">
-    <h4>Main Components</h4>
-</div> -->
-
-<div id="product-body">
-
-    <!-- Dashboard -->
-    <div class="product-window">
-
-        <!-- Product Header -->
-        <div class="product-header">
-            <h1>Product Name</h1>
-            <form action="#">
-                <label for="supermarkets">Supermercado</label>
-                <select name="supermarkets" id="supermarkets">
-                    <option value="Mercado1">Mercado 1</option>
-                    <option value="Mercado2">Mercado 2</option>
-                    <option value="Mercado3">Mercado 3</option>
-                    <option value="Mercado4">Mercado 4</option>
-                    <option value="Mercado5">Mercado 5</option>
-                    <option value="Mercado6">Mercado 6</option>
-                </select>
-            </form>
+<div class=" ">
+  <div class="container p-5 mt-5 glass">
+    <h2 id="titulo" style="color: #ebebeb">Produtos</h2>
+    <div class="product-header mb-3 mt-3">
+      <div class="row">
+        <div class="col-8">
+          <div class="row mb-4">
+            <div class="col-6">
+              <form class="form-group row" action="#">
+                <label
+                  for="products"
+                  class="col-sm-3 col-form-label col-form-label-sm"
+                  style="color: #ebebeb"
+                  >Produto</label
+                >
+                <div class="col-sm-9">
+                  <select
+                    class="form-control form-control-sm"
+                    name="products"
+                    id="products"
+                    onchange="criarGraficoProduto(value)"
+                  >
+                    <option value="" selected>Selecione...</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="col-6">
+              <form class="form-group row" action="#">
+                <label
+                  for="supermarkets"
+                  class="col-sm-4 col-form-label col-form-label-sm"
+                  style="color: #ebebeb"
+                  >Supermercado</label
+                >
+                <div class="col-sm-8">
+                  <select
+                    class="form-control form-control-sm"
+                    name="supermarkets"
+                    id="supermarkets"
+                    onchange="criarGraficoMercado(value)"
+                  >
+                    <option value="" selected>Selecione...</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="card medium-card border-0 mb-5 cb1 glass text-center rounded"
+              style="backdrop-filter: none; box-shadow: none"
+            >
+              <div id="myDiv" style="height: 100%"></div>
+            </div>
+          </div>
         </div>
-        <!-- End of Product Header -->
 
-        <!-- Product Dashboard -->
-        <div class="product-dashboard">
-
-            <!-- SEGMENT 1 -->
-            <div class="segment" id="graph-segment">
-                <div class="segment-title">
-                    <h3>Evolução do Preço</h3>
-                </div>
-
-                <div class="segment-content" id="chart-segment-content">
-                    <!-- GRAPH -->
-                    <!-- <div id="chart" style="height: 200px;">
-            
-                    </div> -->
-                    <img src="example-graph.png" style="width: 100%; height: 250px;">
-                </div>
-            </div>
-            <!-- END OF SEGMENT 1 -->
-
-            <!-- SEGMENT 2 -->
-            <div class="segment" id="current-price-segment" style="height: 50%;">
-                <div class="segment-title">
-                    <h3>Preço Atual</h3>
-                </div>    
-
-                <div class="segment-content">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
-                    </svg>
-
-                    <p style="display: inline-block; font-size: x-large;">R$7,50</p>
-                </div>
-            </div>
-            <!-- END OF SEGMENT 2 -->
-
-            <!-- SEGMENT 3 -->
-            <div class="segment" id="monthly-variation-segment">
-                <div class="segment-title">
-                    <h3>Variação Mensal</h3>
-                </div>
-
-                <div class="segment-content">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="darkred" class="bi bi-arrow-up" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-                    </svg>
-
-                    <p style="display: inline-block; font-size: x-large;">32%</p>
-                </div>
-            </div>
-            <!-- END OF SEGMENT 3 -->
-
-            <!-- SEGMENT 4 -->
-            <div class="segment" id="min-max-segment">
-                <div class="segment-title">
-                    <h3>Mínimo e Máximo Mensais</h3>
-                </div>
-
-                <div class="segment-content">
-                    <p style="display: inline-block; font-size: x-large;">R$5,20 - R$8,10</p>
-                </div>
-            </div>
-            <!-- END OF SEGMENT 4 -->
-
-
+        <div class="col-4">
+          <div
+            class="card border-0 mb-5 cb1 text-center rounded"
+            style="backdrop-filter: none; box-shadow: none"
+          >
+            <img
+              src="/imagens/prod/emBranco.png"
+              id="imgProduto"
+              class="card-img-top"
+              alt="..."
+            />
+          </div>
         </div>
-        <!-- End of Product Dashboard -->
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div class="d-none" id="tabelaSemanal">
+            <h5 class="card-title">Variação Semanal de Preços</h5>
+            <div style="height: 270px; overflow: auto; color: red">
+              <table class="table table-sm">
+                <thead id="theadMercados">
+                  <tr style="color: white">
+                    <th scope="col" style="color: white">Mercado/Semana</th>
+                    <th scope="col" style="color: white">1</th>
+                    <th scope="col" style="color: white">2</th>
+                    <th scope="col" style="color: white">3</th>
+                    <th scope="col" style="color: white">4</th>
+                    <th scope="col" style="color: white">5</th>
+                    <th scope="col" style="color: white">6</th>
+                    <th scope="col" style="color: white">7</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyMercados"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
+        <div class="col-4">
+          <div
+            class="card border-0 p-3 mb-5 cb1 glass text-center rounded ml-4 d-none"
+            id="bodyMaxMin"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col mt-0">
+                  <h5 class="card-title">Mínimo e Máximo</h5>
+                </div>
+              </div>
+              <div class="maxMinDiv">
+                <h4 class="mt-2 mb-3">
+                  <span id="minValue">Selecione o Supermercado</span>
+                  <span id="maxValue"></span>
+                </h4>
+              </div>
+
+              <div class="mb-0">
+                <span class="">Ao longo de todo o período</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- End of Dashboard -->
-
+  </div>
 </div>
 
+<script
+  type="text/javascript"
+  src="conversor_nomes_mercados_e_produtos.js"
+></script>
 <script type="text/javascript">
-    elementoAtivo = document.getElementById("produto").classList.add("active")
+  const dados = <%- JSON.stringify(data) %>;
+  let elementoAtivo = document
+    .getElementById("produto")
+    .classList.add("active");
+  const seletorMercado = document.querySelector("select#supermarkets");
+  const seletorProduto = document.querySelector("select#products");
+  const h1MaxValue = document.querySelector("#maxValue");
+  const h1MinValue = document.querySelector("#minValue");
+  const titulo = document.querySelector("#titulo");
+  const divTableHead = document.querySelector("#theadMercados");
+  const divTableBody = document.querySelector("#tbodyMercados");
+  const bodyMaxMin = document.querySelector("#bodyMaxMin");
+  const tabelaSemanal = document.querySelector("#tabelaSemanal");
+
+  const mercados = nomes_mercados.map((arrMercado) => arrMercado[0]);
+
+  carregarSeletorProduto();
+
+  function criarGraficoProduto(produto) {
+    carregarImagemProduto(produto);
+
+    // limpar o grafico caso esteja na opcao "selecione"
+    if (!produto) {
+      titulo.textContent = "Produtos";
+      bodyMaxMin.classList.add("d-none");
+      dropPlot();
+      return;
+    }
+    if (!seletorMercado.value) {
+      bodyMaxMin.classList.add("d-none");
+    }
+
+    const diasComProduto = dados.filter((dia) => dia.itens[produto]?.length);
+
+    if (!diasComProduto.length) return;
+
+    const dadosGrafico = mercados.map((mercado) => {
+      const nomeMercadoConvertido = conversorMercado(mercado).tela;
+      const diasComMercado = diasComProduto.filter((dia) =>
+        dia.itens[produto]?.find((item) => item.supermercado === mercado)
+      );
+
+      if (!diasComMercado.length) return;
+
+      return {
+        x: diasComMercado.map((dia) => dia.data), // Datas
+        y: diasComMercado.map(
+          (dia) =>
+            dia.itens[produto].find((item) => item.supermercado === mercado)
+              .preco
+        ), // Precos
+        name: nomeMercadoConvertido,
+        type: "lines",
+      };
+    });
+
+    Plotly.newPlot(
+      "myDiv",
+      dadosGrafico.filter((dado) => dado),
+      layoutGrafico
+    );
+    titulo.textContent = conversorProduto(produto).tela;
+
+    seletorMercado.selectedIndex = 0;
+    carregarSeletorMercado();
+    criarTabela();
+  }
+
+  function criarGraficoMercado(mercado) {
+    const produto = seletorProduto.value;
+
+    if (!produto) {
+      bodyMaxMin.classList.add("d-none");
+      return;
+    }
+
+    // Se o seletor estiver em "selecione", usar o grafico de todos os produtos
+    if (!mercado) {
+      criarGraficoProduto(produto);
+      return;
+    }
+
+    // Pegar os dados
+    const diasComMercadoEproduto = dados
+      .filter(
+        (dia) =>
+          dia.itens[produto]?.find((item) => item.supermercado === mercado)
+            ?.preco
+      )
+      .filter((obj) => obj); // Remover undefineds
+
+    if (!diasComMercadoEproduto.length) return;
+
+    const trace = {
+      x: diasComMercadoEproduto.map((dia) => dia.data), // Datas
+      y: diasComMercadoEproduto.map(
+        (dia) =>
+          dia.itens[produto].find((item) => item.supermercado === mercado).preco
+      ), // Precos
+      name: conversorMercado(mercado).tela,
+      type: "lines",
+      connectgaps: true,
+    };
+
+    Plotly.newPlot("myDiv", [trace], layoutGrafico);
+
+    bodyMaxMin.classList.remove("d-none");
+    h1MaxValue.textContent = getMax(mercado, produto);
+    h1MinValue.textContent = getMin(mercado, produto);
+    titulo.innerHTML = conversorMercado(mercado).tela;
+    const valorAtual = getValorAtual(mercado, produto);
+
+    if (!valorAtual) return;
+
+    const percentMediaProduto = comparaMediaProduto(produto, mercado);
+    titulo.innerHTML += `  <p class="card-price" id="valorAtual" onmouseover="hoverAtual()"" onmouseout="mouseOutAtual()">${valorAtual
+      .toFixed(2)
+      .replace(".", ",")}</p> <p class="card-price d-none" id="mediaAtual"> ${
+      percentMediaProduto >= 0
+        ? percentMediaProduto + "% maior"
+        : percentMediaProduto * -1 + "% menor"
+    } que a média</p>`;
+  }
+
+  function carregarSeletorProduto() {
+    let produtos = dados.flatMap((dia) => Object.keys(dia.itens)); //lista de nomes de produtos
+    produtos = [...new Set(produtos)] //sem repeticao
+      .sort(); //ordem alfabetica
+
+    // Criar as opcoes referentes aos mercados
+    seletorProduto.innerHTML = produtos.reduce(
+      (html, produto) =>
+        (html += `<option value=${produto}>
+              ${conversorProduto(produto).tela}</option>`),
+      "<option value='' selected>Selecione...</option>"
+    );
+  }
+
+  function criarTabela() {
+    const produto = seletorProduto.value;
+    if (!produto) {
+      divTableBody.innerHTML = "";
+      tabelaSemanal.classList.add("d-none");
+      return;
+    }
+
+    const dadosTabela = variacaoSemanalTodosProduto(produto);
+    const nomes_mercado = new Set(
+      dadosTabela
+        .flatMap((semana) => Object.keys(semana))
+        .filter((key) => key !== "semana")
+    );
+
+    divTableHead.innerHTML = dadosTabela
+      .reduce(
+        (html, semana) =>
+          (html += `<th scope="col" style="color: white">${
+            semana.semana + 1
+          }</th>`),
+        "<tr><th scope='col' style='color: white'>Mercado/Semana</th>"
+      )
+      .concat("</tr>");
+    let htmlBody = "";
+    for (mercado of nomes_mercado) {
+      htmlBody += `<tr><th scope="row" style="color: white">${
+        conversorMercado(mercado).tela
+      }</th>`;
+      htmlBody += dadosTabela
+        .reduce(
+          (linha, semana) =>
+            (linha += `<td${
+              semana[mercado] === undefined
+                ? ">-"
+                : semana[mercado] < 0
+                ? ` style="color: limegreen">${semana[mercado]}%`
+                : semana[mercado] > 0
+                ? ` style="color: red">${semana[mercado]}%`
+                : ` style="color: white">${semana[mercado]}%`
+            }</td>`),
+          ""
+        )
+        .concat("</tr>");
+    }
+    tabelaSemanal.classList.remove("d-none");
+    divTableBody.innerHTML = htmlBody;
+  }
+
+  function carregarSeletorMercado() {
+    const produto = seletorProduto.value;
+
+    if (!produto) {
+      seletorMercado.innerHTML =
+        "<option value='' selected>Selecione...</option>";
+      return;
+    }
+
+    let mercados = dados
+      .flatMap((dia) => dia.itens[produto])
+      .map((obj) => conversorMercado(obj["supermercado"]).tela); //lista de nomes de mercados
+    mercados = [...new Set(mercados)] //sem repeticao
+      .sort(); //ordem alfabetica
+
+    // Criar as opcoes referentes aos mercados
+    seletorMercado.innerHTML = mercados.reduce(
+      (html, mercado) =>
+        (html += `<option value=${conversorMercado(mercado).banco}>
+              ${mercado}</option>`),
+      "<option value='' selected>Selecione...</option>"
+    );
+  }
+
+  function dropPlot() {
+    Plotly.purge("myDiv");
+  }
+
+  var layoutGrafico = {
+    title: {
+      text: "Variação dos Preços x Tempo",
+      font: {
+        family: "Montserrat",
+        size: 22,
+      },
+    },
+    xaxis: {
+      title: {
+        text: "Tempo",
+        font: {
+          family: "Montserrat",
+          size: 16,
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Preço em reais",
+        font: {
+          family: "Montserrat",
+          size: 16,
+        },
+      },
+    },
+    showlegend: true,
+  };
+
+  function carregarImagemProduto(produto) {
+    if (produto == "") {
+      $("#imgProduto").attr("src", "/imagens/prod/emBranco.png");
+      return;
+    }
+    $("#imgProduto").attr("src", "/imagens/prod/" + produto + ".png");
+  }
 </script>

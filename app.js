@@ -42,7 +42,7 @@ app.get(
 app.get(
   "/produto",
   wrap(async (req, res) => {
-    res.render("product_2", { data: await api.getData() });
+    res.render("product", { data: await api.getData() });
   })
 );
 app.get(

@@ -139,7 +139,7 @@
   src="conversor_nomes_mercados_e_produtos.js"
 ></script>
 <script type="text/javascript">
-  var dados =  <%- JSON.stringify(data) %>;
+  const dados =  <%- JSON.stringify(data) %>;
   let elementoAtivo = document
     .getElementById("supermercado")
     .classList.add("active");
@@ -167,8 +167,8 @@
       dropPlot();
       return;
     }
-    if (seletorProduto.value === "") {
-      document.querySelector("#bodyMaxMin").classList.add("d-none");
+    if (!seletorProduto.value) {
+      bodyMaxMin.classList.add("d-none");
     }
 
     const diasComMercado = dados.filter(
@@ -250,7 +250,7 @@
 
     h1MaxValue.textContent = getMax(mercado, produto);
     h1MinValue.textContent = getMin(mercado, produto);
-    document.querySelector("#bodyMaxMin").classList.remove("d-none");
+    bodyMaxMin.classList.remove("d-none");
     titulo.innerHTML = conversorProduto(produto).tela;
     const valorAtual = getValorAtual(mercado, produto);
 
@@ -288,7 +288,7 @@
     }
 
     const dadosTabela = variacaoSemanalTodosMercado(mercado);
-    let nomes_produto = new Set(
+    const nomes_produto = new Set(
       dadosTabela.flatMap((semana) => Object.keys(semana)).filter((key) => key !== "semana")
     );
 
@@ -310,8 +310,8 @@
         .reduce(
           (linha, semana) =>
             (linha += `<td${
-              semana[produto] == undefined
-                ? "-"
+              semana[produto] === undefined
+                ? ">-"
                 : semana[produto] < 0
                 ? ` style="color: limegreen">${semana[produto]}%`
                 : semana[produto] > 0
