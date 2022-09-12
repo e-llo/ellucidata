@@ -4,6 +4,9 @@ This project contains an efficient webscraping tool (Selenium) and data visualiz
 
 Find out how food's price changes over time with our data visualization tool. Powered by a webscraper tool that daily collects up-to-date data from supermarkets's websites!
 
+<img width="614" alt="image" src="https://user-images.githubusercontent.com/61888090/189774585-cda81b05-bb5a-414f-a2fd-bf54f13e1252.png">
+
+
 ## 📖How does it work?
 We developed an algorithm capable of scraping a website's interface, collecting data of a list of products in many supermarkets and send to a cloud MongoDB.
 Also, some dashboards were developed (using HMTL, CSS and Javascript) to allow analysis on products' price changes over time.
